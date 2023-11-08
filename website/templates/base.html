@@ -1,4 +1,14 @@
 <!DOCTYPE html>
+<!--
+    Modified version of Editorial by HTML5 UP <https://html5up.net/editorial>
+    Adapted by Jessica De Silva <https://github.com/jessicadesilva>
+    Converted to Flask project by August Frisk <https://github.com/4N0NYM0U5MY7H>
+
+    Original version information:
+    Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license <https://html5up.net/license>
+-->
 <html lang="en-US">
 
     <head>
@@ -29,14 +39,7 @@
                 <div id="inner">
 
                     <!-- Header -->
-                    <header id="header">
-                        <a href="{{ url_for('core.home') }}" class="logo"><strong>Dr. Jessica De
-                                Silva</strong> California State University, Stanislaus</a>
-                        <ul class="icons">
-                            <li><img src="{{ url_for('static'), filename='images/stanlogo.png' }}" width="10%"
-                                    alt="California State University, Stanislaus shield logo." /></li>
-                        </ul>
-                    </header>
+                    {% include 'header.html' %}
 
                     <!-- Main Content -->
                     {% block main_content %} {% endblock %}
@@ -45,66 +48,7 @@
             </div>
 
             <!-- Sidebar -->
-            <div id="sidebar">
-                <div class="inner">
-
-                    <!-- Menu -->
-                    <nav id="menu">
-                        <header class="major">
-                            <h2>Menu</h2>
-                        </header>
-                        <ul>
-                            <li><a href="{{ url_for('core.home') }}">Homepage</a></li>
-                            <li>
-                                <span class="opener">Events</span>
-                                <ul>
-                                    <li><a href="{{ url_for('events.events') }}">Upcoming Events</a></li>
-                                    <li><a href="{{ url_for('events.past_events') }}">Past Events</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="{{ url_for('core.'student_news) }}"></a>Student News</li>
-                            <li>
-                                <span class="opener">Research</span>
-                                <ul>
-                                    <li><a href="{{ url_for('current_undergrad_projects') }}">Current
-                                            Undergraduate Projects</a></li>
-                                    <li><a href="{{ url_for('former_undergrad_projects') }}">Former
-                                            Undergraduate Projects</a></li>
-                                    <li><a href="{{ url_for('other_research_projects') }}">Other Projects</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <span class="opener">Mentorship Groups</span>
-                                <ul>
-                                    <li><a href="{{ url_for('mentor_groups_math') }}">For Mathematics</a></li>
-                                    <li><a href="{{ url_for('mentor_groups_stan') }}">For Stan State
-                                            Students</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="{{ url_for('core.about') }}">About Me</a></li>
-                        </ul>
-                    </nav>
-
-                    <!-- Section -->
-                    <section>
-                        <header class="major">
-                            <h2>Get in touch</h2>
-                        </header>
-                        <ul class="contact">
-                            <li class="icon solid fa-envelope"><a href="">jdesilva1[at]csustan.edu</a></li>
-                        </ul>
-                    </section>
-
-                    <!-- Footer -->
-                    <footer id="footer">
-                        <p class="copyright">&copy; Jessica De Silva's Homepage. All rights reserved. Design:
-                            <a href="https://html5up.net">HTML5 UP</a>.
-                        </p>
-                    </footer>
-
-                </div>
-            </div>
+            {% include 'sidebar.html' %}
 
         </div>
 
