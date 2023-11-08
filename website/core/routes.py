@@ -12,6 +12,6 @@ def about():
     return render_template("about_me.html")
 
 
-@core_blueprint.route("/student-news")
+@core_blueprint.route("/news")
 def student_news():
     return render_template("student_news.html")
