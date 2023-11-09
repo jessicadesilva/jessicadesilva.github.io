@@ -1,12 +1,16 @@
-from . import groups_blueprint
-from flask import render_template
+"""
+The `groups` blueprint handles dipsplaying mentor group pages.
+"""
+from flask import Blueprint, render_template
+
+groups_blueprint = Blueprint("groups", __name__, template_folder="templates")
 
 
-@groups_blueprint.route("/math")
+@groups_blueprint.route("/math.html")
 def mentor_groups_math():
-    return render_template("groups/mentor_groups_math.j2")
+    return render_template("mentor_groups_math.j2")
 
 
-@groups_blueprint.route("/stan")
+@groups_blueprint.route("/stan.html")
 def mentor_groups_stan():
-    return render_template("groups/mentor_groups_stan.j2")
+    return render_template("mentor_groups_stan.j2")

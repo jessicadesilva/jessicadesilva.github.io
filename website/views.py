@@ -2,27 +2,26 @@
 The `views` file handles displaying the top-level web pages.
 """
 
-from flask import render_template
-from . import app
+from flask import Blueprint, render_template
+
+core_blueprint = Blueprint("core", __name__, template_folder="templates")
 
 
-@app.route("/")
-@app.route("/home")
-@app.route("/index")
+@core_blueprint.route("/index.html")
 def home():
     return render_template("index.j2")
 
 
-@app.route("/about")
+@core_blueprint.route("/about.html")
 def about():
     return render_template("about_me.j2")
 
 
-@app.route("/about/cv")
+@core_blueprint.route("/about/cv.html")
 def cv():
     return render_template("desilva_cv.j2")
 
 
-@app.route("/news")
+@core_blueprint.route("/news.html")
 def student_news():
     return render_template("student_news.j2")
