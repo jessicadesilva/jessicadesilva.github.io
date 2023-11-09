@@ -12,7 +12,7 @@
 <html lang="en-US">
 
     <head>
-        <!-- Required meta tas -->
+        <!-- Required meta tags -->
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -39,7 +39,7 @@
                 <div id="inner">
 
                     <!-- Header -->
-                    {% include 'header.html' %}
+                    {% include "header.html" %}
 
                     <!-- Main Content -->
                     {% block main_content %} {% endblock %}
@@ -48,7 +48,7 @@
             </div>
 
             <!-- Sidebar -->
-            {% include 'sidebar.html' %}
+            {% include "component/sidebar.html" %}
 
         </div>
 
