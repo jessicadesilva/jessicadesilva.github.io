@@ -21,17 +21,15 @@ def create_app():
 
 def register_blueprints(app):
     # Import the blueprints
-    from website.core import core_blueprint
     from website.events import events_blueprint
     from website.groups import groups_blueprint
     from website.research import research_blueprint
 
     # Since the application instance is now created, register each Blueprint
     # with the Flask application instance (app)
-    app.register_blueprint(core_blueprint)
-    app.register_blueprint(events_blueprint)
-    app.register_blueprint(groups_blueprint)
-    app.register_blueprint(research_blueprint)
+    app.register_blueprint(events_blueprint, url_prefix="/events")
+    app.register_blueprint(groups_blueprint, url_prefix="/mentor-groups")
+    app.register_blueprint(research_blueprint, url_prefix="/research")
 
 
 def register_error_pages(app):
