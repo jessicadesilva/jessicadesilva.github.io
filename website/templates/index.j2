@@ -1,4 +1,4 @@
-{% extends "layout/base.html" %}
+{% extends "layout/base.j2" %}
 
 {% block title %}Jessica De Silva's Homepage{% endblock %}
 
@@ -37,8 +37,8 @@
             the most dedicated, successful, and motivated students at the university. Read about what they're up to
             under the Student News section.</p>
         <ul class="actions">
-            <li><a href="{{ url_for('about') }}" class="button big">Learn More</a></li>
-            <li><a href="{{ url_for('cv') }}" class="button big">CV</a></li>
+            <li><a href="{{ url_for('core.about') }}" class="button big">Learn More</a></li>
+            <li><a href="{{ url_for('core.cv') }}" class="button big">CV</a></li>
             <li><a href="mailto: jdesilva1@csustan.edu" class="button big">EMAIL</a></li>
         </ul>
     </div>

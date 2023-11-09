@@ -3,7 +3,7 @@
         <h2>Menu</h2>
     </header>
     <ul>
-        <li><a href="{{ url_for('home') }}">Homepage</a></li>
+        <li><a href="{{ url_for('core.home') }}">Homepage</a></li>
         <li>
             <span class="opener">Events</span>
             <ul>
@@ -11,11 +11,11 @@
                 <li><a href="{{ url_for('events.past_events') }}">Past Events</a></li>
             </ul>
         </li>
-        <li><a href="{{ url_for('student_news') }}"></a>Student News</li>
+        <li><a href="{{ url_for('core.student_news') }}"></a>Student News</li>
         <li>
             <span class="opener">Research</span>
             <ul>
-                <li><a href="{{ url_for('reserach.current_undergrad_projects') }}">Current
+                <li><a href="{{ url_for('research.current_undergrad_projects') }}">Current
                         Undergraduate Projects</a></li>
                 <li><a href="{{ url_for('research.former_undergrad_projects') }}">Former
                         Undergraduate Projects</a></li>
@@ -31,6 +31,6 @@
                         Students</a></li>
             </ul>
         </li>
-        <li><a href="{{ url_for('about') }}">About Me</a></li>
+        <li><a href="{{ url_for('core.about') }}">About Me</a></li>
     </ul>
 </nav>
