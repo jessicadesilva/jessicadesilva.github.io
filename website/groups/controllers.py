@@ -2,12 +2,6 @@ from . import groups_blueprint
 from flask import render_template
 
 
-@groups_blueprint.route("/")
-def mentor_group():
-    # This is a placeholder for the mentor group page
-    pass
-
-
 @groups_blueprint.route("/math")
 def mentor_groups_math():
     return render_template("groups/mentor_groups_math.j2")

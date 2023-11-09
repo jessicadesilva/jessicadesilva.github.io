@@ -5,12 +5,6 @@ from flask import render_template, abort
 project_names = ["ev_charging_poster", "walking_time_poster"]
 
 
-@research_blueprint.route("/")
-def research():
-    # This is a placeholder for the research page
-    pass
-
-
 @research_blueprint.route("/undergrad/current")
 def current_undergrad_projects():
     return render_template("research/current_ugrad_projects.j2")
