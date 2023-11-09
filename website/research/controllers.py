@@ -10,19 +10,19 @@ def research():
 
 @research_blueprint.route("/undergrad/current")
 def current_undergrad_projects():
-    return render_template("current_undergrad_projects.html")
+    return render_template("current_undergrad_projects.j2")
 
 
 @research_blueprint.route("/undergrad/current/abstracts")
 def current_undergrad_abstracts():
-    return render_template("current_undergrad_projects_abstracts.html")
+    return render_template("current_undergrad_projects_abstracts.j2")
 
 
 @research_blueprint.route("/undergrad/former")
 def former_undergrad_projects():
-    return render_template("former_undergrad_projects.html")
+    return render_template("former_undergrad_projects.j2")
 
 
 @research_blueprint.route("/other")
 def other_research_projects():
-    return render_template("other_research_projects.html")
+    return render_template("other_research_projects.j2")
