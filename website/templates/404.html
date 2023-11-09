@@ -1,0 +1,13 @@
+<!-- This HTML file creates a 404 exception for error handling -->
+
+{% extends "base.html" %}
+
+{% block title %}404 Page Not Found{% endblock %}
+
+{% block main_content %}
+
+<h2 class="main">404 Page Not found</h2>
+<p>Sorry, the page you are looking for does not exist.</p>
+<a href="{{ url_for('home') }}" class="button big">Return to the homepage</a>
+
+{% endblock %}
