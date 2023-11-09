@@ -2,7 +2,7 @@
     <div class="inner">
 
         <!-- Menu -->
-        {% include 'nav.html' %}
+        {% include "nav.j2" %}
 
         <!-- Section -->
         <section>
@@ -10,12 +10,14 @@
                 <h2>Get in touch</h2>
             </header>
             <ul class="contact">
-                <li class="icon solid fa-envelope"><a href="">jdesilva1[at]csustan.edu</a></li>
+                <li class="icon solid fa-envelope">
+                    <a href="mailto:jdesilva1@csustan.edu">jdesilva1[at]csustan.edu</a>
+                </li>
             </ul>
         </section>
 
         <!-- Footer -->
-        {% include 'footer.html' %}
+        {% include "footer.j2" %}
 
     </div>
 </div>
