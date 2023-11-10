@@ -37,4 +37,4 @@ def register_blueprints(app):
 def register_error_pages(app):
     @app.errorhandler(404)
     def page_not_found(e):
-        return render_template("404.html"), 404
+        return render_template("404.j2"), 404
