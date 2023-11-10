@@ -1,6 +1,5 @@
 ## Overview
-
-This Flask application uses a [JAMstack](https://jamstack.org/) architecture to displays Dr. Jessica De Silva's personal website. [Frozen-Flask](https://pythonhosted.org/Frozen-Flask/) is used to generate the static files based on the routes specified in the Flask application. These static files are then hosted on [GitHub Pages](https://pages.github.com/). The original website design was created by [HTML5 UP](https://html5up.net/).
+This Flask application displays Dr. Jessica De Silva's personal website using a [JAMstack](https://jamstack.org/) architecture. [Frozen-Flask](https://pythonhosted.org/Frozen-Flask/) is used to generate static files based on the Flask application's routes. After that, the static files are hosted on [GitHub Pages](https://pages.github.com/). [HTML5 UP](https://html5up.net/) created the original website design. 
 
 ## Website
 [https://jessicadesilva.github.io/](https://jessicadesilva.github.io/)
