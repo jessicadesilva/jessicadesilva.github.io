@@ -5,6 +5,7 @@ from website import create_app
 # instance using the development configuration
 app = create_app()
 
+app.config["FREEZER_RELATIVE_URLS"] = True
 # Create an instance of Freezer for generating the static files from
 # the Flask application routes ('/', '/about', etc.)
 freezer = Freezer(app)
