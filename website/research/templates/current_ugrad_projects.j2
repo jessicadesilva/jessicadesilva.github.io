@@ -10,7 +10,7 @@
     </header>
     <div class="posts">
         <article>
-            <a class="image"><img src="{ url_for('static', filename='images/evcharging.jpeg') }"
+            <a class="image"><img src="{{ url_for('static', filename='images/evcharging.jpeg') }}"
                     alt="A power cable connected to an electric vehicle's charging port." /></a>
             <h3>EV Charging Desert: The Challenges with Electric Vehicle Charging in Stanislaus County</h3>
             <h4>Student: Delton<br>Major: Computer Science, Honors Project</h4>
@@ -28,7 +28,8 @@
             </ul>
         </article>
         <article>
-            <a class="image"><img src="images/CNN_image.png" alt="Diagram of a convolutional nueral network." /></a>
+            <a class="image"><img src="{{ url_for('static', filename='images/CNN_image.png') }}"
+                    alt="Diagram of a convolutional nueral network." /></a>
             <h3>Applications of CNNs in Medical Imaging</h3>
             <h4>Student: Sherly<br>Major: Mathematics & Computer Science, Honors Project</h4>
             <p>A convolutional neural network (CNN) is a deep learning algorithm commonly applied to analyze images.
