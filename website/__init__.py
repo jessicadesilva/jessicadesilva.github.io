@@ -22,7 +22,7 @@ def create_app():
 def register_blueprints(app):
     # Import the blueprints
     from website.general.general import main_blueprint
-    from website.events.controllers import events_blueprint
+    from website.events.events import events_blueprint
     from website.groups.controllers import groups_blueprint
     from website.research.controllers import research_blueprint
 
