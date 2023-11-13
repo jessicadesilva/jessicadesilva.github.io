@@ -54,10 +54,10 @@ python -m pytest --cov-report term-missing --cov=website
 ```
 
 ## Adding a new page
-1. Copy the `website/templates/starter_page.j2` file to the appropriate directory. For example, if you want to add a new research page, copy the file to `website/research/templates/`.
+1. Copy the `website/general/templates/starter_page.j2` file to the appropriate directory. For example, if you want to add a new research page, copy the file to `website/research/templates/`.
    ```sh
    # Copy the starter_page.j2 file to the research/templates directory as new_page.j2
-   cp website/templates/starter_page.j2 website/research/templates/new_page.j2
+   cp website/general/templates/starter_page.j2 website/research/templates/new_page.j2
    ```
 2. Update the `new_page.j2` file with the appropriate content.
    ```jinja
@@ -71,7 +71,7 @@ python -m pytest --cov-report term-missing --cov=website
     New Page Content
     {% endblock %}
    ```
-3. Add a new route to the appropriate `controller.py` file. For example, if you want to add a new research page, add a new route to `website/research/controller.py`.
+3. Add a new route to the appropriate `research.py` file. For example, if you want to add a new research page, add a new route to `website/research/research.py`.
    ```python
     # Adds the application endpoint research/new_page.html
     # NOTE: Frozen-Flask requires the .html extension to work correctly 
