@@ -24,7 +24,7 @@ def register_blueprints(app):
     from website.general.general import main_blueprint
     from website.events.events import events_blueprint
     from website.groups.groups import groups_blueprint
-    from website.research.controllers import research_blueprint
+    from website.research.research import research_blueprint
 
     # Since the application instance is now created, register each Blueprint
     # with the Flask application instance (app)
