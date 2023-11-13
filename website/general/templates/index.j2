@@ -1,9 +1,6 @@
 {% extends "layout/base.j2" %}
-
 {% block title %}Jessica De Silva's Homepage{% endblock %}
-
 {% block main_content %}
-
 <!-- Banner -->
 <section id="banner">
     <div class="content">
@@ -37,8 +34,8 @@
             the most dedicated, successful, and motivated students at the university. Read about what they're up to
             under the Student News section.</p>
         <ul class="actions">
-            <li><a href="{{ url_for('core.about') }}" class="button big">Learn More</a></li>
-            <li><a href="{{ url_for('core.cv') }}" class="button big">CV</a></li>
+            <li><a href="{{ url_for('main.about') }}" class="button big">Learn More</a></li>
+            <li><a href="{{ url_for('main.cv') }}" class="button big">CV</a></li>
             <li><a href="mailto: jdesilva1@csustan.edu" class="button big">EMAIL</a></li>
         </ul>
     </div>
@@ -47,5 +44,4 @@
             alt="Dr. Jessica De Silva standing in front of the Reflecting Pond at Stan State." />
     </span>
 </section>
-
 {% endblock %}
