@@ -46,7 +46,9 @@ jobs:
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     
-    # TODO: Include tests
+    - name: Test with pytest
+      run: |
+        python -m pytest --cov-report term-missing --cov=website
 
     # Build the application
     - name: Build Frozen-Flask web application
