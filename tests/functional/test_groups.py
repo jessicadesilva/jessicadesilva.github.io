@@ -1,3 +1,8 @@
+"""
+Functional tests for the groups blueprint routes.
+"""
+
+
 def test_get_mentor_groups_math_page(test_client):
     """
     GIVEN a Flask application configured for testing

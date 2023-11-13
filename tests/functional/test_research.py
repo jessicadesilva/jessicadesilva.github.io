@@ -1,3 +1,7 @@
+"""
+Functional tests for the research blueprint routes.
+"""
+
 from website.research.research import project_names
 
 

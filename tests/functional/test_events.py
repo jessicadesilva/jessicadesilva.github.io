@@ -1,3 +1,8 @@
+"""
+Functional tests for the events blueprint routes.
+"""
+
+
 def test_get_upcoming_events_page(test_client):
     """
     GIVEN a Flask application configured for testing

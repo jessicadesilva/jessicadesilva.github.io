@@ -1,3 +1,8 @@
+"""
+Functional tests for the general blueprint routes.
+"""
+
+
 def test_get_home_page(test_client):
     """
     GIVEN a Flask application configured for testing
