@@ -1,41 +1,32 @@
 {% extends "layout/base.j2" %}
 {% block title %}Current Undergraduate Projects{% endblock %}
 {% block main_content %}
+
+{#
+Add projects by current undergraduate students here.
+The project should be a `.j2` file in the `projects` folder.
+The name of the file should be the same as,
+or a shortened version of the name of the project.
+The `.j2` extension should be omitted.
+
+NOTE: Projects are displayed in the order they are listed here.
+NOTE: The `projects` directory shares projects from current and former students.
+#}
+{% set project_posts = [
+"ev_charging_desert",
+"cnn_medical_imaging"
+] %}
+
 <section>
     <header class="major">
         <h2>Current Undergraduate Projects</h2>
     </header>
     <div class="posts">
-        <article>
-            <a class="image"><img src="{{ url_for('static', filename='images/evcharging.jpeg') }}"
-                    alt="A power cable connected to an electric vehicle's charging port." /></a>
-            <h3>EV Charging Desert: The Challenges with Electric Vehicle Charging in Stanislaus County</h3>
-            <h4>Student: Delton<br>Major: Computer Science, Honors Project</h4>
-            <p>In 2020, California State Governor Gavin Newsom issued an executive order banning the sale of new
-                internal combustion engine automobiles by 2035. With the rise of fully electric vehicles (EVs) and the
-                impending surge of additional EV sales through 2035, Stanislaus County is severely underprepared for the
-                demands on public EV charging infrastructure. The research project will analyze current and proposed
-                public EV charging infrastructure using electric vehicle ownership data obtained from a recent study
-                completed by the Stanislaus Council of Governments.</p>
-            <p>This project is part of the Stan State <a href="https://www.csustan.edu/honors" target="_blank"
-                    rel="noreferrer noopener external" alt="(opens in new tab)">Honors</a> program.</p>
-            <ul class="actions">
-                <li><a href="{{ url_for('research.project', project_name='ev_charging_poster') }}"
-                        class="button">POSTER</a></li>
-            </ul>
-        </article>
-        <article>
-            <a class="image"><img src="{{ url_for('static', filename='images/CNN_image.png') }}"
-                    alt="Diagram of a convolutional nueral network." /></a>
-            <h3>Applications of CNNs in Medical Imaging</h3>
-            <h4>Student: Sherly<br>Major: Mathematics & Computer Science, Honors Project</h4>
-            <p>A convolutional neural network (CNN) is a deep learning algorithm commonly applied to analyze images.
-                This project
-                will determine parameter estimates for a variety of CNN algorithms and compare their accuracy on medical
-                images of skin cancer.</p>
-            <p>This project is part of the Stan State <a href="https://www.csustan.edu/honors" target="_blank"
-                    rel="noreferrer noopener external" alt="(opens in new tab)">Honors</a> program.</p>
-        </article>
+
+        {% for project in project_posts %}
+        {% include "posts/{}.j2".format(project) %}
+        {% endfor %}
+
     </div>
 </section>
 {% endblock %}
