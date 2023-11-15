@@ -2,7 +2,11 @@
 Functional tests for the research blueprint routes.
 """
 
-from website.research.research import project_names
+from website.research.research import (
+    project_pages,
+    current_ugrad_project_names,
+    former_ugrad_project_names,
+)
 
 
 def test_get_current_ugrad_projects_page(test_client):
@@ -49,7 +53,7 @@ def test_get_project_page(test_client):
     WHEN the '/research/projects/<project_name>.html' page is requested (GET)
     THEN check the response is valid
     """
-    for project_name in project_names:
+    for project_name in project_pages:
         assert (
             test_client.get(f"/research/projects/{project_name}.html").status_code
             == 200

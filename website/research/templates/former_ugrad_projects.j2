@@ -1,39 +1,17 @@
 {% extends "layout/base.j2" %}
 {% block title %}Former Undergraduate Projects{% endblock %}
 {% block main_content %}
-
-{#
-Add projects by former undergraduate students here.
-The project should be a `.j2` file in the `projects` folder.
-The name of the file should be the same as,
-or a shortened version of the name of the project.
-The `.j2` extension should be omitted.
-
-NOTE: Projects are displayed in the order they are listed here.
-NOTE: The `projects` directory shares projects from current and former students.
-#}
-{% set project_posts = [
-"analysis_campus_walk_times",
-"math_fairness_legislative_districts",
-"turan_numbers_vertex_disjoint",
-"anti_ramsey_multiplicities",
-"hypergraph_image_segmentation",
-"mean_shift_clustering_c++",
-"pokemon_go_pvp_optimization",
-"embryo_cell_migration_adhesion",
-"predictive_math_enrollment_success",
-"predictive_track_performance"
-] %}
-
 <section>
     <header class="major">
         <h2>Former Undergraduate Projects</h2>
     </header>
     <div class="posts">
 
-        {% for project in project_posts %}
+        {% if project_names %}
+        {% for project in project_names %}
         {% include "projects/{}.j2".format(project) %}
         {% endfor %}
+        {% endif %}
 
     </div>
 </section>

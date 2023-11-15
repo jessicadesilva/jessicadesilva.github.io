@@ -1,31 +1,17 @@
 {% extends "layout/base.j2" %}
 {% block title %}Current Undergraduate Projects{% endblock %}
 {% block main_content %}
-
-{#
-Add projects by current undergraduate students here.
-The project should be a `.j2` file in the `projects` folder.
-The name of the file should be the same as,
-or a shortened version of the name of the project.
-The `.j2` extension should be omitted.
-
-NOTE: Projects are displayed in the order they are listed here.
-NOTE: The `projects` directory shares projects from current and former students.
-#}
-{% set project_posts = [
-"ev_charging_desert",
-"cnn_medical_imaging"
-] %}
-
 <section>
     <header class="major">
         <h2>Current Undergraduate Projects</h2>
     </header>
     <div class="posts">
 
-        {% for project in project_posts %}
+        {% if project_names %}
+        {% for project in project_names %}
         {% include "projects/{}.j2".format(project) %}
         {% endfor %}
+        {% endif %}
 
     </div>
 </section>
