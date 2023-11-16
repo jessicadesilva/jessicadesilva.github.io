@@ -3,13 +3,15 @@
 {% block main_content %}
 <section>
     <header class="major">
-        <h2>Former Undergraduate Projects</h2>
+        <h1>Former Undergraduate Projects</h1>
     </header>
     <div class="posts">
 
         {% if project_names %}
         {% for project in project_names %}
-        {% include "projects/{}.j2".format(project) %}
+        <article>
+            {% include "projects/{}.j2".format(project) %}
+        </article>
         {% endfor %}
         {% endif %}
 
