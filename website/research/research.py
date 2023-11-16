@@ -37,6 +37,8 @@ former_ugrad_project_names = [
 project_pages = ["ev_charging_poster", "walking_time_poster"]
 
 
+# This page will display the projects listed in `current_ugrad_projects`
+# from the `research/templates/projects` directory.
 @research_blueprint.route("/undergrad/current.html")
 def current_undergrad_projects():
     return render_template(
@@ -50,6 +52,8 @@ def current_undergrad_abstracts():
     return render_template("current_ugrad_projects_abstracts.j2")
 
 
+# This page will display the projects listed in `former_ugrad_projects`
+# from the `research/templates/projects` directory.
 @research_blueprint.route("/undergrad/former.html")
 def former_undergrad_projects():
     return render_template(
