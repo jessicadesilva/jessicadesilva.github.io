@@ -52,10 +52,10 @@ class Project:
         """Writes a jinja2 template containing project information."""
         with open(self.output_filename, "w") as out_file:
             out_file.write(f"{self.image}\n")
-            out_file.write(f"<h2>{self.title}</h2>\n")
-            out_file.write(f"<h3>Advisor: {self.advisor}</h3>\n")
-            out_file.write(f"<h3>Student: {self.student}</h3>\n")
-            out_file.write(f"<h4>Major: {self.major}</h4>\n")
+            out_file.write(f"<h2 class='h3'>{self.title}</h2>\n")
+            out_file.write(f"<h3 class='h4'>Advisor: {self.advisor}</h3>\n")
+            out_file.write(f"<h3 class='h4'>Student: {self.student}</h3>\n")
+            out_file.write(f"<h4 class='h5'>Major: {self.major}</h4>\n")
             out_file.write(markdown.markdown("\n".join(self.description)))
             out_file.write("\n")
             out_file.write(markdown.markdown("\n".join(self.button)))
