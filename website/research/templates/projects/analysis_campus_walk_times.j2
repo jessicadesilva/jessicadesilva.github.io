@@ -1,18 +1,7 @@
-<article>
-    <a class="image"><img src="{{ url_for('static', filename='images/campusmap.png') }}"
-            alt="A map of the California State University Stanislaus campus." /></a>
-    <h3>Analysis of Campus Walking Times</h3>
-    <h4>Co-advisor: Dr. Curtis Pro</h4>
-    <h4>Students: Andrew, Sam, Felice, Morgan, Teresa, Jonathan, Jasmin, & Juan<br />Majors: Computer Science,
-        Chemistry, Chemistry, Physics, Mathematics, Computer Science, Mathematics, & Mathematics</h4>
-    <p>If you signed up fro two MWF classes back-to-back, you have approximately ten minutes to travel from one
-        course location to the next. This time constraint induces student traffic across campus and can result
-        in consistent tardiness. We collected data to approximate the typical walking speed of a Stan State
-        student and used this to produce the average time it will take to walk between pairs of buildings on
-        campus. Our data suggests that you may be late for you next class if you are a slow walker or if walking
-        paths are congested.</p>
-    <ul class="actions">
-        <li><a href="{{ url_for('research.project', project_name='walking_time_poster') }}" class="button">POSTER</a>
-        </li>
-    </ul>
-</article>
+<a class='image'><img src="{{ url_for('static', filename='images/campusmap.png') }}" alt="A map of the California State University Stanislaus campus."></a>
+<h2 class='h3'>Analysis of Campus Walking Times</h2>
+<h3 class='h4'>Advisor: Dr. Curtis Pro</h3>
+<h3 class='h4'>Student: Andrew, Sam, Felice, Morgan, Teresa, Jonathan, Jasmin, &amp; Juan</h3>
+<h4 class='h5'>Major: Computer Science, Chemistry, Chemistry, Physics, Mathematics, Computer Science, Mathematics, &amp; Mathematics</h4>
+<p>If you signed up for two MWF classes back-to-back, you have approximately  minutes to travel from one course location to the next. This time constraint induces student traffic across campus and can result in consistent tardiness. We collected data to approximate the typical walking speed of a Stan State student and used this to produce the average time it will take to walk between pairs of buildings on campus. Our data suggests that you may be late for you next class if you are a slow walker or if walking paths are congested.</p>
+<ul class='actions'><li><a href="{{ url_for('research.project', project_name='walking_time_poster') }}" class="button">POSTER</a></li></ul>

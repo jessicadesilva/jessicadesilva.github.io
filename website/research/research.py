@@ -19,21 +19,21 @@ current_ugrad_project_names = ["ev_charging_desert", "cnn_medical_imaging"]
 # See instructions and notes from `current_ugrad_project_names`.
 former_ugrad_project_names = [
     "analysis_campus_walk_times",
-    "math_fairness_legislative_districts",
-    "turan_numbers_vertex_disjoint",
+    "mathematical_fairness_districting",
+    "turan_vertex_cliques",
     "anti_ramsey_multiplicities",
     "hypergraph_image_segmentation",
-    "mean_shift_clustering_c++",
-    "pokemon_go_pvp_optimization",
-    "embryo_cell_migration_adhesion",
-    "predictive_math_enrollment_success",
-    "predictive_track_performance",
+    "mean_shift_clustering",
+    "pokemon_go_optimization",
+    "embryo_cell_migration",
+    "predictive_math_course_success",
+    "predictive_track_performances",
 ]
 
 # Add projects that have their own page here.
 # (i.e. pages that have an embedded pdf)
 #
-# NOTE: These pages should located in the `research/templates` folder.
+# NOTE: These pages are located in the `research/templates` folder.
 project_pages = ["ev_charging_poster", "walking_time_poster"]
 
 

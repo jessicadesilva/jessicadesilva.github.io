@@ -16,7 +16,7 @@ class Project:
     student: str = ""
     major: str = ""
     description: list = field(default_factory=lambda: [])
-    button: list = field(default_factory=lambda: [])
+    button: str = ""
 
     def parse_markdown_file(self):
         """Parses a markdown file containing project information."""
@@ -44,21 +44,42 @@ class Project:
                 elif current_section == "Major":
                     self.major = line.strip()
                 elif current_section == "Description":
-                    self.description.append(line.strip())
+                    self.description.append(line)
                 elif current_section == "Button":
-                    self.button.append(line.strip())
+                    self.button = line.strip()
+
+    def strip_p_tags(self, text):
+        """Removes <p> tags from text."""
+        return text.replace("<p>", "").replace("</p>", "")
 
     def write_jinja2_template(self):
         """Writes a jinja2 template containing project information."""
         with open(self.output_filename, "w") as out_file:
-            out_file.write(f"{self.image}\n")
+            out_file.write(f"<a class='image'>{self.image}</a>\n")
             out_file.write(f"<h2 class='h3'>{self.title}</h2>\n")
-            out_file.write(f"<h3 class='h4'>Advisor: {self.advisor}</h3>\n")
-            out_file.write(f"<h3 class='h4'>Student: {self.student}</h3>\n")
-            out_file.write(f"<h4 class='h5'>Major: {self.major}</h4>\n")
+
+            # If optional advisor field is not empty.
+            if self.advisor != "":
+                # The advisor field is written in markdown to take advantage of the simple syntax for links.
+                # We don't want to render the <p> tags created by markdown(), so we use `strip_p_tags`.
+                out_file.write(
+                    f"<h3 class='h4'>Advisor: {self.strip_p_tags(markdown.markdown(self.advisor))}</h3>\n"
+                )
+            out_file.write(
+                # The student field is written in markdown to take advantage of the simple syntax for links.
+                # We don't want to render the <p> tags created by markdown(), so we use `strip_p_tags`.
+                f"<h3 class='h4'>Student: {self.strip_p_tags(markdown.markdown(self.student))}</h3>\n"
+            )
+
+            # If optional major field is not empty.
+            if self.major != "":
+                out_file.write(f"<h4 class='h5'>Major: {self.major}</h4>\n")
             out_file.write(markdown.markdown("\n".join(self.description)))
             out_file.write("\n")
-            out_file.write(markdown.markdown("\n".join(self.button)))
+
+            # If optional button field is not empty.
+            if self.button != "":
+                out_file.write(f"<ul class='actions'><li>{self.button}</li></ul>\n")
 
 
 if __name__ == "__main__":
@@ -70,7 +91,12 @@ if __name__ == "__main__":
             filename, _ = os.path.splitext(file)
             project = Project(
                 os.path.join(
-                    os.getcwd(), "website", "research", "templates", "markdown", file
+                    os.getcwd(),
+                    "website",
+                    "research",
+                    "templates",
+                    "markdown",
+                    file,
                 ),
                 os.path.join(
                     os.getcwd(),
@@ -83,4 +109,3 @@ if __name__ == "__main__":
             )
             project.parse_markdown_file()
             project.write_jinja2_template()
-            print(f"Converted {file} to {filename}.j2.")
