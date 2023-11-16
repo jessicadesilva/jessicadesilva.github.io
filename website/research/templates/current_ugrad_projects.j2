@@ -9,7 +9,7 @@
 
         {% if project_names %}
         {% for project in project_names %}
-        <article>
+        <article id="{{ project }}">
             {% include "projects/{}.j2".format(project) %}
         </article>
         {% endfor %}
