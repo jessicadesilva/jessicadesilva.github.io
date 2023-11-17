@@ -6,7 +6,7 @@ from flask import Blueprint, render_template, abort
 research_blueprint = Blueprint("research", __name__, template_folder="templates")
 
 # Add projects by current undergraduate students here.
-# The project should be a `.j2` file in the `projects` folder.
+# The project should be a `.j2` file in the `research/projects` folder.
 # The name of the file should be the same as,
 # or a shortened version of the name of the project.
 # The `.j2` extension should be omitted.
@@ -35,6 +35,18 @@ former_ugrad_project_names = [
 #
 # NOTE: These pages are located in the `research/templates` folder.
 project_pages = ["ev_charging_poster", "walking_time_poster"]
+
+# Add abstracts for current undergraduate projects here.
+# The abstract should be a `.j2` file in the `research/abstracts` folder.
+# See instructions and notes from `current_ugrad_project_names`.
+current_ugrad_abstract_names = [
+    "abstract_hypergraph_image_segmentation",
+    "abstract_mean_shift_clustering",
+    "abstract_pokemon_go_optimization",
+    "abstract_embryo_cell_migration",
+    "abstract_math_course_success",
+    "abstract_track_performances",
+]
 
 
 # This page will display the projects listed in `current_ugrad_projects`

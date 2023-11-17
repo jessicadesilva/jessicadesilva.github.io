@@ -86,8 +86,19 @@ if __name__ == "__main__":
     for file in os.listdir(
         os.path.join("website", "research", "templates", "markdown")
     ):
-        # Convert each Markdown file in the `projects` directory to a jinja2 file.
+        # Two directories are used to store the jinja2 templates.
+        # `projects` contains the templates for the projects listed on the `current_ugrad_projects`
+        # and `former_ugrad_projects` pages.
+        # `abstracts` contains the templates for the projects listed on the `current_ugrad_abstracts` page.
+        target_directory = ["projects", "abstracts"]
+
         if file.endswith(".md"):
+            # NOTE: The `abstract` prefix is used to distinguish between the two directories.
+            if file.startswith("abstract"):
+                directory_name = target_directory[1]
+            else:
+                directory_name = target_directory[0]
+
             filename, _ = os.path.splitext(file)
             project = Project(
                 os.path.join(
@@ -103,7 +114,7 @@ if __name__ == "__main__":
                     "website",
                     "research",
                     "templates",
-                    "projects",
+                    directory_name,
                     filename + ".j2",
                 ),
             )
