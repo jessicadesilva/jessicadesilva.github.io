@@ -6,13 +6,6 @@
 
 Hypergraph-Based Image Segmentation
 
-## Advisor
-
-<!-- Add project advisor(s) here 
-    NOTE: markdown syntax to create a link is [alt text](url)
--->
-...
-
 ## Student
 
 Darcy &amp; Juan

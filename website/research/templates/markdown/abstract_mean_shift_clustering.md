@@ -1,6 +1,6 @@
 ## Image
 
-<mg src="{{ url_for('static', filename='images/andrewandjasmin.jpg') }}" alt="HTML file open in a text editor.">
+<img src="{{ url_for('static', filename='images/andrewandjasmin.jpg') }}" alt="HTML file open in a text editor.">
 
 ## Title
 
