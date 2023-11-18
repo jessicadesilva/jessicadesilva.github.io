@@ -5,18 +5,23 @@ from flask import Blueprint, render_template, abort
 
 research_blueprint = Blueprint("research", __name__, template_folder="templates")
 
-# Add projects by current undergraduate students here.
-# The project should be a `.j2` file in the `research/projects` folder.
-# The name of the file should be the same as,
-# or a shortened version of the name of the project.
-# The `.j2` extension should be omitted.
-#
-# NOTE: Projects are displayed in the order they are listed here.
-# NOTE: The `projects` directory shares projects from current and former students.
-current_ugrad_project_names = ["ev_charging_desert", "cnn_medical_imaging"]
+# Add current undergraduate projects here
+# NOTE: the project must be located in the `projects` directory
+# NOTE: the project name must match the name of the jinja2 file
+#       and should exclude the file extension
+#       (i.e. <project_name>.j2)
+# NOTE: projects are displayed in the order they are listed
+current_ugrad_project_names = [
+    "ev_charging_desert",
+    "cnn_medical_imaging",
+]
 
-# Add projects by former undergraduate students here.
-# See instructions and notes from `current_ugrad_project_names`.
+# Add former undergraduate projects here
+# NOTE: the project must be located in the `projects` directory
+# NOTE: the project name must match the name of the jinja2 file
+#       and should exclude the file extension
+#       (i.e. <project_name>.j2)
+# NOTE: projects are displayed in the order they are listed
 former_ugrad_project_names = [
     "analysis_campus_walk_times",
     "mathematical_fairness_districting",
@@ -30,15 +35,12 @@ former_ugrad_project_names = [
     "predictive_track_performances",
 ]
 
-# Add projects that have their own page here.
-# (i.e. pages that have an embedded pdf)
-#
-# NOTE: These pages are located in the `research/templates` folder.
-project_pages = ["ev_charging_poster", "walking_time_poster"]
-
-# Add abstracts for current undergraduate projects here.
-# The abstract should be a `.j2` file in the `research/abstracts` folder.
-# See instructions and notes from `current_ugrad_project_names`.
+# Add current undergraduate abstracts here
+# NOTE: the project must be located in the `abstracts` directory
+# NOTE: the project name must match the name of the jinja2 file
+#       and should exclude the file extension
+#       (i.e. abstract_<project_name>.j2)
+# NOTE: projects are displayed in the order they they are listed
 current_ugrad_abstract_names = [
     "abstract_hypergraph_image_segmentation",
     "abstract_mean_shift_clustering",
@@ -48,9 +50,16 @@ current_ugrad_abstract_names = [
     "abstract_track_performances",
 ]
 
+# Add projects that have their own page here.
+# (i.e. pages that have an embedded pdf)
+#
+# NOTE: These pages are located in the `research/templates` folder.
+project_pages = [
+    "ev_charging_poster",
+    "walking_time_poster",
+]
 
-# This page will display the projects listed in `current_ugrad_projects`
-# from the `research/templates/projects` directory.
+
 @research_blueprint.route("/undergrad/current.html")
 def current_undergrad_projects():
     return render_template(
@@ -61,11 +70,12 @@ def current_undergrad_projects():
 
 @research_blueprint.route("/undergrad/current/abstracts.html")
 def current_undergrad_abstracts():
-    return render_template("current_ugrad_projects_abstracts.j2")
+    return render_template(
+        "current_ugrad_projects_abstracts.j2",
+        project_names=current_ugrad_abstract_names,
+    )
 
 
-# This page will display the projects listed in `former_ugrad_projects`
-# from the `research/templates/projects` directory.
 @research_blueprint.route("/undergrad/former.html")
 def former_undergrad_projects():
     return render_template(
