@@ -29,12 +29,12 @@ pwd
 python app.py
 ```
 Then follow the links below to view the pages.
-* Current Undergraduate Projects - [research/undergrad/current.html](localhost:5000/research/undergrad/current.html)
-  * Current Undergraduate Abstracts - [research/undergrad/current/abstracts.html](localhost:5000/research/undergrad/current/abstracts.html)
-* Former Undergraduate Projects - [research/undergrad/former.html](localhost:5000/research/undergrad/former.html)
-* Electric Vehicle Charging Poster - [research/projects/ev_charging_poster.html](localhost:5000/research/projects/ev_charging_poster.html)
-* Walking Time Poster - [research/projects/walking_time_poster.html](localhost:5000/research/projects/walking_time_poster.html)
-* Other Projects - [research/other.html](localhost:5000/research/other.html)
+* Current Undergraduate Projects - [research/undergrad/current.html](http://127.0.0.1:5000/research/undergrad/current.html)
+  * Current Undergraduate Abstracts - [research/undergrad/current/abstracts.html](http://127.0.0.1:5000/research/undergrad/current/abstracts.html)
+* Former Undergraduate Projects - [research/undergrad/former.html](http://127.0.0.1:5000/research/undergrad/former.html)
+* Electric Vehicle Charging Poster - [research/projects/ev_charging_poster.html](http://127.0.0.1:5000/research/projects/ev_charging_poster.html)
+* Walking Time Poster - [research/projects/walking_time_poster.html](http://127.0.0.1:5000/research/projects/walking_time_poster.html)
+* Other Projects - [research/other.html](http://127.0.0.1:5000/research/other.html)
 
 ## Adding a New Project or Abstract
 1. Copy the `TEMPLATE.md` file in the `research/templates/markdown` directory.
