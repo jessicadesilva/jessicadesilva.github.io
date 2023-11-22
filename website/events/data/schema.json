@@ -1,0 +1,54 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "http://127.0.0.1:5000/events/data/schema.json",
+    "title": "Events",
+    "description": "A list of events from Dr. Jessica Desivla's website.",
+    "type": "object",
+    "properties": {
+        "updated": {
+            "description": "The date the events were last updated.",
+            "type": "string"
+        },
+        "events": {
+            "description": "A list of events displayed on the website.",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "event_status": {
+                        "description": "The status of the event.",
+                        "enum": [
+                            "scheduled",
+                            "past"
+                        ]
+                    },
+                    "event_name": {
+                        "description": "The name of the event.",
+                        "type": "string"
+                    },
+                    "event_start_date": {
+                        "description": "The start date of the event.",
+                        "type": "string"
+                    },
+                    "event_end_date": {
+                        "description": "The end date of the event.",
+                        "type": "string"
+                    },
+                    "event_description": {
+                        "description": "The description of the event.",
+                        "type": "string"
+                    }
+                },
+                "minItems": 1,
+                "uniqueItems": true,
+                "required": [
+                    "event_status",
+                    "event_name",
+                    "event_start_date",
+                    "event_end_date",
+                    "event_description"
+                ]
+            }
+        }
+    }
+}

@@ -1,0 +1,46 @@
+{% extends "layout/base.j2" %}
+{% block title %}Add New Event{% endblock %}
+{% block main_content %}
+{% if error %}
+<div class="box">
+    <a class="icon solid fa-exclamation-circle"> {{ error }}</a>
+</div>
+{% endif %}
+<section>
+    <header class="major">
+        <h1 class="h2">Add New Event</h1>
+    </header>
+    <form method="POST" action="{{ url_for('events.add_event') }}">
+        <div class="row gtr-uniform">
+            <div class="col-6 col-12-xsmall">
+                <p class="copyright">Please select the same Start and End Date for same day events.</p>
+                <label>Start Date</label>
+                <input type="date" name="start_date" required />
+                <label>End Date</label>
+                <input type="date" name="end_date" required />
+            </div>
+            <div class="col-6 col-12-xsmall">
+                <label>Markdown Reference</label>
+                <textarea disabled>**this text is bold**
+*this text is italicized*
+[this is a link](http://example.com)
+&lt;br /&gt; adds a line break</textarea>
+            </div>
+            <div class="col-12">
+                <label>Event Name</label>
+                <input type="text" name="event_name" required />
+            </div>
+            <div class="col-12">
+                <label>Event Description</label>
+                <textarea name="event_description" required></textarea>
+            </div>
+            <div class="col-12">
+                <ul class="actions">
+                    <li><input class="primary" type="submit" value="Add Event" name="add_event" /></li>
+                    <li><a href="{{ url_for('events.upcoming_events') }}" class="button">Cancel</a></li>
+                </ul>
+            </div>
+        </div>
+    </form>
+</section>
+{% endblock %}
