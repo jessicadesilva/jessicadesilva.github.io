@@ -17,50 +17,33 @@ def get_json_schema():
         return json.load(json_file)
 
 
-def update_events(event_data):
+def update_events_file(event_data):
     with open(
         os.path.join(os.getcwd(), "website", "events", "data", "events.json"), "w"
     ) as json_file:
         json.dump(event_data, json_file, indent=4)
 
 
-def check_event_status(event):
-    """Check if an event is scheduled or past."""
-
-    event_start_date = datetime.strptime(event.get("event_start_date"), "%Y-%m-%d")
-    event_end_date = datetime.strptime(event.get("event_end_date"), "%Y-%m-%d")
-    today = datetime.today()
-
-    if event_start_date > today:
-        event["event_status"] = "scheduled"
-    elif event_end_date < today:
-        event["event_status"] = "past"
-
-    return event
+def determine_event_status(end_date):
+    date = datetime.strptime(end_date, "%Y-%m-%d")
+    if date < datetime.today():
+        return "completed"
+    else:
+        return "scheduled"
 
 
 def strip_p_tags(text):
     return text.replace("<p>", "").replace("</p>", "")
 
 
-def is_event_unique(event):
+def event_is_unique(event):
     events_data = get_events()
-    for existing_event in events_data:
+    for existing_event in events_data["events"]:
         if (
-            existing_event["event_start_date"] == event["event_start_date"]
-            and existing_event["event_end_date"] == event["event_end_date"]
-            and existing_event["event_name"] == event["event_name"]
-            and existing_event["event_description"] == event["event_description"]
+            existing_event["start_date"] == event["start_date"]
+            and existing_event["end_date"] == event["end_date"]
+            and existing_event["name"] == event["name"]
+            and existing_event["description"] == event["description"]
         ):
             return False
     return True
-
-
-def write_events(event):
-    if is_event_unique(event) is False:
-        return "Event already exists."
-
-    events_data = get_events()
-    events_data.append(event)
-
-    update_events(events_data)

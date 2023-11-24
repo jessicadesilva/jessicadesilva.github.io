@@ -24,12 +24,14 @@
                 </tr>
                 {% endfor %}
             </tbody>
+            {% if updated %}
             <tfoot>
                 <tr>
                     <td colspan="2"></td>
-                    <td>Updated on May 12, 2021.</td>
+                    <td>Updated on {{ updated }}.</td>
                 </tr>
             </tfoot>
+            {% endif %}
         </table>
     </div>
     {% endif %}

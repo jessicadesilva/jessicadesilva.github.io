@@ -19,7 +19,7 @@
                         "description": "The status of the event.",
                         "enum": [
                             "scheduled",
-                            "past"
+                            "completed"
                         ]
                     },
                     "event_name": {
