@@ -36,9 +36,8 @@ def strip_p_tags(text):
     return text.replace("<p>", "").replace("</p>", "")
 
 
-def event_is_unique(event):
-    events_data = get_events()
-    for existing_event in events_data["events"]:
+def event_is_unique(events_data_file, event):
+    for existing_event in events_data_file["events"]:
         if (
             existing_event["start_date"] == event["start_date"]
             and existing_event["end_date"] == event["end_date"]

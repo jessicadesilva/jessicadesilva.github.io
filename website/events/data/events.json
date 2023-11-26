@@ -2,238 +2,272 @@
     "updated": "May 12, 2021",
     "events": [
         {
-            "event_status": "completed",
+            "id": 34,
+            "status": "completed",
             "start_date": "2021-07-23",
             "end_date": "2021-07-23",
             "name": "[SIAM Workshop Celebrating Diversity Luncheon](https://www.siam.org/conferences/cm/program/workshops/an18-workshops)",
             "description": "I will be co-moderating a luncheon session for the SIAM Workshop Celebrating Diversity."
         },
         {
-            "event_status": "completed",
+            "id": 33,
+            "status": "completed",
             "start_date": "2021-06-11",
             "end_date": "2021-06-12",
             "name": "[Mastery Based Grading Conference](https://www.masterygrading.com/home/university-stem-conference)",
             "description": "I am looking forward to learning how to develop and implement a mastery-based grading strategy into my future courses."
         },
         {
-            "event_status": "completed",
+            "id": 32,
+            "status": "completed",
             "start_date": "2021-06-07",
             "end_date": "2021-06-11",
             "name": "[Latinx Mathematicians Research Community (MRC) Kick-off Research Workshop](https://aimath.org/programs/researchcommunities/lmrc/)",
             "description": "The Latinx MRC is a year long program for early-career Latinx mathematicians providing tiered mentoring research opportunities, professional development opportunities, and establishes a large research network of Latinx mathematicians."
         },
         {
-            "event_status": "completed",
+            "id": 31,
+            "status": "completed",
             "start_date": "2021-06-01",
             "end_date": "2021-08-01",
             "name": "2021 Visiting Faculty Program",
             "description": "Sherly and I will continue our work with Dr. Talita Perciano from LBNL to improve and test our image segmentation algorithm."
         },
         {
-            "event_status": "completed",
+            "id": 30,
+            "status": "completed",
             "start_date": "2021-05-27",
             "end_date": "2021-05-27",
             "name": "Stan State College of Science 2021 Commencement Ceremony",
             "description": "Please stop by and say hi to me at the graduate check-in station! :)"
         },
         {
-            "event_status": "completed",
+            "id": 29,
+            "status": "completed",
             "start_date": "2021-05-25",
             "end_date": "2021-05-25",
             "name": "Creating a Better Summer Experience: [A DEI Workshop for REU Directors and Faculty Mentors](https://minoritymath.org/reudeiworkshop2021/)",
             "description": "This workshop provided the tools to assist with mentoring underrepresented and minoritized students in mathematics, specifically in immersive summer research experiences."
         },
         {
-            "event_status": "completed",
+            "id": 28,
+            "status": "completed",
             "start_date": "2021-05-25",
             "end_date": "2021-05-28",
             "name": "[2021 CANADAM Online Meeting](https://canadam.math.ca/2021/program/schedule_overview)",
             "description": "I am excited to have been invited to give a talk at this conference by my academic sister, Dr. Rachel Kirsch."
         },
         {
-            "event_status": "completed",
+            "id": 27,
+            "status": "completed",
             "start_date": "2021-05-21",
             "end_date": "2021-05-21",
             "name": "MREC^3 2021",
             "description": "Kevin, Pablo, and Ed presented our Pokemon GO! research at this conference for student researchers at community colleges."
         },
         {
-            "event_status": "completed",
+            "id": 26,
+            "status": "completed",
             "start_date": "2021-05-17",
             "end_date": "2021-05-17",
             "name": "Stan State Mathematics End of Year Celebration",
             "description": "We honored all of our graduates at this virtual gathering!"
         },
         {
-            "event_status": "completed",
+            "id": 25,
+            "status": "completed",
             "start_date": "2021-05-11",
             "end_date": "2021-05-11",
             "name": "College of Science Research Celebration",
             "description": "Jesselynn and other former students of mine gave wonderful lightning talks at this virtual celebration."
         },
         {
-            "event_status": "completed",
+            "id": 24,
+            "status": "completed",
             "start_date": "2021-04-28",
             "end_date": "2021-04-28",
             "name": "Guest Lecture at [Soka University of America](https://www.soka.edu/)",
             "description": "I was invited by one of my colleagues, Dr. Kat Perry, to speak to her Finite Mathematics students about one of my former research projects in gerrymandering."
         },
         {
-            "event_status": "completed",
+            "id": 23,
+            "status": "completed",
             "start_date": "2021-04-24",
             "end_date": "2021-04-24",
             "name": "PUMP Undergraduate Research Group Syposium",
             "description": "Aaron and Sherly gave a great talk at this symposium about our analysis of Stan State student success in mathematics major courses."
         },
         {
-            "event_status": "completed",
+            "id": 22,
+            "status": "completed",
             "start_date": "2021-04-19",
             "end_date": "2021-04-20",
             "name": "HHMI Inclusive Excellence 3 Learning Community Kickoff Meeting",
             "description": "Our grant proposal team worked with academics and administration across the nation to address DEI challenges in STEM."
         },
         {
-            "event_status": "completed",
+            "id": 21,
+            "status": "completed",
             "start_date": "2021-04-15",
             "end_date": "2021-04-15",
             "name": "[Humboldt State University Mathematics Department Colloquium](https://math.humboldt.edu/get-involved/mathematics-colloquium)",
             "description": "This colloquium was such a blast! The students were great and I was grateful for the opportunity to meet new colleagues in the CSU!"
         },
         {
-            "event_status": "completed",
+            "id": 20,
+            "status": "completed",
             "start_date": "2021-04-15",
             "end_date": "2021-04-15",
             "name": "Women in STEM New Student Welcome",
             "description": "Dr. Sarah Bissonnette and I had the pleasure of welcoming our Fall 2021 class of women STEM majors to Stan State."
         },
         {
-            "event_status": "completed",
+            "id": 19,
+            "status": "completed",
             "start_date": "2021-04-10",
             "end_date": "2021-04-10",
             "name": "[Bay Area Discrete (BAD) Math Day](https://sites.google.com/view/bad-math-day-spring-2021/home)",
             "description": "It was great to co-organize this conference with a great team of graduate students and postdocs from UC Berkeley and Stanford."
         },
         {
-            "event_status": "completed",
+            "id": 18,
+            "status": "completed",
             "start_date": "2021-03-24",
             "end_date": "2021-03-24",
             "name": "[Stan State Student Research Competition](https://www.csustan.edu/article/theatre-related-research-topics-earn-top-honors-stan-state-competition)",
             "description": "I was honored to be a juror for this competition! Read about my comments on the competition in the article linked."
         },
         {
-            "event_status": "completed",
+            "id": 17,
+            "status": "completed",
             "start_date": "2021-03-03",
             "end_date": "2021-03-03",
             "name": "[San Jose State Mathematics Department Colloquium](http://www.timhsu.net/colloq/)",
             "description": "This was a fun colloquium, catching up with friends I met during my job search process!"
         },
         {
-            "event_status": "completed",
+            "id": 16,
+            "status": "completed",
             "start_date": "2021-02-11",
             "end_date": "2021-02-11",
             "name": "NSF Proposal Submitted!",
             "description": "I submitted my first NSF proposal as a PI with a group of fantastic co-PIs. Shoutout to Dr.'s Roummel Marcia, Erica Rutter, Mario Banuelos, and Luca Brillante for helping make this happen."
         },
         {
-            "event_status": "completed",
+            "id": 15,
+            "status": "completed",
             "start_date": "2021-01-07",
             "end_date": "2021-01-07",
             "name": "[Joint Mathematics Meetings](http://jointmathematicsmeetings.org/meetings/national/jmm2021/2247_intro)",
             "description": "**AMS Special Session:** If You Build It They Will Come.\r\nPresentations by Scholars in the National Alliance for Doctoral Studies in the Mathematical Sciences."
         },
         {
-            "event_status": "completed",
+            "id": 14,
+            "status": "completed",
             "start_date": "2020-12-10",
             "end_date": "2020-12-10",
             "name": "[Women in Combinatorics Virtual Seminar](https://www.womenincombinatorics.com/colloquium)",
             "description": "I gave a virtual research talk for WinCom! The Women in Combinatorics network, WinCom, is intended as a platform for any Combinatorialist who identifies as a woman and would like to connect with other women for various professional reasons and concerns. A database spreadsheet is available for the public to view as a place to search for women collaborators, keynotes, and mentors to encourage the diversification of our research networks."
         },
         {
-            "event_status": "completed",
+            "id": 13,
+            "status": "completed",
             "start_date": "2020-11-21",
             "end_date": "2020-11-21",
             "name": "[Bay Area Discrete (BAD) Math Day](https://sites.google.com/view/bad-math-day-spring-2020/home)",
             "description": "I am one of the co-organizers for the BAD Math Day conference. BAD Math Days are one-day meetings aimed at facilitating communication between researchers and graduate students of discrete mathematics around the San Francisco Bay Area. These days happen twice a year and strive to create an informal atmosphere to talk about discrete mathematics. The term discrete mathematics is chosen to include at least the following topics: Algebraic and Enumerative Combinatorics, Discrete Geometry, Graph Theory, Coding and Design Theory, Combinatorial Aspects of Computational Algebra and Geometry, Combinatorial Optimization, Probabilistic Combinatorics, Combinatorial Aspects of Statistics, and Combinatorics in Mathematical Physics."
         },
         {
-            "event_status": "completed",
+            "id": 12,
+            "status": "completed",
             "start_date": "2020-11-20",
             "end_date": "2020-11-23",
             "name": "[paraDIGMS Fall Conference](https://www.imsi.institute/paradigms2020/)",
             "description": "It was a pleasure to speak about my experiences mentoring undergraduate mathematics majors at Stanislaus State with graduate directors across the nation."
         },
         {
-            "event_status": "completed",
+            "id": 11,
+            "status": "completed",
             "start_date": "2020-11-13",
             "end_date": "2020-11-13",
             "name": "[Cal State East Bay Mathematics Department Colloquium](https://www.csueastbay.edu/math/upcoming-math-talks)",
             "description": "At this colloquium, I'll be giving a talk about my experience to and through graduate school in mathematics. I will also touch on some of the fun mathematics research I did over the summer in VFP."
         },
         {
-            "event_status": "completed",
+            "id": 10,
+            "status": "completed",
             "start_date": "2020-11-13",
             "end_date": "2020-11-13",
             "name": "[2020 CRA-WP Career Mentoring Workshop](https://web.cvent.com/event/d45c17cf-7729-4099-97d9-0f969531f143/summary)",
             "description": "This workshop is focused on Early-Career professionals and provides insight into how to build a great research program, advise students and get funding, how to be an effective and inspiring teacher, and how to set yourself up for promotion and success."
         },
         {
-            "event_status": "completed",
+            "id": 9,
+            "status": "completed",
             "start_date": "2020-11-09",
             "end_date": "2020-11-10",
             "name": "[2020 MPS Workshop for New Investigators](http://reg.conferences.dce.ufl.edu/Physics)",
             "description": "The main goals of the workshop is two-fold: (1) to provide prospective Principal Investigators who have just received their first award or who are considering applying for funding from the MPS programs with valuable information and advice on the policies, procedures, and opportunities available at NSF, (2) to train a pool of future reviewers and encourage volunteering to review as a way to learn about NSF process. In addition to informational presentations on various topics relevant to the future PI's, all participants will go through full mock panel review processes in breakout sessions."
         },
         {
-            "event_status": "completed",
+            "id": 8,
+            "status": "completed",
             "start_date": "2020-11-06",
             "end_date": "2020-11-06",
             "name": "[Pacific Math Alliance Webinar](https://www.pacificmathalliance.org/conferences)",
             "description": "**Speaker:** Dr. Roummel Marcia, UC Merced.\r\n**Title:**  Machine Learning: A Gentle Introduction to Data Science."
         },
         {
-            "event_status": "completed",
+            "id": 7,
+            "status": "completed",
             "start_date": "2020-10-19",
             "end_date": "2020-10-25",
             "name": "[SACNAS National Conference](https://www.2020sacnas.org/?gclid=CjwKCAiAv4n9BRA9EiwA30WND7haQQomw_u3IPQur6GOyYWC_KcB6GUpscwhswYUvf7YY-r224-HBBoCYpAQAvD_BwE)",
             "description": "Darcy and Juan presented posters at the 2020 SACNAS National Conference. The largest multidisciplinary and multicultural STEM diversity event in the country, the SACNAS conference serves to equip, empower, and energize participants for their academic and professional paths in STEM."
         },
         {
-            "event_status": "completed",
+            "id": 6,
+            "status": "completed",
             "start_date": "2020-10-16",
             "end_date": "2020-10-16",
             "name": "[Pacific Math Alliance Webinar](https://www.pacificmathalliance.org/conferences)",
             "description": "**Title:** Graduate Students Demystifying Graduate School."
         },
         {
-            "event_status": "completed",
+            "id": 5,
+            "status": "completed",
             "start_date": "2020-10-02",
             "end_date": "2020-10-02",
             "name": "[Pacific Math Alliance Webinar](https://www.pacificmathalliance.org/conferences)",
             "description": "**Title:** Demystifying the Graduate School Application Process."
         },
         {
-            "event_status": "completed",
+            "id": 4,
+            "status": "completed",
             "start_date": "2020-09-23",
             "end_date": "2020-09-23",
             "name": "[Sonoma State Mathematics Department Colloquium](https://www.csueastbay.edu/math/upcoming-math-talks)",
             "description": "At this colloquium, I talked about my journey to and through graduate school in mathematics. I will also touch on some of the fun mathematics research I did over the summer in VFP."
         },
         {
-            "event_status": "completed",
+            "id": 3,
+            "status": "completed",
             "start_date": "2020-09-18",
             "end_date": "2020-09-18",
             "name": "[Pacific Math Alliance Webinar](https://www.pacificmathalliance.org/conferences)",
             "description": "**Title:**  Research Opportunities for Undergraduates in the Mathematical Sciences."
         },
         {
-            "event_status": "completed",
+            "id": 2,
+            "status": "completed",
             "start_date": "2020-09-04",
             "end_date": "2020-09-04",
             "name": "[Pacific Math Alliance Webinar](https://www.pacificmathalliance.org/conferences)",
             "description": "**Title:**  Welcome to the Pacific Math Alliance."
         },
         {
-            "event_status": "completed",
+            "id": 1,
+            "status": "completed",
             "start_date": "2020-06-04",
             "end_date": "2020-07-30",
             "name": "[Visiting Faculty Program](https://www.womenincombinatorics.com/colloquium)",

@@ -3,11 +3,11 @@
 {% block main_content %}
 <section>
     <div class="row gtr-uniform">
-        <header class="major col-6">
+        <header class="major col-9 col-6-small col-12-xsmall">
             <h1 class="h2">Upcoming Events</h1>
         </header>
-        <div class="col-6">
-            <a class="button primary fit" href="{{ url_for('events.add_event') }}">Add Event</a>
+        <div class="col-3 col-6-small col-12-xsmall">
+            <a class="button primary" href="{{ url_for('events.add_event') }}">Add Event</a>
         </div>
     </div>
     {% if data %}

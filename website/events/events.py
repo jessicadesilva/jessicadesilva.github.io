@@ -1,13 +1,16 @@
 """
 The `events` blueprint handles displaying events pages.
 """
-from flask import Blueprint, render_template, request
-from markdown import markdown
 from datetime import date
+
+from flask import Blueprint, flash, render_template, request, redirect, url_for
+from markdown import markdown
+
 from website.events.utilities import (
     determine_event_status,
     event_is_unique,
     get_events,
+    get_json_schema,
     strip_p_tags,
     update_events_file,
 )
@@ -23,7 +26,7 @@ def upcoming_events():
     for event in event_json_data["events"]:
         determine_event_status(event["end_date"])
 
-        if event["event_status"] == "scheduled":
+        if event["status"] == "scheduled":
             event_output = {}
             if event["start_date"] == event["end_date"]:
                 event_output["Date"] = event["end_date"]
@@ -60,7 +63,7 @@ def past_events():
     for event in event_json_data["events"]:
         determine_event_status(event["end_date"])
 
-        if event["event_status"] == "completed":
+        if event["status"] == "completed":
             event_output = {}
             if event["start_date"] == event["end_date"]:
                 event_output["Date"] = event["end_date"]
@@ -96,18 +99,17 @@ def add_event():
         event_json_data = get_events()
         if request.form.get("add_event"):
             event = {
-                "event_status": determine_event_status(request.form.get("end_date")),
+                "id": len(event_json_data["events"]) + 1,
+                "status": determine_event_status(request.form.get("end_date")),
                 "start_date": request.form.get("start_date"),
                 "end_date": request.form.get("end_date"),
                 "name": "".join(request.form.get("name")),
                 "description": "".join(request.form.get("description")),
             }
 
-            if not event_is_unique(event):
-                return render_template(
-                    "add_event.j2",
-                    error="The event you are trying to add already exists.",
-                )
+            if not event_is_unique(event_json_data, event):
+                flash("The event you are trying to add already exists.", "error")
+                return redirect(url_for("events.add_event"))
 
             event_json_data["events"].append(event)
             event_json_data["events"] = sorted(
@@ -117,5 +119,11 @@ def add_event():
             )
             event_json_data["updated"] = date.today().strftime("%b %d, %Y")
             update_events_file(event_json_data)
+            flash("Event added successfully.", "success")
 
     return render_template("add_event.j2")
+
+
+@events_blueprint.route("/schema.json")
+def events_schema():
+    return get_json_schema()

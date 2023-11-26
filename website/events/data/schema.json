@@ -15,26 +15,30 @@
             "items": {
                 "type": "object",
                 "properties": {
-                    "event_status": {
+                    "id": {
+                        "description": "The id of the event.",
+                        "type": "integer"
+                    },
+                    "status": {
                         "description": "The status of the event.",
                         "enum": [
                             "scheduled",
                             "completed"
                         ]
                     },
-                    "event_name": {
-                        "description": "The name of the event.",
-                        "type": "string"
-                    },
-                    "event_start_date": {
+                    "start_date": {
                         "description": "The start date of the event.",
                         "type": "string"
                     },
-                    "event_end_date": {
+                    "end_date": {
                         "description": "The end date of the event.",
                         "type": "string"
                     },
-                    "event_description": {
+                    "name": {
+                        "description": "The name of the event.",
+                        "type": "string"
+                    },
+                    "description": {
                         "description": "The description of the event.",
                         "type": "string"
                     }
@@ -42,11 +46,12 @@
                 "minItems": 1,
                 "uniqueItems": true,
                 "required": [
-                    "event_status",
-                    "event_name",
-                    "event_start_date",
-                    "event_end_date",
-                    "event_description"
+                    "id",
+                    "status",
+                    "start_date",
+                    "end_date",
+                    "name",
+                    "description"
                 ]
             }
         }
