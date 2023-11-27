@@ -1,8 +1,14 @@
+import os
+
 from website import create_app
+
 
 # Call the application factory function to construct a Flask application
 # instance using the development configuration
 app = create_app()
+app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
+app.config["UPLOAD_FOLDER"] = os.environ.get("UPLOAD_FOLDER")
+app.config["ALLOWED_EXTENSIONS"] = os.environ.get("ALLOWED_EXTENSIONS")
 
 
 if __name__ == "__main__":
