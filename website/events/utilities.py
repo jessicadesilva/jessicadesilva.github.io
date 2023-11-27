@@ -32,6 +32,10 @@ def determine_event_status(end_date):
         return "scheduled"
 
 
+def format_date_string(date):
+    return f"{date[5:]}{date[4]}{date[:4]}".replace("-", "/")
+
+
 def strip_p_tags(text):
     return text.replace("<p>", "").replace("</p>", "")
 

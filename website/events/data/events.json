@@ -2,6 +2,14 @@
     "updated": "May 12, 2021",
     "events": [
         {
+            "id": 31,
+            "status": "completed",
+            "start_date": "2021-06-01",
+            "end_date": "2021-08-01",
+            "name": "2021 Visiting Faculty Program",
+            "description": "Sherly and I will continue our work with Dr. Talita Perciano from LBNL to improve and test our image segmentation algorithm."
+        },
+        {
             "id": 34,
             "status": "completed",
             "start_date": "2021-07-23",
@@ -26,12 +34,12 @@
             "description": "The Latinx MRC is a year long program for early-career Latinx mathematicians providing tiered mentoring research opportunities, professional development opportunities, and establishes a large research network of Latinx mathematicians."
         },
         {
-            "id": 31,
+            "id": 28,
             "status": "completed",
-            "start_date": "2021-06-01",
-            "end_date": "2021-08-01",
-            "name": "2021 Visiting Faculty Program",
-            "description": "Sherly and I will continue our work with Dr. Talita Perciano from LBNL to improve and test our image segmentation algorithm."
+            "start_date": "2021-05-25",
+            "end_date": "2021-05-28",
+            "name": "[2021 CANADAM Online Meeting](https://canadam.math.ca/2021/program/schedule_overview)",
+            "description": "I am excited to have been invited to give a talk at this conference by my academic sister, Dr. Rachel Kirsch."
         },
         {
             "id": 30,
@@ -48,14 +56,6 @@
             "end_date": "2021-05-25",
             "name": "Creating a Better Summer Experience: [A DEI Workshop for REU Directors and Faculty Mentors](https://minoritymath.org/reudeiworkshop2021/)",
             "description": "This workshop provided the tools to assist with mentoring underrepresented and minoritized students in mathematics, specifically in immersive summer research experiences."
-        },
-        {
-            "id": 28,
-            "status": "completed",
-            "start_date": "2021-05-25",
-            "end_date": "2021-05-28",
-            "name": "[2021 CANADAM Online Meeting](https://canadam.math.ca/2021/program/schedule_overview)",
-            "description": "I am excited to have been invited to give a talk at this conference by my academic sister, Dr. Rachel Kirsch."
         },
         {
             "id": 27,
@@ -170,20 +170,20 @@
             "description": "I gave a virtual research talk for WinCom! The Women in Combinatorics network, WinCom, is intended as a platform for any Combinatorialist who identifies as a woman and would like to connect with other women for various professional reasons and concerns. A database spreadsheet is available for the public to view as a place to search for women collaborators, keynotes, and mentors to encourage the diversification of our research networks."
         },
         {
-            "id": 13,
-            "status": "completed",
-            "start_date": "2020-11-21",
-            "end_date": "2020-11-21",
-            "name": "[Bay Area Discrete (BAD) Math Day](https://sites.google.com/view/bad-math-day-spring-2020/home)",
-            "description": "I am one of the co-organizers for the BAD Math Day conference. BAD Math Days are one-day meetings aimed at facilitating communication between researchers and graduate students of discrete mathematics around the San Francisco Bay Area. These days happen twice a year and strive to create an informal atmosphere to talk about discrete mathematics. The term discrete mathematics is chosen to include at least the following topics: Algebraic and Enumerative Combinatorics, Discrete Geometry, Graph Theory, Coding and Design Theory, Combinatorial Aspects of Computational Algebra and Geometry, Combinatorial Optimization, Probabilistic Combinatorics, Combinatorial Aspects of Statistics, and Combinatorics in Mathematical Physics."
-        },
-        {
             "id": 12,
             "status": "completed",
             "start_date": "2020-11-20",
             "end_date": "2020-11-23",
             "name": "[paraDIGMS Fall Conference](https://www.imsi.institute/paradigms2020/)",
             "description": "It was a pleasure to speak about my experiences mentoring undergraduate mathematics majors at Stanislaus State with graduate directors across the nation."
+        },
+        {
+            "id": 13,
+            "status": "completed",
+            "start_date": "2020-11-21",
+            "end_date": "2020-11-21",
+            "name": "[Bay Area Discrete (BAD) Math Day](https://sites.google.com/view/bad-math-day-spring-2020/home)",
+            "description": "I am one of the co-organizers for the BAD Math Day conference. BAD Math Days are one-day meetings aimed at facilitating communication between researchers and graduate students of discrete mathematics around the San Francisco Bay Area. These days happen twice a year and strive to create an informal atmosphere to talk about discrete mathematics. The term discrete mathematics is chosen to include at least the following topics: Algebraic and Enumerative Combinatorics, Discrete Geometry, Graph Theory, Coding and Design Theory, Combinatorial Aspects of Computational Algebra and Geometry, Combinatorial Optimization, Probabilistic Combinatorics, Combinatorial Aspects of Statistics, and Combinatorics in Mathematical Physics."
         },
         {
             "id": 11,

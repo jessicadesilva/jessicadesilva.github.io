@@ -9,6 +9,7 @@ from markdown import markdown
 from website.events.utilities import (
     determine_event_status,
     event_is_unique,
+    format_date_string,
     get_events,
     get_json_schema,
     strip_p_tags,
@@ -25,13 +26,20 @@ def upcoming_events():
     data = []
     for event in event_json_data["events"]:
         determine_event_status(event["end_date"])
-
+        event_json_data["events"] = sorted(
+            event_json_data["events"], key=lambda k: k["end_date"], reverse=True
+        )
+        update_events_file(event_json_data)
         if event["status"] == "scheduled":
             event_output = {}
             if event["start_date"] == event["end_date"]:
-                event_output["Date"] = event["end_date"]
+                event_output["Date"] = format_date_string(event["end_date"])
             else:
-                event_output["Date"] = event["start_date"] + " - " + event["end_date"]
+                event_output["Date"] = (
+                    format_date_string(event["start_date"])
+                    + " - "
+                    + format_date_string(event["end_date"])
+                )
             #
             # NOTE: Event name and description support markdown formating.
             # Convert to HTML and remove the <p> tags.
@@ -44,12 +52,6 @@ def upcoming_events():
             )
 
             data.append(event_output)
-            data = sorted(data, key=lambda k: k["Date"])
-
-    event_json_data["events"] = sorted(
-        event_json_data["events"], key=lambda k: k["start_date"], reverse=True
-    )
-    update_events_file(event_json_data)
 
     return render_template(
         "upcoming_events.j2", data=data, updated=event_json_data["updated"]
@@ -62,13 +64,20 @@ def past_events():
     data = []
     for event in event_json_data["events"]:
         determine_event_status(event["end_date"])
-
+        event_json_data["events"] = sorted(
+            event_json_data["events"], key=lambda k: k["end_date"], reverse=True
+        )
+        update_events_file(event_json_data)
         if event["status"] == "completed":
             event_output = {}
             if event["start_date"] == event["end_date"]:
-                event_output["Date"] = event["end_date"]
+                event_output["Date"] = format_date_string(event["end_date"])
             else:
-                event_output["Date"] = event["start_date"] + " - " + event["end_date"]
+                event_output["Date"] = (
+                    format_date_string(event["start_date"])
+                    + " - "
+                    + format_date_string(event["end_date"])
+                )
             #
             # NOTE: Event name and description support markdown formating.
             # Convert to HTML and remove the <p> tags.
@@ -81,12 +90,6 @@ def past_events():
             )
 
             data.append(event_output)
-            data = sorted(data, key=lambda k: k["Date"], reverse=True)
-
-    event_json_data["events"] = sorted(
-        event_json_data["events"], key=lambda k: k["start_date"], reverse=True
-    )
-    update_events_file(event_json_data)
 
     return render_template(
         "past_events.j2", data=data, updated=event_json_data["updated"]
@@ -119,8 +122,14 @@ def add_event():
             )
             event_json_data["updated"] = date.today().strftime("%b %d, %Y")
             update_events_file(event_json_data)
-            flash("Event added successfully.", "success")
+            flash(
+                f"{''.join(strip_p_tags(markdown(''.join(event['name']))))} added successfully.",
+                "success",
+            )
 
+    flash(
+        "This is an internal page that is only live on the development server.", "info"
+    )
     return render_template("add_event.j2")
 
 
