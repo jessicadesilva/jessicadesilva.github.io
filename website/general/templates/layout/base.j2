@@ -21,7 +21,7 @@
         {# Local CSS file for styling the application #}
         <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" />
         {# Additional styling #}
-        {% block additional_styling %}{% endblock %}
+        {%- block additional_styling %}{%- endblock %}
     </head>
 
     <body class="is-preload">
@@ -31,15 +31,15 @@
             <div id="main">
                 <div class="inner">
                     {# Page header #}
-                    {% include "components/header.j2" %}
+                    {%- include "components/header.j2" %}
                     {# Messages #}
-                    {% include "components/messages.j2" %}
+                    {%- include "components/messages.j2" %}
                     {# Page content #}
-                    {% block main_content %} {% endblock %}
+                    {%- block main_content %}{%- endblock %}
                 </div>
             </div>
             {# Sidebar #}
-            {% include "components/sidebar.j2" %}
+            {%- include "components/sidebar.j2" %}
         </div>
 
         <!-- Scripts -->
@@ -49,7 +49,7 @@
         <script src="{{ url_for('static', filename='js/util.js') }}"></script>
         <script src="{{ url_for('static', filename='js/main.js') }}"></script>
         {# Additional scripts #}
-        {% block additional_scripts %}{% endblock %}
+        {%- block additional_scripts %}{%- endblock %}
     </body>
 
 </html>
