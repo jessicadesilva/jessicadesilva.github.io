@@ -3,129 +3,182 @@ The `events` blueprint handles displaying events pages.
 """
 from datetime import date
 
-from flask import Blueprint, flash, render_template, request, redirect, url_for
-from markdown import markdown
+from flask import Blueprint, flash, render_template, request, redirect, abort
+from pydantic import ValidationError
 
+from website.events.schema import EventSchema, EventsListSchema
 from website.events.utilities import (
     determine_event_status,
     event_is_unique,
-    format_date_string,
-    get_events,
-    get_json_schema,
-    strip_p_tags,
-    update_events_file,
+    formatted_date,
+    get_event_schema,
+    load_events_data_file,
+    markdown_formatted,
+    update_events_data_file,
 )
 
 
 events_blueprint = Blueprint("events", __name__, template_folder="templates")
 
 
-@events_blueprint.route("/upcoming.html")
-def upcoming_events():
-    event_json_data = get_events()
+@events_blueprint.route("/scheduled.html")
+def scheduled_events():
+    try:
+        event_json_data = load_events_data_file()
+    except OSError as error:
+        flash(error, "error")
+        abort(500)
+    else:
+        try:
+            EventsListSchema.model_validate(event_json_data)
+        except ValidationError as error:
+            flash(error, "error")
+            abort(500)
+
     data = []
     for event in event_json_data["events"]:
         determine_event_status(event["end_date"])
         event_json_data["events"] = sorted(
             event_json_data["events"], key=lambda k: k["end_date"], reverse=True
         )
-        update_events_file(event_json_data)
-        if event["status"] == "scheduled":
-            event_output = {}
-            if event["start_date"] == event["end_date"]:
-                event_output["Date"] = format_date_string(event["end_date"])
-            else:
-                event_output["Date"] = (
-                    format_date_string(event["start_date"])
-                    + " - "
-                    + format_date_string(event["end_date"])
-                )
-            #
-            # NOTE: Event name and description support markdown formating.
-            # Convert to HTML and remove the <p> tags.
-            #
-            event_output["Name"] = "".join(
-                strip_p_tags(markdown("".join(event["name"])))
-            )
-            event_output["Description"] = "".join(
-                strip_p_tags(markdown("".join(event["description"])))
-            )
 
+        try:
+            update_events_data_file(event_json_data)
+        except OSError as error:
+            flash(error, "error")
+            abort(500)
+
+        if event["status"] == "scheduled":
+            event_output = {
+                "ID": event["id"],
+                "Date": formatted_date(event["end_date"])
+                if event["start_date"] == event["end_date"]
+                else formatted_date(event["start_date"])
+                + " - "
+                + formatted_date(event["end_date"]),
+                "Name": markdown_formatted(event["name"]),
+                "Description": markdown_formatted(event["description"]),
+            }
             data.append(event_output)
 
     return render_template(
-        "upcoming_events.j2", data=data, updated=event_json_data["updated"]
+        "scheduled_events.j2", data=data, updated=event_json_data["updated"]
     )
 
 
 @events_blueprint.route("/past.html")
 def past_events():
-    event_json_data = get_events()
+    try:
+        event_json_data = load_events_data_file()
+    except OSError as error:
+        flash(error, "error")
+        abort(500)
+    else:
+        try:
+            EventsListSchema.model_validate(event_json_data)
+        except ValidationError as error:
+            flash(error, "error")
+            abort(500)
+
     data = []
     for event in event_json_data["events"]:
         determine_event_status(event["end_date"])
         event_json_data["events"] = sorted(
             event_json_data["events"], key=lambda k: k["end_date"], reverse=True
         )
-        update_events_file(event_json_data)
-        if event["status"] == "completed":
-            event_output = {}
-            if event["start_date"] == event["end_date"]:
-                event_output["Date"] = format_date_string(event["end_date"])
-            else:
-                event_output["Date"] = (
-                    format_date_string(event["start_date"])
-                    + " - "
-                    + format_date_string(event["end_date"])
-                )
-            #
-            # NOTE: Event name and description support markdown formating.
-            # Convert to HTML and remove the <p> tags.
-            #
-            event_output["Name"] = "".join(
-                strip_p_tags(markdown("".join(event["name"])))
-            )
-            event_output["Description"] = "".join(
-                strip_p_tags(markdown("".join(event["description"])))
-            )
+        try:
+            update_events_data_file(event_json_data)
+        except OSError as error:
+            flash(error, "error")
+            abort(500)
 
-            data.append(event_output)
+        if event["status"] == "completed":
+            output_data = {
+                "ID": event["id"],
+                "Date": formatted_date(event["end_date"])
+                if event["start_date"] == event["end_date"]
+                else formatted_date(event["start_date"])
+                + " - "
+                + formatted_date(event["end_date"]),
+                "Name": markdown_formatted(event["name"]),
+                "Description": markdown_formatted(event["description"]),
+            }
+            data.append(output_data)
 
     return render_template(
         "past_events.j2", data=data, updated=event_json_data["updated"]
     )
 
 
+# NOTE: This page is only interactive when the development server is running.
 @events_blueprint.route("/add.html", methods=["GET", "POST"])
 def add_event():
     if request.method == "POST":
-        event_json_data = get_events()
         if request.form.get("add_event"):
+            if not request.form.get("start_date"):
+                flash("Event start date not provided.", "error")
+                return redirect(request.url)
+
+            if not request.form.get("end_date"):
+                flash("Event end date not provided.", "error")
+                return redirect(request.url)
+
+            if not request.form.get("name"):
+                flash("Event name not provided.", "error")
+                return redirect(request.url)
+
+            if not request.form.get("description"):
+                flash("Event description not provided.", "error")
+                return redirect(request.url)
+
+            try:
+                events_json_data = load_events_data_file()
+            except OSError as error:
+                flash(error, "error")
+                abort(500)
+            else:
+                try:
+                    EventsListSchema.model_validate(events_json_data)
+                except ValidationError as error:
+                    flash(error, "error")
+                    return redirect(request.url)
+
             event = {
-                "id": len(event_json_data["events"]) + 1,
+                "id": len(events_json_data["events"]) + 1,
                 "status": determine_event_status(request.form.get("end_date")),
                 "start_date": request.form.get("start_date"),
                 "end_date": request.form.get("end_date"),
-                "name": "".join(request.form.get("name")),
-                "description": "".join(request.form.get("description")),
+                "name": request.form.get("name"),
+                "description": request.form.get("description"),
             }
+            try:
+                EventSchema.model_validate(event)
+            except ValidationError as error:
+                flash(error, "error")
+                return redirect(request.url)
 
-            if not event_is_unique(event_json_data, event):
+            if not event_is_unique(events_json_data, event):
                 flash("The event you are trying to add already exists.", "error")
-                return redirect(url_for("events.add_event"))
+                return redirect(request.url)
 
-            event_json_data["events"].append(event)
-            event_json_data["events"] = sorted(
-                event_json_data["events"],
+            events_json_data["events"].append(event)
+            events_json_data["events"] = sorted(
+                events_json_data["events"],
                 key=lambda k: k["start_date"],
                 reverse=True,
             )
-            event_json_data["updated"] = date.today().strftime("%b %d, %Y")
-            update_events_file(event_json_data)
-            flash(
-                f"{''.join(strip_p_tags(markdown(''.join(event['name']))))} added successfully.",
-                "success",
-            )
+            events_json_data["updated"] = date.today().strftime("%b %d, %Y")
+
+            try:
+                update_events_data_file(events_json_data)
+            except OSError as error:
+                flash(error, "error")
+                abort(500)
+            else:
+                flash("Event successfully added.", "success")
+
+            for key, value in event.items():
+                flash(f"{key}: {value}", "info" if value != "" else "question")
 
     flash(
         "This is an internal page that is only live on the development server.", "info"
@@ -135,4 +188,4 @@ def add_event():
 
 @events_blueprint.route("/schema.json")
 def events_schema():
-    return get_json_schema()
+    return get_event_schema()
