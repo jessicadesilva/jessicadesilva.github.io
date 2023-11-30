@@ -11,7 +11,7 @@
             <thead>
                 <tr>
                     {%- for key, value in data[0].items() -%}
-                    {%- if key != 'ID' %}
+                    {%- if key != "ID" %}
                     <th>{{ key }}</th>
                     {%- endif -%}
                     {%- endfor %}
@@ -21,7 +21,7 @@
                 {%- for row in data %}
                 <tr {% if row.ID %}id="{{ row.ID }}" {%- endif %}>
                     {%- for key, value in row.items() %}
-                    {%- if key != 'ID' %}
+                    {%- if key != "ID" %}
                     <td>{{ value }}</td>
                     {%- endif -%}
                     {%- endfor %}
