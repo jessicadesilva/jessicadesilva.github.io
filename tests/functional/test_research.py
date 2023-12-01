@@ -1,6 +1,7 @@
 """
 Functional tests for the research blueprint routes.
 """
+import pytest
 
 from website.research.research import (
     project_pages,
@@ -10,7 +11,8 @@ from website.research.research import (
 )
 
 
-def test_get_current_ugrad_projects_page(test_client):
+@pytest.mark.route
+def test_get_page_current_ugrad_projects(test_client):
     """
     GIVEN a Flask application configured for testing
     WHEN the '/research/undergraduate/current.html' page is requested (GET)
@@ -19,7 +21,8 @@ def test_get_current_ugrad_projects_page(test_client):
     assert test_client.get("/research/undergrad/current.html").status_code == 200
 
 
-def test_get_current_ugrad_projects_abstracts_page(test_client):
+@pytest.mark.route
+def test_get_page_current_ugrad_projects_abstracts(test_client):
     """
     GIVEN a Flask application configured for testing
     WHEN the '/research/undergraduate/current/abstracts.html' page is requested (GET)
@@ -30,7 +33,8 @@ def test_get_current_ugrad_projects_abstracts_page(test_client):
     )
 
 
-def test_get_former_ugrad_projects_page(test_client):
+@pytest.mark.route
+def test_get_page_former_ugrad_projects(test_client):
     """
     GIVEN a Flask application configured for testing
     WHEN the '/research/undergraduate/former.html' page is requested (GET)
@@ -39,7 +43,8 @@ def test_get_former_ugrad_projects_page(test_client):
     assert test_client.get("/research/undergrad/former.html").status_code == 200
 
 
-def test_get_other_research_projects_page(test_client):
+@pytest.mark.route
+def test_get_page_other_research_projects(test_client):
     """
     GIVEN a Flask application configured for testing
     WHEN the '/research/other.html' page is requested (GET)
@@ -48,7 +53,8 @@ def test_get_other_research_projects_page(test_client):
     assert test_client.get("/research/other.html").status_code == 200
 
 
-def test_get_project_page(test_client):
+@pytest.mark.route
+def test_get_page_project_name(test_client):
     """
     GIVEN a Flask application configured for testing
     WHEN the '/research/projects/<project_name>.html' page is requested (GET)
@@ -61,7 +67,8 @@ def test_get_project_page(test_client):
         )
 
 
-def test_get_current_ugrad_projects_page_content(test_client):
+@pytest.mark.route
+def test_get_page_content_current_ugrad_projects(test_client):
     """
     GIVEN a Flask application configured for testing
     WHEN the '/research/undergraduate/current.html' page is requested (GET)
@@ -73,7 +80,8 @@ def test_get_current_ugrad_projects_page_content(test_client):
         assert bytes(project_name, "utf-8") in response.data
 
 
-def test_get_former_ugrad_projects_page_content(test_client):
+@pytest.mark.route
+def test_get_page_content_former_ugrad_projects(test_client):
     """
     GIVEN a Flask application configured for testing
     WHEN the '/research/undergraduate/former.html' page is requested (GET)
@@ -85,7 +93,8 @@ def test_get_former_ugrad_projects_page_content(test_client):
         assert bytes(project_name, "utf-8") in response.data
 
 
-def test_get_current_ugrad_abstracts_page_content(test_client):
+@pytest.mark.route
+def test_get_page_content_current_ugrad_abstracts(test_client):
     """
     GIVEN a Flask application configured for testing
     WHEN the '/research/undergraduate/current/abstracts.html' page is requested (GET)

@@ -1,9 +1,11 @@
 """
 Functional tests for the general blueprint routes.
 """
+import pytest
 
 
-def test_get_home_page(test_client):
+@pytest.mark.route
+def test_get_page_home(test_client):
     """
     GIVEN a Flask application configured for testing
     WHEN the '/index.html' page is requested (GET)
@@ -12,7 +14,8 @@ def test_get_home_page(test_client):
     assert test_client.get("/index.html").status_code == 200
 
 
-def test_get_about_page(test_client):
+@pytest.mark.route
+def test_get_page_about(test_client):
     """
     GIVEN a Flask application configured for testing
     WHEN the '/about.html' page is requested (GET)
@@ -21,7 +24,8 @@ def test_get_about_page(test_client):
     assert test_client.get("/about.html").status_code == 200
 
 
-def test_get_cv_page(test_client):
+@pytest.mark.route
+def test_get_page_cv(test_client):
     """
     GIVEN a Flask application configured for testing
     WHEN the '/cv.html' page is requested (GET)
@@ -30,7 +34,8 @@ def test_get_cv_page(test_client):
     assert test_client.get("/about/cv.html").status_code == 200
 
 
-def test_get_student_news_page(test_client):
+@pytest.mark.route
+def test_get_page_student_news(test_client):
     """
     GIVEN a Flask application configured for testing
     WHEN the '/student_news.html' page is requested (GET)
