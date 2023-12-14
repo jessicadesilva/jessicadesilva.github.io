@@ -1,0 +1,33 @@
+<nav id="menu">
+    <header class="major">
+        <h2>Menu</h2>
+    </header>
+    <ul>
+        <li><a href="{{ url_for('public.home') }}">Homepage</a></li>
+        <li>
+            <span class="opener">Events</span>
+            <ul>
+                <li><a href="{{ url_for('events.future_events') }}">Upcoming Events</a></li>
+                <li><a href="{{ url_for('events.past_events') }}">Past Events</a></li>
+            </ul>
+        </li>
+        <li><a href="{{ url_for('public.student_news') }}">Student News</a></li>
+        <li>
+            <span class="opener">Research</span>
+            <ul>
+                {#<li><a href="{{ url_for('research.current_undergrad_projects') }}">Current Undergraduate Projects</a>
+                </li>
+                <li><a href="{{ url_for('research.former_undergrad_projects') }}">Former Undergraduate Projects</a></li>
+                <li><a href="{{ url_for('research.other_research_projects') }}">Other Projects</a></li>#}
+            </ul>
+        </li>
+        <li>
+            <span class="opener">Mentorship Groups</span>
+            <ul>
+                <li><a href="{{ url_for('mentor_groups.math') }}">For Mathematics</a></li>
+                <li><a href="{{ url_for('mentor_groups.stan') }}">For Stan State Students</a></li>
+            </ul>
+        </li>
+        <li><a href="{{ url_for('public.about') }}">About Me</a></li>
+    </ul>
+</nav>

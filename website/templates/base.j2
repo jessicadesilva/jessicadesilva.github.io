@@ -12,16 +12,18 @@
 <html lang="en-US">
 
     <head>
-        {# Required meta tags #}
-        <meta charset="UTF-8" />
+        <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        {# Page title #}
-        <title>{% block title %}{% endblock %}</title>
-        {# Local CSS file for styling the application #}
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" />
-        {# Additional styling #}
-        {%- block additional_styling %}{%- endblock %}
+
+        <title>
+            {% block page_title %}{% endblock %}
+        </title>
+
+        <!-- Local CSS file for styling the application -->
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}" />
+        <!-- Additional styling -->
+        {% block css %}{% endblock %}
     </head>
 
     <body class="is-preload">
@@ -30,16 +32,16 @@
             <!-- Main -->
             <div id="main">
                 <div class="inner">
-                    {# Page header #}
-                    {%- include "components/header.j2" %}
-                    {# Messages #}
-                    {%- include "components/messages.j2" %}
-                    {# Page content #}
-                    {%- block main_content %}{%- endblock %}
+                    <!-- Header -->
+                    {% include "header.j2" %}
+                    <!-- Messages -->
+                    {% include "messages.j2" %}
+                    <!-- Main Content -->
+                    {% block content %}{% endblock %}
                 </div>
             </div>
-            {# Sidebar #}
-            {%- include "components/sidebar.j2" %}
+            <!-- Sidebar -->
+            {% include "sidebar.j2" %}
         </div>
 
         <!-- Scripts -->
@@ -48,8 +50,8 @@
         <script src="{{ url_for('static', filename='js/breakpoints.min.js') }}"></script>
         <script src="{{ url_for('static', filename='js/util.js') }}"></script>
         <script src="{{ url_for('static', filename='js/main.js') }}"></script>
-        {# Additional scripts #}
-        {%- block additional_scripts %}{%- endblock %}
+        <!-- Additional scripts -->
+        {% block js %}{% endblock %}
     </body>
 
 </html>
