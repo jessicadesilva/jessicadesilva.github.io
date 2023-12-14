@@ -19,4 +19,4 @@ if __name__ == "__main__":
     #           http://flask.pocoo.org/docs/deploying/
     # NOTE: We are not using Frozen-Flask here, so we can take advantage
     #       of the dynamic nature of Flask to run the application.
-    app.run(debug=True)
+    app.run()
