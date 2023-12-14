@@ -43,7 +43,7 @@ class EventStatus(PkModel):
 
     __tablename__ = "event_status"
 
-    status: Mapped[str] = mapped_column()
+    status: Mapped[str] = mapped_column(unique=True)
 
     @classmethod
     def return_status_id(self, status: str) -> int:
