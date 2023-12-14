@@ -1,15 +1,52 @@
+# -*- coding: utf-8 -*-
+"""Defines fixtures available to all tests."""
 import os
+
 import pytest
+from webtest import TestApp
+
 from website import create_app
+from website import database as _database
+
+from .factories import EventFactory
 
 
-@pytest.fixture(scope="module")
-def test_client():
-    flask_app = create_app()
-    flask_app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
-    flask_app.config["UPLOAD_FOLDER"] = os.environ.get("UPLOAD_FOLDER")
-    flask_app.config["ALLOWED_EXTENSIONS"] = os.environ.get("ALLOWED_EXTENSIONS")
+@pytest.fixture
+def app():
+    """Create application for the tests."""
+    _app = create_app("tests.settings")
+    ctx = _app.test_request_context()
+    ctx.push()
 
-    # Create a test client using the Flask application configured for testing
-    with flask_app.test_client() as testing_client:
-        yield testing_client  # this is where the testing happens!
+    yield _app
+
+    ctx.pop()
+
+
+@pytest.fixture
+def testapp(app):
+    """Create Webtest app."""
+    return TestApp(app)
+
+
+@pytest.fixture
+def database(app):
+    """Create database for the tests."""
+    _database.app = app
+
+    with app.app_context():
+        _database.create_all()
+
+    yield _database
+
+    # Explicitly close database connection
+    _database.session.close()
+    _database.drop_all()
+
+
+@pytest.fixture
+def event(database):
+    """Create event for the tests."""
+    event = EventFactory()
+    database.session.commit()
+    return event
