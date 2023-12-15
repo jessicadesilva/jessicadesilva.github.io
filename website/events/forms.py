@@ -8,11 +8,11 @@ from wtforms.validators import DataRequired
 from .models import Event, EventStatus
 from .validator import EventValidator
 from .utils import determine_event_status
-from website.utils import strip_p_tags
+from website.utils import clean_input
 
 
 class EventForm(FlaskForm):
-    """Add an event form."""
+    """Multi-purpose event form."""
 
     start_date = DateField("Start Date", validators=[DataRequired()])
     end_date = DateField("End Date", validators=[DataRequired()])
@@ -41,8 +41,8 @@ class EventForm(FlaskForm):
             status=determine_event_status(self.end_date.data),
             start_date=self.start_date.data,
             end_date=self.end_date.data,
-            name=strip_p_tags(self.name.data),
-            description=strip_p_tags(self.description.data),
+            name=clean_input(self.name.data),
+            description=clean_input(self.description.data),
         )
 
         try:

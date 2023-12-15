@@ -5,7 +5,7 @@ from datetime import datetime
 from flask import Blueprint, flash, render_template, request, redirect, url_for
 
 from website.extensions import database
-from website.utils import strip_p_tags, formatted_date
+from website.utils import clean_input, formatted_date
 from website.events.forms import EventForm
 from website.events.models import Event, EventStatus
 from website.events.utils import determine_event_status
@@ -90,10 +90,10 @@ def add_event():
                 ),
                 start_date=form.start_date.data,
                 end_date=form.end_date.data,
-                name=strip_p_tags(form.name.data),
-                description=strip_p_tags(form.description.data),
+                name=clean_input(form.name.data),
+                description=clean_input(form.description.data),
             )
-            flash(f"{strip_p_tags(form.name.data)} successfully added.", "success")
+            flash(f"{clean_input(form.name.data)} successfully added.", "success")
             return redirect(request.url)
 
     return render_template("events/add_event.j2", form=form)
@@ -115,10 +115,13 @@ def edit_event(event_id: int):
                 ),
                 start_date=form.start_date.data,
                 end_date=form.end_date.data,
-                name=strip_p_tags(form.name.data),
-                description=strip_p_tags(form.description.data),
+                name=clean_input(form.name.data),
+                description=clean_input(form.description.data),
             )
-            flash(f"{strip_p_tags(form.name.data)} successfully updated.", "success")
+            flash(
+                f"{clean_input(form.name.data)} successfully updated.",
+                "success",
+            )
             return redirect(request.url)
 
     form.start_date.data = datetime.strptime(event.start_date, "%Y-%m-%d").date()

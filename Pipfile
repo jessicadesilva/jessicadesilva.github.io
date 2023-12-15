@@ -14,6 +14,7 @@ Flask-Migrate = ">=4.0.0"
 Flask-WTF = ">=1.0.0"
 WTForms = ">=3.0.0"
 flask-ckeditor = ">=0.5.1"
+bleach = ">=6.0.0"
 # Static Delpoyment
 frozen-flask = ">=1.0.0"
 # Validation
