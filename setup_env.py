@@ -11,7 +11,7 @@ SQLALCHEMY_DATABASE_URI = (
     f"sqlite:///{os.path.join(PROJECT_ROOT, 'instance', 'app.db')}"
 )
 SQLALCHEMY_TRACK_MODIFICATIONS = False
-UPLOAD_FOLDER = os.path.join(PROJECT_ROOT, "website", "static", "images")
+UPLOAD_FOLDER = os.path.join(PROJECT_ROOT, "website", "static", "images", "projects")
 CKEDITOR_ENABLE_CSRF = True
 ALLOWED_EXTENSION = {"pdf", "png", "jpg", "jpeg", "gif"}
 
