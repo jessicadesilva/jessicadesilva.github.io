@@ -110,6 +110,7 @@ def edit_event(event_id: int):
         if form.validate_on_submit():
             event.update(
                 commit=True,
+                id=event_id,
                 status_id=EventStatus.return_status_id(
                     determine_event_status(form.end_date.data)
                 ),
@@ -122,14 +123,14 @@ def edit_event(event_id: int):
                 f"{clean_input(form.name.data)} successfully updated.",
                 "success",
             )
-            return redirect(request.url)
+            return redirect(url_for("events.edit_event", event_id=event_id))
 
     form.start_date.data = datetime.strptime(event.start_date, "%Y-%m-%d").date()
     form.end_date.data = datetime.strptime(event.end_date, "%Y-%m-%d").date()
     form.name.data = event.name
     form.description.data = event.description
 
-    return render_template("events/edit_event.j2", form=form)
+    return render_template("events/edit_event.j2", event=event, form=form)
 
 
 @blueprint.route("/delete_event/<int:event_id>.html", methods=["GET", "POST"])

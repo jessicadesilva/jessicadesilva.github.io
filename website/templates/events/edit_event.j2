@@ -9,7 +9,7 @@
     <header class="major">
         <h1 class="h2">Edit Event</h1>
     </header>
-    <form id="event_form" method="POST" action="{{ url_for('events.add_event') }}">
+    <form id="event_form" method="POST" action="{{ url_for('events.edit_event', event_id=event.id) }}">
         <div class="row gtr-uniform">
             <div class="col-12">
                 {{ form.csrf_token }}
