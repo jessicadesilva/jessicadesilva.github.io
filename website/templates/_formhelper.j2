@@ -1,14 +1,20 @@
-{% macro render_field(field) %}
+{%- macro render_field(field) -%}
 
 {{ field.label }}
+
+{%- if "required" not in field(**kwargs) -%}
+optional
+{%- if "file" in field(**kwargs) -%}<br />{%- endif -%}
+{%- endif -%}
+
 {{ field(**kwargs) }}
 
-{% if field.errors %}
+{%- if field.errors -%}
 <ul class="contact">
-    {% for error in field.errors %}
+    {%- for error in field.errors -%}
     <li class="icon solid fa-times">{{ error }}</li>
-    {% endfor %}
+    {%- endfor -%}
 </ul>
-{% endif %}
+{%- endif -%}
 
-{% endmacro %}
+{%- endmacro -%}
