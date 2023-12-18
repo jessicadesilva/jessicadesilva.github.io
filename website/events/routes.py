@@ -2,10 +2,18 @@
 """Events module, including scheduled and past events."""
 from datetime import datetime
 
-from flask import Blueprint, flash, render_template, request, redirect, url_for
+from flask import (
+    Blueprint,
+    abort,
+    flash,
+    render_template,
+    request,
+    redirect,
+    url_for,
+)
 
 from website.extensions import database
-from website.utils import clean_input, formatted_date
+from website.utils import clean_input, formatted_date, dev_utils
 from website.events.forms import EventForm
 from website.events.models import Event, EventStatus
 from website.events.utils import determine_event_status
@@ -17,7 +25,8 @@ blueprint = Blueprint(
 
 
 @blueprint.route("/future.html")
-def future_events():
+@dev_utils
+def future_events(*args, **kwargs):
     """Display future events."""
 
     data = []
@@ -43,11 +52,12 @@ def future_events():
             }
             data.append(output_data)
 
-    return render_template("events/future_events.j2", data=data)
+    return render_template("events/future_events.j2", data=data, *args, **kwargs)
 
 
 @blueprint.route("/past.html")
-def past_events():
+@dev_utils
+def past_events(*args, **kwargs):
     """Display past events."""
 
     data = []
@@ -73,7 +83,7 @@ def past_events():
             }
             data.append(output_data)
 
-    return render_template("events/past_events.j2", data=data)
+    return render_template("events/past_events.j2", data=data, *args, **kwargs)
 
 
 @blueprint.route("/add_event.html", methods=["GET", "POST"])
@@ -105,6 +115,10 @@ def edit_event(event_id: int):
 
     form = EventForm()
     event = Event.get_by_id(event_id)
+
+    if not event:
+        flash(f"Event with ID {event_id} does not exist.", "error")
+        abort(404)
 
     if request.method == "POST":
         if form.validate_on_submit():
@@ -138,6 +152,10 @@ def delete_event(event_id: int):
     """Delete an event."""
 
     event = Event.get_by_id(event_id)
+
+    if not event:
+        flash(f"Event with ID {event_id} does not exist.", "error")
+        abort(404)
 
     if request.method == "POST":
         event.delete()

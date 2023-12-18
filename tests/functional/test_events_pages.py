@@ -143,6 +143,13 @@ class TestEventsPages:
         response = testapp.get(url_for("events.edit_event", event_id=event.id))
         assert response.status_code == 200
 
+    def test_edit_event_page_returns_404(self, testapp):
+        """Edit event page should respond with a success 404."""
+        response = testapp.get(
+            url_for("events.edit_event", event_id=0), expect_errors=True
+        )
+        assert response.status_code == 404
+
     def test_can_edit_all_event_fields_successfully(self, testapp, event):
         """Edit event page should display a success message when editing an event."""
         response = testapp.get(url_for("events.edit_event", event_id=event.id))
@@ -229,6 +236,13 @@ class TestEventsPages:
         """Delete event page should respond with a success 200."""
         response = testapp.get(url_for("events.delete_event", event_id=event.id))
         assert response.status_code == 200
+
+    def test_delete_event_page_returns_404(self, testapp):
+        """Delete event page should respond with a success 404."""
+        response = testapp.get(
+            url_for("events.delete_event", event_id=0), expect_errors=True
+        )
+        assert response.status_code == 404
 
     def test_can_delete_event_successfully(self, testapp, event):
         """Delete event page should display a success message when deleting an event."""
