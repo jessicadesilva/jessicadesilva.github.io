@@ -1,0 +1,47 @@
+{% extends "base.j2" %}
+
+{% block page_title %}Past Events{% endblock %}
+
+{% block content %}
+<section>
+    <header class="major">
+        <h1 class="h2">Past Events</h1>
+    </header>
+    {% if data %}
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    {% for key, value in data[0].items() %}
+                    {% if key != "ID" %}
+                    <th>{{ key }}</th>
+                    {% endif %}
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {%- for row in data %}
+                <tr {% if row.ID %}id="{{ row.ID }}" {% endif %}>
+                    {% for key, value in row.items() %}
+                    {% if key != "ID" %}
+                    <td>{{ value }}</td>
+                    {% endif %}
+                    {% endfor %}
+                    {% if debug %}
+                    <td>
+                        <ul class="actions special">
+                            <li><a class="solid icon fa-pen button small"
+                                    href="{{ url_for('events.edit_event', event_id=row.ID) }}">Edit</a></li>
+                            <li><a class="solid icon fa-trash button small primary"
+                                    href="{{ url_for('events.delete_event', event_id=row.ID) }}">Delete</a></li>
+                        </ul>
+                    </td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+</section>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends "base.j2" %}
+
+{% block page_title %}Jessica De Silva's Homepage{% endblock %}
+
+{% block content %}
+<!-- Banner -->
+<section id="banner">
+    <div class="content">
+        <header>
+            <h1>Welcome</h1>
+            <p>TO JESSICA DE SILVA'S HOMEPAGE</p>
+        </header>
+        <p>Hi, thank you for checking out my page! My name is Dr. Jessica De Silva and I have been at <a
+                href="https://www.csustan.edu">California State University, Stanislaus</a> since 2018 where I am
+            currently an Associate Professor of Mathematics. About 15 minutes away is the little town of Hilmar where I
+            grew up. Known locally for its school spirit, out-of-towners may have heard of Hilmar for its claim to fame
+            of being home of the Hilmar Cheese Company. This company's Hilmar facility produces more cheese per year
+            from a single site than any other cheese manufacturer in the world!
+        </p>
+        <p>I earned my B.S. in Mathematics from Stanislaus State, and my M.S. and Ph.D. both in Mathematics from the <a
+                href="https://www.unl.edu">University of Nebraska-Lincoln</a>. My research background is in
+            combinatorics in graph theory, and my current interests lie in applications of discrete mathematics in data
+            science and image processing. I have had the opportunity to mentor many fantastic research students through
+            <a href="https://www.csustan.edu/AMP/join">CSU-LSAMP</a> and Stan State's <a
+                href="https://www.csustan.edu/STEM-success/research-and-immersion-stem-excellence">RISE</a> program.
+            Read about their projects under the Research section on the left menu.
+        </p>
+        <p>Although research is one of my favorite pastimes, teaching is where I find my passion for this career. I have
+            had great math teachers throughout my childhood and this certainly influenced my choice to study
+            mathematics. My goal in the classroom is to be approachable, engaging, and to have a contageous positive
+            attitude towards mathematics. As a Stan State faculty member, I have had the pleasure of teaching some of
+            the most dedicated, successful, and motivated students at the university. Read about what they're up to
+            under the Student News section.</p>
+        <ul class="actions">
+            <li><a href="{{ url_for('public.about') }}" class="button big">Learn More</a></li>
+            <li><a href="{{ url_for('public.cv') }}" class="button big">CV</a></li>
+            <li><a href="mailto: jdesilva1@csustan.edu" class="button big">EMAIL</a></li>
+        </ul>
+    </div>
+    <span class="image object">
+        <img src="{{ url_for('static', filename='images/profile_pic_lake.jpg') }}"
+            alt="Dr. Jessica De Silva standing in front of the Reflecting Pond at Stan State." />
+    </span>
+</section>
+{% endblock %}

@@ -1,6 +1,24 @@
 Flask>=3.0.0
+# Database
+Flask-SQLAlchemy>=3.0.0
+SQLAlchemy>=2.0.0
+Flask-Migrate>=4.0.0
+# Forms
+Flask-WTF>=1.0.0
+WTForms>=3.0.0
+flask-ckeditor>=0.5.1
+bleach = >=6.0.0
+# Static Delpoyment
 Frozen-Flask>=1.0.1
-Markdown>=3.4.1
+# Validation
+pydantic>=2.5.2
+# Environment variable parsing
+environs>=9.5.0
+# Testing
+factory-boy>=3.2.0
 pytest>=7.2.1
 pytest-cov>=4.0.0
+WebTest>=3.0.0
+# Lint and code style
+black>=23.10.0
 flake8>=6.0.0

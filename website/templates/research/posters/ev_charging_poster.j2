@@ -1,0 +1,8 @@
+{% extends "base.j2" %}
+{% block page_title %}Electric Vehicle Charging Poster{% endblock %}
+{% block content %}
+<section>
+    <embed src="{{ url_for('static', filename='images/ev_charging_poster.pdf') }}" width=100% height=1000px
+        alt="(PDF File)">
+</section>
+{% endblock %}
