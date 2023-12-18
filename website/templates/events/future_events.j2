@@ -4,13 +4,16 @@
 
 {% block content %}
 <section>
-    <header class="row">
-        <h1 class="h2 col-9 col-6-small col-12-xsmall">Scheduled Events</h1>
+    <header {% if debug %} class="row" {% else %} class="major" {% endif %}>
+        <h1 {% if debug %} class="h2 col-9 col-6-small col-12-xsmall" {% else %} class="h2" {% endif %}>Scheduled Events
+        </h1>
+        {% if debug %}
         <div class="col-3 col-6-small col-12-xsmall">
             <ul class="actions stacked col-3 col-6-small col-12-xsmall">
                 <li><a class="button primary fit" href="{{ url_for('events.add_event') }}">Add Event</a></li>
             </ul>
         </div>
+        {% endif %}
     </header>
     {% if data %}
     <div class="table-wrapper">
@@ -32,6 +35,7 @@
                     <td>{{ value }}</td>
                     {% endif %}
                     {% endfor %}
+                    {% if debug %}
                     <td>
                         <ul class="actions special">
                             <li><a class="solid icon fa-pen button small"
@@ -40,6 +44,7 @@
                                     href="{{ url_for('events.delete_event', event_id=row.ID) }}">Delete</a></li>
                         </ul>
                     </td>
+                    {% endif %}
                 </tr>
                 {% endfor %}
             </tbody>

@@ -4,7 +4,7 @@
 
 {% block content %}
 <section>
-    <header>
+    <header class="major">
         <h1 class="h2">Past Events</h1>
     </header>
     {% if data %}
@@ -27,6 +27,7 @@
                     <td>{{ value }}</td>
                     {% endif %}
                     {% endfor %}
+                    {% if debug %}
                     <td>
                         <ul class="actions special">
                             <li><a class="solid icon fa-pen button small"
@@ -35,6 +36,7 @@
                                     href="{{ url_for('events.delete_event', event_id=row.ID) }}">Delete</a></li>
                         </ul>
                     </td>
+                    {% endif %}
                 </tr>
                 {% endfor %}
             </tbody>
