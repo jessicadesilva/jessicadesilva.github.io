@@ -1,18 +1,20 @@
 # -*- coding: utf-8 -*-
-"""Functional tests using WebTest for `error` pages."""
+"""Functional tests using WebTest for `error` pages.
+
+See: http://webtest.readthedocs.org/
+"""
+from http import HTTPStatus
+
 import pytest
 
 
 class TestErrorPages:
-    """Error page tests."""
+    """Test 'error' pages return the correct status code."""
 
-    def test_404_page(self, testapp):
-        """404 page should respond with a success 404."""
+    def test_invalid_route_returns_404(self, testapp):
         response = testapp.get("/not/a/valid/route", expect_errors=True)
-        assert response.status_code == 404
+        assert response.status_code == HTTPStatus.NOT_FOUND
 
     @pytest.mark.skip(reason="TODO: Figure out how to force a 500 error")
-    def test_500_page(self, testapp):
-        """500 page should respond with a success 500."""
-        # TODO: Figure out how to force a 500 error
+    def test_internal_server_error_returns_500(self, testapp):
         pass
