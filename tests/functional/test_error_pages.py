@@ -1,16 +1,11 @@
 # -*- coding: utf-8 -*-
-"""Functional tests using WebTest for `error` pages.
-
-See: http://webtest.readthedocs.org/
-"""
+"""Functional tests using WebTest for `error` pages."""
 from http import HTTPStatus
 
 import pytest
 
 
-class TestErrorPages:
-    """Test 'error' pages return the correct status code."""
-
+class TestErrorPageRoutes:
     def test_invalid_route_returns_404(self, testapp):
         response = testapp.get("/not/a/valid/route", expect_errors=True)
         assert response.status_code == HTTPStatus.NOT_FOUND

@@ -1,16 +1,11 @@
 # -*- coding: utf-8 -*-
-"""Functional tests using WebTest for `research` pages.
-
-See: http://webtest.readthedocs.org/
-"""
+"""Functional tests using WebTest for `research` pages."""
 from http import HTTPStatus
 
 from flask import url_for
 
 
-class TestResearchPages:
-    """Test 'research' pages return a success 200."""
-
+class TestResearchPageRoutes:
     def test_current_undergrad_projects_page_returns_200(self, testapp):
         response = testapp.get(url_for("research.current_undergrad_projects"))
         assert response.status_code == HTTPStatus.OK

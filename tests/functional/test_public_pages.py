@@ -1,16 +1,11 @@
 # -*- coding: utf-8 -*-
-"""Functional tests using WebTest for `public` pages.
-
-See: http://webtest.readthedocs.org/
-"""
+"""Functional tests using WebTest for `public` pages."""
 from http import HTTPStatus
 
 from flask import url_for
 
 
-class TestPublicPages:
-    """Test 'public' pages return a success 200."""
-
+class TestPublicPageRoutes:
     def test_home_page_returns_200(self, testapp):
         response = testapp.get(url_for("public.home"))
         assert response.status_code == HTTPStatus.OK

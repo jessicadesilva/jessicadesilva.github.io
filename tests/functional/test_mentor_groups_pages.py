@@ -1,14 +1,9 @@
 # -*- coding: utf-8 -*-
-"""Functional tests using WebTest for `mentor_groups` pages.
-
-See: http://webtest.readthedocs.org/
-"""
+"""Functional tests using WebTest for `mentor_groups` pages."""
 from flask import url_for
 
 
-class TestMentorGroupsPages:
-    """Test 'Mentor Groups' pages return a success 200."""
-
+class TestMentorGroupsPageRoutes:
     def test_mentor_groups_math_page_returns_200(self, testapp):
         response = testapp.get(url_for("mentor_groups.math"))
         assert response.status_code == 200
