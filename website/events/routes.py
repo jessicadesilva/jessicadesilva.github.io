@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """Events module, including scheduled and past events."""
 from datetime import datetime
+from http import HTTPStatus
 
 from flask import (
     Blueprint,
@@ -39,7 +40,7 @@ def future_events(*args, **kwargs):
                 commit=True, status_id=EventStatus.return_status_id("completed")
             )
 
-        if event.event_status_rel.status == "scheduled":
+        if event.status_rel.status == "scheduled":
             output_data = {
                 "ID": event.id,
                 "Date": formatted_date(event.end_date)
@@ -52,7 +53,10 @@ def future_events(*args, **kwargs):
             }
             data.append(output_data)
 
-    return render_template("events/future_events.j2", data=data, *args, **kwargs)
+    return (
+        render_template("events/future_events.j2", data=data, *args, **kwargs),
+        HTTPStatus.OK,
+    )
 
 
 @blueprint.route("/past.html")
@@ -70,7 +74,7 @@ def past_events(*args, **kwargs):
                 commit=True, status_id=EventStatus.return_status_id("completed")
             )
 
-        if event.event_status_rel.status == "completed":
+        if event.status_rel.status == "completed":
             output_data = {
                 "ID": event.id,
                 "Date": formatted_date(event.end_date)
@@ -83,7 +87,10 @@ def past_events(*args, **kwargs):
             }
             data.append(output_data)
 
-    return render_template("events/past_events.j2", data=data, *args, **kwargs)
+    return (
+        render_template("events/past_events.j2", data=data, *args, **kwargs),
+        HTTPStatus.OK,
+    )
 
 
 @blueprint.route("/add_event.html", methods=["GET", "POST"])
@@ -104,9 +111,12 @@ def add_event():
                 description=clean_input(form.description.data),
             )
             flash(f"{clean_input(form.name.data)} successfully added.", "success")
-            return redirect(request.url)
+            return (
+                render_template("events/add_event.j2", form=form),
+                HTTPStatus.CREATED,
+            )
 
-    return render_template("events/add_event.j2", form=form)
+    return render_template("events/add_event.j2", form=form), HTTPStatus.OK
 
 
 @blueprint.route("/edit_event/<int:event_id>.html", methods=["GET", "POST"])
@@ -118,7 +128,7 @@ def edit_event(event_id: int):
 
     if not event:
         flash(f"Event with ID {event_id} does not exist.", "error")
-        abort(404)
+        abort(HTTPStatus.NOT_FOUND)
 
     if request.method == "POST":
         if form.validate_on_submit():
@@ -137,14 +147,20 @@ def edit_event(event_id: int):
                 f"{clean_input(form.name.data)} successfully updated.",
                 "success",
             )
-            return redirect(url_for("events.edit_event", event_id=event_id))
+            return (
+                render_template("events/edit_event.j2", event=event, form=form),
+                HTTPStatus.OK,
+            )
 
     form.start_date.data = datetime.strptime(event.start_date, "%Y-%m-%d").date()
     form.end_date.data = datetime.strptime(event.end_date, "%Y-%m-%d").date()
     form.name.data = event.name
     form.description.data = event.description
 
-    return render_template("events/edit_event.j2", event=event, form=form)
+    return (
+        render_template("events/edit_event.j2", event=event, form=form),
+        HTTPStatus.OK,
+    )
 
 
 @blueprint.route("/delete_event/<int:event_id>.html", methods=["GET", "POST"])
@@ -155,7 +171,7 @@ def delete_event(event_id: int):
 
     if not event:
         flash(f"Event with ID {event_id} does not exist.", "error")
-        abort(404)
+        abort(HTTPStatus.NOT_FOUND)
 
     if request.method == "POST":
         event.delete()
@@ -165,4 +181,7 @@ def delete_event(event_id: int):
     form = EventForm()
     flash(f"Are you sure you want to delete {event.name}?", "warning")
 
-    return render_template("events/delete_event.j2", event=event, form=form)
+    return (
+        render_template("events/delete_event.j2", event=event, form=form),
+        HTTPStatus.OK,
+    )

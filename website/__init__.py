@@ -28,14 +28,14 @@ def create_app(config_object="website.settings"):
         "events",
         "event_status",
         "projects",
-        "project_status",
+        "undergrad_status",
         "project_type",
     ]
     table_names = inspector.get_table_names()
 
     if not all(items in table_names for items in expected_tables):
         from website.events.models import EventStatus
-        from website.research.models import ProjectStatus, ProjectType
+        from website.research.models import UndergradStatus, ProjectType
 
         with app.app_context():
             database.drop_all()
@@ -47,8 +47,8 @@ def create_app(config_object="website.settings"):
                 [
                     EventStatus(status="scheduled"),
                     EventStatus(status="completed"),
-                    ProjectStatus(status="current"),
-                    ProjectStatus(status="former"),
+                    UndergradStatus(status="current"),
+                    UndergradStatus(status="former"),
                     ProjectType(type="project"),
                     ProjectType(type="abstract"),
                 ]

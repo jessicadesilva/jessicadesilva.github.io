@@ -10,8 +10,6 @@ from website.database import PkModel
 
 
 class Event(PkModel):
-    """An event."""
-
     __tablename__ = "events"
 
     status_id: Mapped[int] = mapped_column(ForeignKey("event_status.id"))
@@ -20,11 +18,10 @@ class Event(PkModel):
     name: Mapped[str] = mapped_column()
     description: Mapped[str] = mapped_column()
 
-    event_status_rel: Mapped[EventStatus] = relationship()
+    status_rel: Mapped[EventStatus] = relationship()
 
     @classmethod
     def search_for_event(self, event: Event) -> Event | None:
-        """Search for an event."""
         return database.session.execute(
             database.select(Event).where(
                 Event.name == event.name,
@@ -39,15 +36,12 @@ class Event(PkModel):
 
 
 class EventStatus(PkModel):
-    """An event status."""
-
     __tablename__ = "event_status"
 
     status: Mapped[str] = mapped_column(unique=True)
 
     @classmethod
     def return_status_id(self, status: str) -> int:
-        """Return the status ID."""
         return database.session.execute(
             database.select(EventStatus.id).where(EventStatus.status == status)
         ).scalar_one()

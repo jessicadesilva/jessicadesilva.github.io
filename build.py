@@ -6,6 +6,7 @@ from website import create_app
 
 app = create_app()
 app.config["FREEZER_RELATIVE_URLS"] = True
+app.config["DEBUG"] = False
 freezer = Freezer(app)
 
 

@@ -2,7 +2,7 @@
 """Database module, including the SQLAlchemy database object and DB-related utilities."""
 from sqlalchemy.orm import Mapped, mapped_column
 
-from .extensions import database
+from website.extensions import database
 
 
 class CRUDMixin(object):
@@ -10,7 +10,6 @@ class CRUDMixin(object):
 
     @classmethod
     def create(cls, **kwargs):
-        """Create a new record and save it in the database."""
         instance = cls(**kwargs)
         return instance.save()
 
@@ -23,14 +22,12 @@ class CRUDMixin(object):
         return self
 
     def save(self, commit: bool = True):
-        """Save the record."""
         database.session.add(self)
         if commit:
             database.session.commit()
         return self
 
     def delete(self, commit: bool = True) -> None:
-        """Remove the record from the database."""
         database.session.delete(self)
         if commit:
             database.session.commit()
@@ -38,20 +35,19 @@ class CRUDMixin(object):
 
 
 class Model(CRUDMixin, database.Model):
-    """Base model class that includes CRUD convenience methods."""
+    """Base `Model` class that includes CRUD convenience methods."""
 
     __abstract__ = True
 
 
 class PkModel(Model):
-    """Base model class that includes CRUD convenience methods and a primary key."""
+    """Base `Model` class that includes CRUD convenience methods and a primary key."""
 
     __abstract__ = True
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
 
     @classmethod
     def get_by_id(cls, record_id):
-        """Get record by ID."""
         if any(
             (
                 isinstance(record_id, str) and record_id.isdigit(),
