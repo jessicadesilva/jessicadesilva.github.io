@@ -1,0 +1,52 @@
+{%- from "macros/_formhelper.j2" import render_field -%}
+
+{%- macro render_project_form(form) -%}
+
+<div class="col-12">
+    {{ form.csrf_token }}
+</div>
+<!-- Project type and status -->
+<fieldset class="box row gtr-uniform">
+    <div class="col-6 col-12-xsmall">
+        {{ render_field(form.type_id) }}
+    </div>
+    <div class="col-6 col-12-xsmall">
+        {{ render_field(form.status_id) }}
+    </div>
+</fieldset>
+<!-- Project image options -->
+<fieldset class="box row gtr-uniform">
+    <legend>If no image is selected, <code>default.jpg</code> will be used.</legend>
+    <div class="col-6 col-12-xsmall">
+        {{ render_field(form.image) }}
+    </div>
+    <div class="col-6 col-12-xsmall">
+        {{ render_field(form.upload) }}
+    </div>
+</fieldset>
+<!-- Project details -->
+<fieldset class="box row gtr-uniform">
+    <div class="col-12">
+        {{ render_field(form.students) }}
+    </div>
+    <div class="col-12">
+        {{ render_field(form.advisors) }}
+    </div>
+    <div class="col-12">
+        {{ render_field(form.majors) }}
+    </div>
+</fieldset>
+<!-- Project description -->
+<fieldset class="box row gtr-uniform">
+    <div class="col-12">
+        {{ render_field(form.title) }}
+    </div>
+    <div class="col-12">
+        {{ render_field(form.description) }}
+    </div>
+    <div class="col-12">
+        {{ render_field(form.link) }}
+    </div>
+</fieldset>
+
+{%- endmacro -%}

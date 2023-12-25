@@ -1,6 +1,6 @@
 {%- extends "base.j2" -%}
 
-{%- from "_formhelper.j2" import render_field -%}
+{%- from "macros/_eventform.j2" import render_event_form -%}
 
 {%- block page_title -%}Add Event{%- endblock -%}
 
@@ -11,21 +11,7 @@
     </header>
     <form id="event_form" method="POST" action="{{ url_for('events.add_event') }}">
         <div class="row gtr-uniform">
-            <div class="col-12">
-                {{ form.csrf_token }}
-            </div>
-            <div class="col-6 col-12-xsmall">
-                {{ render_field(form.start_date) }}
-            </div>
-            <div class="col-6 col-12-xsmall">
-                {{ render_field(form.end_date) }}
-            </div>
-            <div class="col-12">
-                {{ render_field(form.name) }}
-            </div>
-            <div class="col-12">
-                {{ render_field(form.description) }}
-            </div>
+            {{ render_event_form(form)}}
             <div class="col-12">
                 <ul class="actions">
                     <li><input id="submit" class="primary" name="submit" type="submit" value="Add event"></li>

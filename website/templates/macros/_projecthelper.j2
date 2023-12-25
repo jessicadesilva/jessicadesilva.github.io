@@ -1,0 +1,35 @@
+{%- macro render_project(project, debug=false) -%}
+
+<article id="{{ project.id }}">
+    <a class="image"><img src="{{ project.image }}" /></a>
+    <h2 class="h3">{{ project.title }}</h2>
+
+    {%- if project.adivsors is not none -%}
+    <h3 class="h4">{{ project.advisors }}</h3>
+    {%- endif -%}
+
+    <h3 class="h4">{{ project.students }}</h3>
+
+    {%- if project.majors is not none -%}
+    <h4 class="h5">{{ project.majors }}</h4>
+    {%- endif -%}
+
+    <p>{{ project.description }}</p>
+
+    {%- if project.url is not none -%}
+    <ul class="actions">
+        <li>{{ project.url }}</li>
+    </ul>
+    {%- endif -%}
+
+    {%- if debug -%}
+    <ul class="actions special">
+        <li><a class="solid icon fa-pen button small"
+                href="{{ url_for('research.edit_project', project_id=project.id) }}">Edit</a></li>
+        <li><a class="solid icon fa-trash button small primary"
+                href="{{ url_for('research.delete_project', project_id=project.id) }}">Delete</a></li>
+    </ul>
+    {%- endif -%}
+</article>
+
+{%- endmacro -%}
