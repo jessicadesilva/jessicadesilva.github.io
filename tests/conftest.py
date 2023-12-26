@@ -6,7 +6,7 @@ from webtest import TestApp
 from website import create_app
 from website import database as _database
 
-from tests.factories import EventFactory
+from tests.factories import EventFactory, ProjectFactory
 
 
 @pytest.fixture
@@ -44,3 +44,10 @@ def event(database):
     event = EventFactory()
     database.session.commit()
     return event
+
+
+@pytest.fixture
+def project(database):
+    project = ProjectFactory()
+    database.session.commit()
+    return project
