@@ -1,156 +1,80 @@
-## Overview
-This Flask application displays Dr. Jessica De Silva's personal website using a [JAMstack](https://jamstack.org/) architecture. [Frozen-Flask](https://pythonhosted.org/Frozen-Flask/) is used to generate static files based on the Flask application's routes. After that, the static files are hosted on [GitHub Pages](https://pages.github.com/). [HTML5 UP](https://html5up.net/) created the original website design. 
+# Dr. Jessica De Silva's Website
+[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-jessicadesilva.github.io-informational?logo=github)](https://jessicadesilva.github.io/)
 
-## Website
-[https://jessicadesilva.github.io/](https://jessicadesilva.github.io/)
-
-## Installation instructions
-Clone the source code from this GitHub repository
-<!-- update this if PR to original is accepted -->
+## Installation
+### Prerequisites
+- [Python 3.10](https://www.python.org/downloads/release/python-3109/)
+- [pip](https://pip.pypa.io/en/stable/installation/)
+- [pipenv](https://pypi.org/project/pipenv/)
+- [git](https://git-scm.com/downloads)
+- [GitHub CLI](https://cli.github.com/) (optional)
+- [Visual Studio Code](https://code.visualstudio.com/) (optional)
+- [DB Browser for SQLite](https://sqlitebrowser.org/) (optional)
+  
+### Clone the repository
 ```sh
-git clone https://github.com/4N0NYM0U5MY7H/jessicadesilva.github.io.git
+git clone https://github.com/jessicadesilva/jessicadesilva.github.io.git
 ```
-Change directory to the project root
+#### Change directory to the project root
 ```sh
 cd jessicadesilva.github.io
 ```
-### Using virtualenv
-Create a virtual environment and install the required packages
+### Running locally
+Run the following commands to boostrap your environment and run the development server locally.
+### Pipenv (preferred installation method)
 ```sh
-python -m venv venv
-```
-Activate the virtual environment
-```sh
-source venv/bin/activate
-```
-Install the Python pakages in requirements.txt
-```sh
-pip install -r requirements.txt
-```
-### Using pipenv
-Create a virtual environment and install the required packages
-```sh
-pipenv install
-```
-Activate the virtual environment
-```sh
+pipenv install --dev
 pipenv shell
 ```
-
-## Run the Development Server
-Run development server to serve the Flask application
+### Virtualenv (alternative method)
 ```sh
-python app.py
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
+### Initialize the environment variables
+```sh
+python setup_env.py
+```
+### Run the development server
+```sh
+flask run --debug
 ```
 Navigate to `http://127.0.0.1:5000/` in your browser to view the website!
 
-## Unit Testing
-To run all the tests
+## Deployment
+Starting the development server with `flask run` will not generate the static files required for deployment.
+### Generate a local preview
 ```sh
-python -m pytest
+python build.py
 ```
-Check the code coverage of the test
+### Deploy to GitHub Pages
+Commmiting changes to `main` or accepting a pull request on the `main` branch will trigger the [GitHub Actions Build and Deploy workflow](.github/workflows/main.yml). Automation takes care of the rest!
+
+## Running Tests/Linter
+### Run all tests
 ```sh
-python -m pytest --cov-report term-missing --cov=website
+flask test
+# Optional arguments
+flask test- -c, --coverage   # Default; Generate a coverage report
+flask test -C, --no-coverage # Do not generate a coverage report
 ```
-
-## Adding a new page
-1. Copy the `website/general/templates/starter_page.j2` file to the appropriate directory. For example, if you want to add a new research page, copy the file to `website/research/templates/`.
-   ```sh
-   # Copy the starter_page.j2 file to the research/templates directory as new_page.j2
-   cp website/general/templates/starter_page.j2 website/research/templates/new_page.j2
-   ```
-2. Update the `new_page.j2` file with the appropriate content.
-   ```jinja
-    {% extends "layout/base.j2" %}
-    {% block title %}
-    {# Add page title here #}
-    New Page
-    {% endblock %}
-    {% block main_content %}
-    {# Add page content here #}
-    New Page Content
-    {% endblock %}
-   ```
-3. Add a new route to the appropriate `research.py` file. For example, if you want to add a new research page, add a new route to `website/research/research.py`.
-   ```python
-    # Adds the application endpoint research/new_page.html
-    # NOTE: Frozen-Flask requires the .html extension to work correctly 
-    @research_blueprint.route('/new_page.html')
-    def new_page():
-        return render_template('new_page.j2')
-   ```
-4. Run the development server and navigate to the new page in your browser.
-   ```sh
-   python3 app.py
-   ```
-   Navigate to `http://127.0.0.1:5000/research/new_page.html` in your browser to view the new page!
-
-### Build the Static Files
-Run the build script from the root directory
+### Run the linter
+The `lint` command will run [Flake8](https://flake8.pycqa.org/en/latest/) and [Black](https://black.readthedocs.io/en/stable/) to check for errors and style violations.
 ```sh
-python3 build.py
+flask lint
+# Optional arguments
+flask link -c, --check       # Only check for errors
 ```
-The static files will be generated in the `website/build` directory.
 
-## Workflow
-<details>
-<summary>Click to expand</summary>
-
-The diagram below depicts a typical workflow for creating a static site with Flask and publishing it to GitHub Pages.
-
-![Flask GitHub Pages static content workflow](.github/images/flask_ghpages_static_content_workflow.png)
-</details>
-
-## Project Structure
-<details>
-<summary>Click to expand</summary>
-
-The folder structure for the project is typical for a Flask project.
-```
-├── website
-│   ├── build           # Frozen-Flask generated static files
-│   ├── events          # Controls events related content
-│   │   └── templates
-│   ├── general         # Controls general content
-│   │   └── templates   # Includes the base template
-│   ├── groups          # Controls mentor-groups related content
-│   │   └── templates
-│   ├── research        # Controls research related content
-│   │   └── templates
-│   ├── static          # Static files and assets
-│   │   ├── css
-│   │   ├── js
-│   │   └── image    
-├── tests               # Unit tests
-│   └── functional
-└── venv
-```
-The important directory to note is `website/build`, which contains the static website files generated by the Frozen-Flask package.
-</details>
-
-## Jinja Templates
-<details>
-<summary>Click to expand</summary>
-
-Flask includes the [Jinja](https://flask.palletsprojects.com/en/2.2.x/templating/) templating engine, which is used to generate HTML files.
-
-Variables and/or expressions in a template file are replaced with values when the template is rendered.
-
-![Jinja template proccessing.](.github/images/jinja_template_processing.png)
-
-Template inheritance allows template files to inherit templates from other files. You can create a base template that defines the website's layout. Because child templates will use this layout, they can concentrate solely on the content.
-
-This project's base template is found at `website/templates/layout/base.j2`.
-</details>
-
-## Built with
-- [![Python](https://img.shields.io/badge/Python-v3.10-3776AB?style=flat-square&logo=Python&labelColor=141414)](https://www.python.org/downloads/release/python-3109/)
-- [![Flask](https://img.shields.io/badge/Flask-v3.0-000?style=flat-square&logo=flask&labelColor=141414)](https://pypi.org/project/Flask/3.0/)
-- [![Frozen-Flask](https://img.shields.io/badge/Frozen--Flask-v1.0.1-3776AB?style=flat-square&logo=Python&labelColor=141414)](https://pypi.org/project/Frozen-Flask/)
-- [![Markdown](https://img.shields.io/badge/Markdown-v3.5.1-000?style=flat-square&logo=markdown&labelColor=141414)](https://pypi.org/project/Markdown/)
-- [![flake8](https://img.shields.io/badge/flake8-v6.1.0-3776AB?style=flat-square&logo=Python&labelColor=141414)](https://pypi.org/project/flake8/)
-- [![HTML5 Up](https://img.shields.io/badge/HTML5%20Up-Website%20Template-E34F26?style=flat-square&logo=HTML5&labelColor=141414)](https://html5up.net/editorial)
+## Built With
+[![Python 3.10](https://img.shields.io/badge/Python-3.10-informational?logo=python&logoColor=fff)](https://www.python.org/downloads/release/python-3109/)
+[![Flask 3.0](https://img.shields.io/badge/Flask-3.0-informational?logo=flask)](https://flask.palletsprojects.com/en/3.0.x/)
+[![Frozen Flask 1.0](https://img.shields.io/badge/Frozen_Flask-1.0-informational?logo=flask)](https://frozen-flask.readthedocs.io/en/latest/)
+[![SQLAlchemy 2.0](https://img.shields.io/badge/SQLAlchemy-2.0-informational?logo=sqlalchemy)](https://docs.sqlalchemy.org/en/20/)
+[![WTForms 3.0](https://img.shields.io/badge/%23%3F%21_WTForms-3.0-informational)](https://wtforms.readthedocs.io/en/3.0.x/)
+[![CKEditor 4](https://img.shields.io/badge/CKEditor-4-informational?logo=ckeditor4&logoColor=fff)](https://ckeditor.com/docs/ckeditor4/latest/index.html)
+[![HTML5 UP](https://img.shields.io/badge/HTML5_UP-Editorial-informational?logo=html5&logoColor=fff)](https://html5up.net/editorial)
 
 ## License
-This project is licensed under the Creative Commons Attribution 3.0 License - see the [LICENSE](LICENSE.txt) file for details.
+This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.

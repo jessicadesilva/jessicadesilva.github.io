@@ -1,10 +1,10 @@
-{% extends "base.j2" %}
+{%- extends "base.j2" -%}
 
-{% block page_title %}Walking Time Poster{% endblock %}
+{%- block page_title -%}Walking Time Poster{%- endblock -%}
 
-{% block content %}
+{%- block content -%}
 <section>
-    <embed src="{{ url_for('static', filename='images/WalkingTimePoster.pdf') }}" width=100% height=1000px
+    <embed src="{{ url_for('static', filename='images/posters/walking_time_poster.pdf') }}" width=100% height=1000px
         alt="(PDF File)">
 </section>
-{% endblock %}
+{%- endblock -%}

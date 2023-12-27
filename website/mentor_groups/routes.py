@@ -9,11 +9,9 @@ blueprint = Blueprint(
 
 @blueprint.route("/math.html")
 def math():
-    """Mentor groups page for Math."""
     return render_template("mentor_groups/math.j2")
 
 
 @blueprint.route("/stan.html")
 def stan():
-    """Mentor groups page for Stan State."""
     return render_template("mentor_groups/stan.j2")

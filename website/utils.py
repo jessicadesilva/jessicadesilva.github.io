@@ -18,8 +18,8 @@ def dev_utils(func):
     return wrapper
 
 
-def formatted_date(date: str) -> str:
-    """Format date for display on the website."""
+def format_display_date(date: str) -> str:
+    """ISO 8601 date format to US date format."""
     return f"{date[5:]}{date[4]}{date[:4]}".replace("-", "/")
 
 

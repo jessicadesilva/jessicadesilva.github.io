@@ -1,0 +1,48 @@
+{%- extends "base.j2" -%}
+
+{%- from "macros/_projectform.j2" import render_project_form -%}
+
+{%- block page_title -%}Add Project{%- endblock -%}
+
+{%- block content -%}
+<section>
+    <header class="major">
+        <h1 class="h2">Add New Project</h1>
+    </header>
+    <form id="project_form" method="POST" action="{{ url_for('research.add_project') }}" enctype="multipart/form-data">
+        {{ render_project_form(form) }}
+        <div class="col-12">
+            <ul class="actions">
+                <li><input class="primary" type="submit" value="Add Project" name="add_project" /></li>
+                <li><a href="{{ url_for('research.current_undergrad_projects') }}" class="button">Cancel</a></li>
+            </ul>
+        </div>
+    </form>
+</section>
+{%- endblock -%}
+
+{#
+NOTE: Plugins will not be removed if their required dependencies are not removed as well.
+indent -> indentlist -> list
+#}
+{%- set simple_text_config = "removePlugins: [
+'about','clipboard','editortoolbar','floatingspace','indent','indentlist','list',
+'notification','spellchecker','uibutton','undo'
+],
+toolbar: [
+{ name: 'basicstyles', items: [ 'Bold', 'Italic' ] },
+{ name: 'links', items: [ 'Link', 'Unlink' ] }]" -%}
+
+{%- set link_only_config = "removePlugins: [
+'about','basicstyles','clipboard','editortoolbar','floatingspace','indent','indentlist','list',
+'notification','spellchecker','uibutton','undo'
+],
+toolbar: [{ name: 'links', items: [ 'Link', 'Unlink' ] }]" -%}
+
+{%- block js -%}
+{{ ckeditor.load(custom_url=url_for('static', filename='ckeditor/basic/ckeditor.js')) }}
+{{ ckeditor.config(name="advisors", height=60, custom_config=simple_text_config) }}
+{{ ckeditor.config(name="students", height=60, custom_config=simple_text_config) }}
+{{ ckeditor.config(name="description", custom_config=simple_text_config) }}
+{{ ckeditor.config(name="link", height=60, custom_config=link_only_config) }}
+{%- endblock -%}

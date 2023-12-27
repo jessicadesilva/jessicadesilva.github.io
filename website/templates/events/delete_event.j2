@@ -1,10 +1,10 @@
-{% extends "base.j2" %}
+{%- extends "base.j2" -%}
 
-{% from "_formhelper.j2" import render_field %}
+{%- from "macros/_formhelper.j2" import render_field -%}
 
-{% block page_title %}Delete Event{% endblock %}
+{%- block page_title -%}Delete Event{%- endblock -%}
 
-{% block content %}
+{%- block content -%}
 <section>
     <header class="major">
         <h1 class="h2">Delete Event</h1>
@@ -23,4 +23,4 @@
         </div>
     </form>
 </section>
-{% endblock %}
+{%- endblock -%}

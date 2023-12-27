@@ -1,0 +1,9 @@
+[run]
+source = website
+
+[report]
+exclude_also =
+    def __repr__
+    @(abc\.)?abstractmethod
+    if 0:
+    if __name__ == .__main__.:

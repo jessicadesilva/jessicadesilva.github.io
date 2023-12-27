@@ -19,7 +19,6 @@ TEST_PATH = os.path.join(PROJECT_ROOT, "tests")
     help="Show coverage report.",
 )
 def test(coverage):
-    """Run the tests."""
     import pytest
 
     args = [TEST_PATH, "--verbose"]
@@ -38,7 +37,6 @@ def test(coverage):
     help="Check if the code is formatted without applying changes.",
 )
 def lint(check):
-    """Lint and check code style with black and flake8."""
     skip = ["migrations", "requirements"]
     root_files = glob("*.py")
     root_directories = [
@@ -49,7 +47,6 @@ def lint(check):
     ]
 
     def execute_tool(description, *args):
-        """Execute a checking tool with its arguments."""
         command_line = list(args) + files_and_directories
         click.echo(f"{description}: {' '.join(command_line)}")
         rv = call(command_line)

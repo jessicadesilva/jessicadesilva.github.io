@@ -1,11 +1,20 @@
 # -*- coding: utf-8 -*-
 """Events module, including scheduled and past events."""
 from datetime import datetime
+from http import HTTPStatus
 
-from flask import Blueprint, flash, render_template, request, redirect, url_for
+from flask import (
+    Blueprint,
+    abort,
+    flash,
+    render_template,
+    request,
+    redirect,
+    url_for,
+)
 
 from website.extensions import database
-from website.utils import clean_input, formatted_date
+from website.utils import clean_input, format_display_date, dev_utils
 from website.events.forms import EventForm
 from website.events.models import Event, EventStatus
 from website.events.utils import determine_event_status
@@ -17,9 +26,8 @@ blueprint = Blueprint(
 
 
 @blueprint.route("/future.html")
-def future_events():
-    """Display future events."""
-
+@dev_utils
+def future_events(*args, **kwargs):
     data = []
 
     for event in database.session.execute(database.select(Event)).scalars().all():
@@ -30,26 +38,28 @@ def future_events():
                 commit=True, status_id=EventStatus.return_status_id("completed")
             )
 
-        if event.event_status_rel.status == "scheduled":
+        if event.status_rel.status == "scheduled":
             output_data = {
                 "ID": event.id,
-                "Date": formatted_date(event.end_date)
+                "Date": format_display_date(event.end_date)
                 if event.start_date == event.end_date
-                else formatted_date(event.start_date)
+                else format_display_date(event.start_date)
                 + " - "
-                + formatted_date(event.end_date),
+                + format_display_date(event.end_date),
                 "Name": event.name,
                 "Description": event.description,
             }
             data.append(output_data)
 
-    return render_template("events/future_events.j2", data=data)
+    return (
+        render_template("events/future_events.j2", data=data, *args, **kwargs),
+        HTTPStatus.OK,
+    )
 
 
 @blueprint.route("/past.html")
-def past_events():
-    """Display past events."""
-
+@dev_utils
+def past_events(*args, **kwargs):
     data = []
 
     for event in database.session.execute(database.select(Event)).scalars().all():
@@ -60,26 +70,27 @@ def past_events():
                 commit=True, status_id=EventStatus.return_status_id("completed")
             )
 
-        if event.event_status_rel.status == "completed":
+        if event.status_rel.status == "completed":
             output_data = {
                 "ID": event.id,
-                "Date": formatted_date(event.end_date)
+                "Date": format_display_date(event.end_date)
                 if event.start_date == event.end_date
-                else formatted_date(event.start_date)
+                else format_display_date(event.start_date)
                 + " - "
-                + formatted_date(event.end_date),
+                + format_display_date(event.end_date),
                 "Name": event.name,
                 "Description": event.description,
             }
             data.append(output_data)
 
-    return render_template("events/past_events.j2", data=data)
+    return (
+        render_template("events/past_events.j2", data=data, *args, **kwargs),
+        HTTPStatus.OK,
+    )
 
 
 @blueprint.route("/add_event.html", methods=["GET", "POST"])
 def add_event():
-    """Add an event."""
-
     form = EventForm()
 
     if request.method == "POST":
@@ -94,17 +105,22 @@ def add_event():
                 description=clean_input(form.description.data),
             )
             flash(f"{clean_input(form.name.data)} successfully added.", "success")
-            return redirect(request.url)
+            return (
+                render_template("events/add_event.j2", form=form),
+                HTTPStatus.CREATED,
+            )
 
-    return render_template("events/add_event.j2", form=form)
+    return render_template("events/add_event.j2", form=form), HTTPStatus.OK
 
 
 @blueprint.route("/edit_event/<int:event_id>.html", methods=["GET", "POST"])
 def edit_event(event_id: int):
-    """Edit an event."""
-
     form = EventForm()
     event = Event.get_by_id(event_id)
+
+    if not event:
+        flash(f"Event with ID {event_id} does not exist.", "error")
+        abort(HTTPStatus.NOT_FOUND)
 
     if request.method == "POST":
         if form.validate_on_submit():
@@ -123,21 +139,29 @@ def edit_event(event_id: int):
                 f"{clean_input(form.name.data)} successfully updated.",
                 "success",
             )
-            return redirect(url_for("events.edit_event", event_id=event_id))
+            return (
+                render_template("events/edit_event.j2", event=event, form=form),
+                HTTPStatus.OK,
+            )
 
     form.start_date.data = datetime.strptime(event.start_date, "%Y-%m-%d").date()
     form.end_date.data = datetime.strptime(event.end_date, "%Y-%m-%d").date()
     form.name.data = event.name
     form.description.data = event.description
 
-    return render_template("events/edit_event.j2", event=event, form=form)
+    return (
+        render_template("events/edit_event.j2", event=event, form=form),
+        HTTPStatus.OK,
+    )
 
 
 @blueprint.route("/delete_event/<int:event_id>.html", methods=["GET", "POST"])
 def delete_event(event_id: int):
-    """Delete an event."""
-
     event = Event.get_by_id(event_id)
+
+    if not event:
+        flash(f"Event with ID {event_id} does not exist.", "error")
+        abort(HTTPStatus.NOT_FOUND)
 
     if request.method == "POST":
         event.delete()
@@ -147,4 +171,7 @@ def delete_event(event_id: int):
     form = EventForm()
     flash(f"Are you sure you want to delete {event.name}?", "warning")
 
-    return render_template("events/delete_event.j2", event=event, form=form)
+    return (
+        render_template("events/delete_event.j2", event=event, form=form),
+        HTTPStatus.OK,
+    )

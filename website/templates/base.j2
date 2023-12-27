@@ -17,13 +17,13 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
         <title>
-            {% block page_title %}{% endblock %}
+            {%- block page_title -%}{%- endblock -%}
         </title>
 
         <!-- Local CSS file for styling the application -->
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}" />
         <!-- Additional styling -->
-        {% block css %}{% endblock %}
+        {%- block css -%}{%- endblock -%}
     </head>
 
     <body class="is-preload">
@@ -33,15 +33,15 @@
             <div id="main">
                 <div class="inner">
                     <!-- Header -->
-                    {% include "header.j2" %}
+                    {%- include "header.j2" -%}
                     <!-- Messages -->
-                    {% include "messages.j2" %}
+                    {%- include "messages.j2" -%}
                     <!-- Main Content -->
-                    {% block content %}{% endblock %}
+                    {%- block content -%}{%- endblock -%}
                 </div>
             </div>
             <!-- Sidebar -->
-            {% include "sidebar.j2" %}
+            {%- include "sidebar.j2" -%}
         </div>
 
         <!-- Scripts -->
@@ -51,7 +51,7 @@
         <script src="{{ url_for('static', filename='js/util.js') }}"></script>
         <script src="{{ url_for('static', filename='js/main.js') }}"></script>
         <!-- Additional scripts -->
-        {% block js %}{% endblock %}
+        {%- block js -%}{%- endblock -%}
     </body>
 
 </html>

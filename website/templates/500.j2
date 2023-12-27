@@ -1,9 +1,9 @@
-{% extends "base.j2" %}
+{%- extends "base.j2" -%}
 
-{% block page_title %}500 Internal Server Error{% endblock %}
+{%- block page_title -%}500 Internal Server Error{%- endblock -%}
 
-{% block content %}
+{%- block content -%}
 <h1 class="main">500 Internal Server Error Page</h1>
 <p>Sorry, something went wrong on our system. Don't panic, we are fixing it! Please try again later.</p>
 <a href="{{ url_for('public.home') }}" class="button big">Return to the homepage</a>
-{% endblock %}
+{%- endblock -%}

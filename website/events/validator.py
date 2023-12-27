@@ -10,8 +10,6 @@ from pydantic import (
 
 
 class EventValidator(BaseModel):
-    """Event schema validator."""
-
     model_config: ConfigDict(
         from_attributes=True,
         validate_assignment=True,
