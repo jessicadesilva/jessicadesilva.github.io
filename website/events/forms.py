@@ -20,12 +20,9 @@ class EventForm(FlaskForm):
     description = CKEditorField("Event Description", validators=[DataRequired()])
 
     def __init__(self, *args, **kwargs):
-        """Create instance."""
         super(EventForm, self).__init__(*args, **kwargs)
 
     def validate(self, **kwargs):
-        """Validate the form and ensure the event does not already exist."""
-
         initial_validation = super(EventForm, self).validate()
 
         if not initial_validation:

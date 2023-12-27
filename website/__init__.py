@@ -9,10 +9,8 @@ from website.extensions import ckeditor, csrf_protect, database, migrate
 
 
 def create_app(config_object="website.settings"):
-    """Create application factory, as explained here: http://flask.pocoo.org/docs/patterns/appfactories/.
-
-    :param config_object: The configuration object to use.
-    """
+    # Create the Flask application using the app factory pattern.
+    # http://flask.pocoo.org/docs/patterns/appfactories/.
     app = Flask(__name__)
     app.config.from_object(config_object)
     register_extensions(app)
@@ -43,6 +41,7 @@ def create_app(config_object="website.settings"):
             database.create_all()
 
             # Data for the following tables should only be inserted once
+            # during the initialization of the database.
             database.session.add_all(
                 [
                     EventStatus(status="scheduled"),
@@ -62,7 +61,6 @@ def create_app(config_object="website.settings"):
 
 
 def register_extensions(app):
-    """Register Flask extensions."""
     ckeditor.init_app(app)
     csrf_protect.init_app(app)
     database.init_app(app)
@@ -71,7 +69,6 @@ def register_extensions(app):
 
 
 def register_blueprints(app):
-    """Register Flask blueprints."""
     app.register_blueprint(public.routes.blueprint)
     app.register_blueprint(events.routes.blueprint)
     app.register_blueprint(mentor_groups.routes.blueprint)
@@ -80,10 +77,7 @@ def register_blueprints(app):
 
 
 def register_errorhandlers(app):
-    """Register error handlers."""
-
     def render_error(error):
-        """Render error template."""
         # If a HTTPException, pull the `code` attribute; default to 500
         error_code = getattr(error, "code", 500)
         return render_template(f"{error_code}.j2"), error_code
@@ -94,6 +88,5 @@ def register_errorhandlers(app):
 
 
 def register_commands(app):
-    """Register Click commands."""
     app.cli.add_command(commands.test)
     app.cli.add_command(commands.lint)

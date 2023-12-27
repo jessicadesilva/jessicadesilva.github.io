@@ -5,11 +5,10 @@ from flask_ckeditor import CKEditorField
 from wtforms import SelectField, StringField, FileField
 from wtforms.validators import DataRequired
 
-from .models import Project, ProjectType, UndergradStatus
-from .validator import ProjectValidator
-from .utils import allowed_file
-from website.extensions import database
 from website.utils import clean_input
+from website.research.models import Project
+from website.research.utils import allowed_file
+from website.research.validator import ProjectValidator
 
 
 class ProjectForm(FlaskForm):
@@ -52,7 +51,7 @@ class ProjectForm(FlaskForm):
         project = ProjectValidator(
             type_id=self.type_id.data,
             status_id=self.status_id.data,
-            image=self.image.data,
+            image=self.upload.data.filename if self.upload.data else self.image.data,
             advisors=clean_input(self.advisors.data),
             students=clean_input(self.students.data),
             majors=clean_input(self.majors.data),
@@ -65,6 +64,22 @@ class ProjectForm(FlaskForm):
             ProjectValidator.model_validate(project)
         except ValueError as error:
             self.title.errors.append(f"{error}")
+            return False
+
+        new_project = Project(
+            type_id=project.type_id,
+            status_id=project.status_id,
+            image=project.image,
+            advisors=project.advisors,
+            students=project.students,
+            majors=project.majors,
+            title=project.title,
+            description=project.description,
+            link=project.link,
+        )
+
+        if Project.search_for_project(new_project) is not None:
+            self.title.errors.append("Project already exists.")
             return False
 
         return True

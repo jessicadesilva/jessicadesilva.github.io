@@ -21,13 +21,13 @@ class Event(PkModel):
     status_rel: Mapped[EventStatus] = relationship()
 
     @classmethod
-    def search_for_event(self, event: Event) -> Event | None:
+    def search_for_event(self, search: Event) -> Event | None:
         return database.session.execute(
             database.select(Event).where(
-                Event.name == event.name,
-                Event.description == event.description,
-                Event.start_date == event.start_date,
-                Event.end_date == event.end_date,
+                Event.name == search.name,
+                Event.description == search.description,
+                Event.start_date == search.start_date,
+                Event.end_date == search.end_date,
             )
         ).scalar_one_or_none()
 

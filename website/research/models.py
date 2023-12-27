@@ -26,6 +26,18 @@ class Project(PkModel):
     type_rel: Mapped[ProjectType] = relationship()
     status_rel: Mapped[UndergradStatus] = relationship()
 
+    @classmethod
+    def search_for_project(self, search: Project) -> Project | None:
+        return database.session.execute(
+            database.select(Project).where(
+                Project.type_id == search.type_id,
+                Project.status_id == search.status_id,
+                Project.students == search.students,
+                Project.title == search.title,
+                Project.description == search.description,
+            )
+        ).scalar_one_or_none()
+
     def __repr__(self):
         return f"<Project: {self.id} - {self.title}>"
 

@@ -8,8 +8,6 @@ from pydantic import (
 
 
 class ProjectValidator(BaseModel):
-    """Project schema validator."""
-
     model_config: ConfigDict(
         from_attributes=True,
         validate_assignment=True,
@@ -29,7 +27,6 @@ class ProjectValidator(BaseModel):
     @field_validator("type_id")
     @classmethod
     def type_id_must_be_greater_than_0(cls, id: int) -> int:
-        """Validate `type_id`."""
         if id <= 0:
             raise ValueError("type_id must be greater than 0")
         return id
@@ -37,15 +34,6 @@ class ProjectValidator(BaseModel):
     @field_validator("status_id")
     @classmethod
     def status_id_must_be_greater_than_0(cls, id: int) -> int:
-        """Validate `status_id`."""
         if id <= 0:
             raise ValueError("status_id must be greater than 0")
         return id
-
-    @field_validator("link")
-    @classmethod
-    def link_must_contain_a_url(cls, link: str) -> str:
-        """Validate `link`."""
-        if link != "" and not link.startswith("http") or "href=" not in link:
-            raise ValueError("link must contain a link")
-        return link

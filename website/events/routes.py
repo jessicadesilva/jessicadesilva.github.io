@@ -14,7 +14,7 @@ from flask import (
 )
 
 from website.extensions import database
-from website.utils import clean_input, formatted_date, dev_utils
+from website.utils import clean_input, format_display_date, dev_utils
 from website.events.forms import EventForm
 from website.events.models import Event, EventStatus
 from website.events.utils import determine_event_status
@@ -28,8 +28,6 @@ blueprint = Blueprint(
 @blueprint.route("/future.html")
 @dev_utils
 def future_events(*args, **kwargs):
-    """Display future events."""
-
     data = []
 
     for event in database.session.execute(database.select(Event)).scalars().all():
@@ -43,11 +41,11 @@ def future_events(*args, **kwargs):
         if event.status_rel.status == "scheduled":
             output_data = {
                 "ID": event.id,
-                "Date": formatted_date(event.end_date)
+                "Date": format_display_date(event.end_date)
                 if event.start_date == event.end_date
-                else formatted_date(event.start_date)
+                else format_display_date(event.start_date)
                 + " - "
-                + formatted_date(event.end_date),
+                + format_display_date(event.end_date),
                 "Name": event.name,
                 "Description": event.description,
             }
@@ -62,8 +60,6 @@ def future_events(*args, **kwargs):
 @blueprint.route("/past.html")
 @dev_utils
 def past_events(*args, **kwargs):
-    """Display past events."""
-
     data = []
 
     for event in database.session.execute(database.select(Event)).scalars().all():
@@ -77,11 +73,11 @@ def past_events(*args, **kwargs):
         if event.status_rel.status == "completed":
             output_data = {
                 "ID": event.id,
-                "Date": formatted_date(event.end_date)
+                "Date": format_display_date(event.end_date)
                 if event.start_date == event.end_date
-                else formatted_date(event.start_date)
+                else format_display_date(event.start_date)
                 + " - "
-                + formatted_date(event.end_date),
+                + format_display_date(event.end_date),
                 "Name": event.name,
                 "Description": event.description,
             }
@@ -95,8 +91,6 @@ def past_events(*args, **kwargs):
 
 @blueprint.route("/add_event.html", methods=["GET", "POST"])
 def add_event():
-    """Add an event."""
-
     form = EventForm()
 
     if request.method == "POST":
@@ -121,8 +115,6 @@ def add_event():
 
 @blueprint.route("/edit_event/<int:event_id>.html", methods=["GET", "POST"])
 def edit_event(event_id: int):
-    """Edit an event."""
-
     form = EventForm()
     event = Event.get_by_id(event_id)
 
@@ -165,8 +157,6 @@ def edit_event(event_id: int):
 
 @blueprint.route("/delete_event/<int:event_id>.html", methods=["GET", "POST"])
 def delete_event(event_id: int):
-    """Delete an event."""
-
     event = Event.get_by_id(event_id)
 
     if not event:

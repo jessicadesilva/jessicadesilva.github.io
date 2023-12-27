@@ -39,4 +39,4 @@ class ProjectFactory(BaseFactory):
     majors = "Test Major"
     title = "Test Title"
     description = "Test Description"
-    link = "https://www.google.com"
+    link = "https://www.csustan.edu/"
