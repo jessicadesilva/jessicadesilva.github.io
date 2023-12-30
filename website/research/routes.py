@@ -3,16 +3,14 @@
 import os
 from http import HTTPStatus
 
-from flask import Blueprint, render_template, abort, request, flash, redirect, url_for
+from flask import Blueprint, abort, flash, redirect, render_template, request, url_for
 from werkzeug.utils import secure_filename
 
-
 from website.extensions import database
-from website.utils import clean_input, dev_utils
 from website.research.forms import ProjectForm
-from website.research.models import Project, ProjectType, UndergradStatus
-from website.research.utils import image_folder, set_select_options, poster_pages
-
+from website.research.models import Project
+from website.research.utils import image_folder, poster_pages, set_select_options
+from website.utils import clean_input, dev_utils
 
 blueprint = Blueprint(
     "research", __name__, url_prefix="/research", static_folder="../static"

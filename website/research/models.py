@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 """Research models."""
 from __future__ import annotations
+
 from typing import Optional
 
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from website.extensions import database
 from website.database import PkModel
+from website.extensions import database
 
 
 class Project(PkModel):
@@ -48,10 +49,10 @@ class ProjectType(PkModel):
     type: Mapped[str] = mapped_column(unique=True)
 
     @classmethod
-    def return_type_id(self, type: str) -> int:
+    def get_id(self, type: str) -> int:
         return database.session.execute(
-            database.select(ProjectType.id).where(ProjectType.type == type)
-        ).scalar_one()
+            database.select(self.id).where(self.type == type)
+        ).scalar_one_or_none()
 
     def __repr__(self):
         return f"<ProjectType: {self.id} - {self.type}>"
@@ -63,10 +64,10 @@ class UndergradStatus(PkModel):
     status: Mapped[str] = mapped_column(unique=True)
 
     @classmethod
-    def return_status_id(self, status: str) -> int:
+    def get_id(self, status: str) -> int:
         return database.session.execute(
-            database.select(UndergradStatus.id).where(UndergradStatus.status == status)
-        ).scalar_one()
+            database.select(self.id).where(self.status == status)
+        ).scalar_one_or_none()
 
     def __repr__(self):
         return f"<UndergradStatus: {self.id} - {self.u_status}>"

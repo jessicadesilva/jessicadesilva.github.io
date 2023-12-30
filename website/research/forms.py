@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 """Event forms."""
-from flask_wtf import FlaskForm
 from flask_ckeditor import CKEditorField
-from wtforms import SelectField, StringField, FileField
+from flask_wtf import FlaskForm
+from wtforms import FileField, SelectField, StringField
 from wtforms.validators import DataRequired
 
-from website.utils import clean_input
 from website.research.models import Project
 from website.research.utils import allowed_file
 from website.research.validator import ProjectValidator
+from website.utils import clean_input
 
 
 class ProjectForm(FlaskForm):

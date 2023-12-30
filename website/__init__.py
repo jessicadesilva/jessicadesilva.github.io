@@ -33,7 +33,7 @@ def create_app(config_object="website.settings"):
 
     if not all(items in table_names for items in expected_tables):
         from website.events.models import EventStatus
-        from website.research.models import UndergradStatus, ProjectType
+        from website.research.models import ProjectType, UndergradStatus
 
         with app.app_context():
             database.drop_all()
