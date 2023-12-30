@@ -30,13 +30,21 @@ def test(coverage):
 
 @click.command()
 @click.option(
+    "-f",
+    "--fix-imports",
+    default=True,
+    is_flag=True,
+    help="Fix imports using isort, before linting",
+)
+@click.option(
     "-c",
     "--check",
     default=False,
     is_flag=True,
     help="Check if the code is formatted without applying changes.",
 )
-def lint(check):
+def lint(fix_imports, check):
+    """Lint and check code style with Black, Flake8, and isort."""
     skip = ["migrations", "requirements"]
     root_files = glob("*.py")
     root_directories = [
@@ -53,8 +61,12 @@ def lint(check):
         if rv != 0:
             exit(rv)
 
+    isort_args = []
     black_args = []
     if check:
+        isort_args.append("--check")
         black_args.append("--check")
+    if fix_imports:
+        execute_tool("Fixing import order", "isort", *isort_args)
     execute_tool("Formatting files with black", "black", *black_args)
     execute_tool("Checking code style with flake8", "flake8")
