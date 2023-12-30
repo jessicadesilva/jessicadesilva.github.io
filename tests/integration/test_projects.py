@@ -4,13 +4,13 @@ from http import HTTPStatus
 
 from flask import url_for
 
-from website.research.models import Project, ProjectType, UndergradStatus
+from website.research.models import Project
 
 
 class TestResearchPagesCRUDOperations:
     _data = {
-        "type_id": ProjectType.return_type_id("project"),
-        "status_id": UndergradStatus.return_status_id("current"),
+        "type_id": 1,  # 1 = "project", 2 = "abstract"
+        "status_id": 1,  # 1 = "current", 2 = "former"
         "image": "default.jpg",
         "advisors": "Test Advisor",
         "students": "Test Student",
@@ -20,7 +20,7 @@ class TestResearchPagesCRUDOperations:
         "link": "https://www.csustan.edu/",
     }
 
-    def test_add_project_returns_201_project_name_and_added_to_database(self, testapp):
+    def test_add_project_returns_201_project_title_and_added_to_database(self, testapp):
         old_project_count = len(Project.query.all())
         # Go to the Add Project page
         response = testapp.get(url_for("research.add_project"))
@@ -34,7 +34,7 @@ class TestResearchPagesCRUDOperations:
         assert response.status_code == HTTPStatus.CREATED
         assert len(Project.query.all()) == old_project_count + 1
 
-    def test_edit_project_returns_200_project_name_and_updates_database(
+    def test_edit_project_returns_200_project_title_and_updates_database(
         self, testapp, project
     ):
         response = testapp.get(url_for("research.edit_project", project_id=project.id))
@@ -56,7 +56,7 @@ class TestResearchPagesCRUDOperations:
         assert project.title == "Edited Project"
         assert project.description == "Edited Description"
 
-    def test_delete_project_returns_200_project_name_and_removed_from_database(
+    def test_delete_project_returns_200_project_title_and_removed_from_database(
         self, testapp, project
     ):
         response = testapp.get(

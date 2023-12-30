@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """Unit tests for the utils module."""
-from website.utils import format_display_date, clean_input
+from website.utils import clean_input, format_display_date
 
 
 class TestUtils:

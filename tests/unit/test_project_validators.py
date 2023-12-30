@@ -1,26 +1,16 @@
 # -*- coding: utf-8 -*-
-"""Unit tests for the `research` module."""
+"""Unit tests for the reasearch `ProjectValidator`."""
 import pytest
 from pydantic import ValidationError
 
-from website.research.models import Project, UndergradStatus, ProjectType
 from website.research.validator import ProjectValidator
-from tests.factories import ProjectFactory
-
-
-class TestProjectModel:
-    def test_method_get_by_id_with_valid_id_returns_project(self, project):
-        assert Project.get_by_id(project.id) == project
-
-    def test_method_get_by_id_with_invalid_id_returns_none(self):
-        assert Project.get_by_id(0) is None
 
 
 class TestProjectValidator:
-    def test_class_project_validator_accepts_valid_data(self):
+    def test_project_validator_accepts_valid_data_with_all_fields(self):
         project = ProjectValidator(
-            type_id=ProjectType.get_by_id(1).id,
-            status_id=UndergradStatus.get_by_id(1).id,
+            type_id=1,
+            status_id=1,
             image="default.jpg",
             advisors="Test Advisor",
             students="Test Student",
@@ -31,25 +21,25 @@ class TestProjectValidator:
         )
         assert isinstance(project, ProjectValidator)
 
-    def test_class_project_validator_accepts_valid_data_with_required_fields(self):
+    def test_project_validator_accepts_valid_data_with_required_fields(self):
         project = ProjectValidator(
-            type_id=ProjectType.get_by_id(1).id,
-            status_id=UndergradStatus.get_by_id(1).id,
+            type_id=1,
+            status_id=1,
             students="Test Student",
             title="Test Project",
             description="Test Description",
         )
         assert isinstance(project, ProjectValidator)
 
-    def test_method_type_id_must_be_greater_than_0_returns_type_id(self):
+    def test_type_id_must_be_greater_than_0_returns_type_id(self):
         assert ProjectValidator.type_id_must_be_greater_than_0(1) == 1
 
-    def test_method_status_id_must_be_greater_than_0_returns_status_id(self):
+    def test_status_id_must_be_greater_than_0_returns_status_id(self):
         assert ProjectValidator.status_id_must_be_greater_than_0(1) == 1
 
     def setup_validator_with_all_fields(self, **kwargs):
-        type_id = ProjectType.get_by_id(1).id
-        status_id = UndergradStatus.get_by_id(1).id
+        type_id = 1
+        status_id = 1
         image = "default.jpg"
         advisors = "Test Advisor"
         students = "Test Student"
@@ -82,8 +72,8 @@ class TestProjectValidator:
         )
 
     def setup_validator_with_required_fields(self, **kwargs):
-        type_id = ProjectType.get_by_id(1).id
-        status_id = UndergradStatus.get_by_id(1).id
+        type_id = 1
+        status_id = 1
         students = "Test Student"
         title = "Test Project"
         description = "Test Description"

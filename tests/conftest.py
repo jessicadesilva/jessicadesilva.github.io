@@ -3,10 +3,9 @@
 import pytest
 from webtest import TestApp
 
+from tests.factories import EventFactory, ProjectFactory
 from website import create_app
 from website import database as _database
-
-from tests.factories import EventFactory, ProjectFactory
 
 
 @pytest.fixture

@@ -3,9 +3,9 @@
 from factory import Sequence
 from factory.alchemy import SQLAlchemyModelFactory
 
+from website.events.models import Event
 from website.extensions import database
-from website.events.models import Event, EventStatus
-from website.research.models import Project, ProjectType, UndergradStatus
+from website.research.models import Project
 
 
 class BaseFactory(SQLAlchemyModelFactory):
@@ -19,10 +19,10 @@ class EventFactory(BaseFactory):
         model = Event
 
     id = Sequence(lambda n: n)
-    status_id = EventStatus.return_status_id("scheduled")
+    status_id = 1
     start_date = "2024-01-01"
     end_date = "2024-01-01"
-    name = "Test Event"
+    title = "Test Event"
     description = "Test Description"
 
 
@@ -31,8 +31,8 @@ class ProjectFactory(BaseFactory):
         model = Project
 
     id = Sequence(lambda n: n)
-    type_id = ProjectType.return_type_id("project")
-    status_id = UndergradStatus.return_status_id("current")
+    type_id = 1
+    status_id = 1
     image = "default.jpg"
     advisors = "Test Advisor"
     students = "Test Student"

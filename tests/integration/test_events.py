@@ -11,11 +11,11 @@ class TestEventsPagesCRUDOperations:
     _data = {
         "start_date": "2024-01-01",
         "end_date": "2024-01-01",
-        "name": "Test Event",
+        "title": "Test Event",
         "description": "Test Description",
     }
 
-    def test_add_event_returns_201_event_name_and_added_to_database(self, testapp):
+    def test_add_event_returns_201_event_title_and_added_to_database(self, testapp):
         old_event_count = len(Event.query.all())
         # Go to the Add Event page
         response = testapp.get(url_for("events.add_event"))
@@ -29,7 +29,7 @@ class TestEventsPagesCRUDOperations:
         assert response.status_code == HTTPStatus.CREATED
         assert len(Event.query.all()) == old_event_count + 1
 
-    def test_edit_event_returns_200_event_name_and_updates_database(
+    def test_edit_event_returns_200_event_title_and_updates_database(
         self, testapp, event
     ):
         response = testapp.get(url_for("events.edit_event", event_id=event.id))
@@ -37,16 +37,16 @@ class TestEventsPagesCRUDOperations:
         form = response.forms["event_form"]
         form["start_date"] = "2024-01-10"
         form["end_date"] = "2024-01-10"
-        form["name"] = "Edited Event"
+        form["title"] = "Edited Event"
         form["description"] = "Edited Description"
         response = form.submit()
 
         assert b"Edited Event successfully updated." in response.body
         assert response.status_code == HTTPStatus.OK
-        assert event.name == "Edited Event"
+        assert event.title == "Edited Event"
         assert event.description == "Edited Description"
 
-    def test_delete_event_returns_200_event_name_and_removed_from_database(
+    def test_delete_event_returns_200_event_title_and_removed_from_database(
         self, testapp, event
     ):
         response = testapp.get(url_for("events.delete_event", event_id=event.id))
@@ -115,7 +115,7 @@ class TestEventsPagesCRUDOperations:
         old_event_count = len(Event.query.all())
         response = testapp.get(url_for("events.edit_event", event_id=event.id))
         form = response.forms["event_form"]
-        form["name"] = event.name
+        form["title"] = event.title
         form["description"] = event.description
         form["start_date"] = event.start_date
         form["end_date"] = event.end_date
