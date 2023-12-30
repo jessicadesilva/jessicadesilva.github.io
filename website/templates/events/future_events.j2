@@ -11,7 +11,8 @@
         {%- if debug -%}
         <div class="col-3 col-6-small col-12-xsmall">
             <ul class="actions stacked col-3 col-6-small col-12-xsmall">
-                <li><a class="button primary fit" href="{{ url_for('events.add_event') }}">Add Event</a></li>
+                <li><a class="solid icon fa-plus button primary fit" href="{{ url_for('events.add_event') }}">Add
+                        Event</a></li>
             </ul>
         </div>
         {%- endif -%}
@@ -29,7 +30,7 @@
                 </tr>
             </thead>
             <tbody>
-                {%- for row in data | reverse -%}
+                {%- for row in data -%}
                 <tr {% if row.ID -%}id="{{ row.ID }}" {%- endif -%}>
                     {%- for key, value in row.items() -%}
                     {%- if key != "ID" -%}

@@ -4,8 +4,19 @@
 
 {%- block content -%}
 <section>
-    <header class="major">
-        <h1 class="h2">Past Events</h1>
+    <header {% if debug -%} class="row" {% else -%} class="major" {%- endif -%}>
+        <h1 {% if debug -%} class="h2 col-9 col-6-small col-12-xsmall" {% else -%} class="h2" {%- endif -%}>Past
+            Events
+        </h1>
+        {%- if debug -%}
+        <div class="col-3 col-6-small col-12-xsmall">
+            <ul class="actions stacked col-3 col-6-small col-12-xsmall">
+                <li><a class="solid icon fa-plus button primary fit" href="{{ url_for('events.add_event') }}">Add
+                        Event</a>
+                </li>
+            </ul>
+        </div>
+        {%- endif -%}
     </header>
     {%- if data -%}
     <div class="table-wrapper">
@@ -20,7 +31,7 @@
                 </tr>
             </thead>
             <tbody>
-                {%- for row in data -%}
+                {%- for row in data | reverse -%}
                 <tr {% if row.ID -%} id="{{ row.ID }}" {%- endif -%}>
                     {%- for key, value in row.items() -%}
                     {%- if key != "ID" -%}

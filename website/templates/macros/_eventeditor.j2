@@ -1,0 +1,14 @@
+{%- macro render_event_editor(ckeditor) -%}
+
+{#
+NOTE: Plugins will not be removed if their required dependencies are not removed as well.
+indent -> indentlist -> list
+#}
+{%- set simple_text_config = "removePlugins: [ 'about', 'floatingspace', 'indent', 'indentlist', 'list', 'notification',
+'spellchecker', 'uibutton', 'undo' ], toolbar: [{ name: 'basicstyles', items: [ 'Bold', 'Italic' ]}, { name: 'links',
+items: [ 'Link', 'Unlink' ]}]" -%}
+{{ ckeditor.load(custom_url=url_for("static", filename="ckeditor/basic/ckeditor.js")) }}
+{{ ckeditor.config(name="title", height=60, custom_config=simple_text_config) }}
+{{ ckeditor.config(name="description", custom_config=simple_text_config) }}
+
+{%- endmacro -%}

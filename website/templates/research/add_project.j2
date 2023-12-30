@@ -1,6 +1,7 @@
 {%- extends "base.j2" -%}
 
 {%- from "macros/_projectform.j2" import render_project_form -%}
+{%- from "macros/_projecteditor.j2" import render_project_editor -%}
 
 {%- block page_title -%}Add Project{%- endblock -%}
 
@@ -20,29 +21,6 @@
     </form>
 </section>
 {%- endblock -%}
-
-{#
-NOTE: Plugins will not be removed if their required dependencies are not removed as well.
-indent -> indentlist -> list
-#}
-{%- set simple_text_config = "removePlugins: [
-'about','clipboard','editortoolbar','floatingspace','indent','indentlist','list',
-'notification','spellchecker','uibutton','undo'
-],
-toolbar: [
-{ name: 'basicstyles', items: [ 'Bold', 'Italic' ] },
-{ name: 'links', items: [ 'Link', 'Unlink' ] }]" -%}
-
-{%- set link_only_config = "removePlugins: [
-'about','basicstyles','clipboard','editortoolbar','floatingspace','indent','indentlist','list',
-'notification','spellchecker','uibutton','undo'
-],
-toolbar: [{ name: 'links', items: [ 'Link', 'Unlink' ] }]" -%}
-
 {%- block js -%}
-{{ ckeditor.load(custom_url=url_for('static', filename='ckeditor/basic/ckeditor.js')) }}
-{{ ckeditor.config(name="advisors", height=60, custom_config=simple_text_config) }}
-{{ ckeditor.config(name="students", height=60, custom_config=simple_text_config) }}
-{{ ckeditor.config(name="description", custom_config=simple_text_config) }}
-{{ ckeditor.config(name="link", height=60, custom_config=link_only_config) }}
+{{ render_project_editor(ckeditor) }}
 {%- endblock -%}
