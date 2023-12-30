@@ -5,8 +5,8 @@ from __future__ import annotations
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from website.extensions import database
 from website.database import PkModel
+from website.extensions import database
 
 
 class Event(PkModel):
@@ -15,7 +15,7 @@ class Event(PkModel):
     status_id: Mapped[int] = mapped_column(ForeignKey("event_status.id"))
     start_date: Mapped[str] = mapped_column()
     end_date: Mapped[str] = mapped_column()
-    name: Mapped[str] = mapped_column()
+    title: Mapped[str] = mapped_column()
     description: Mapped[str] = mapped_column()
 
     status_rel: Mapped[EventStatus] = relationship()
@@ -24,7 +24,7 @@ class Event(PkModel):
     def search_for_event(self, search: Event) -> Event | None:
         return database.session.execute(
             database.select(Event).where(
-                Event.name == search.name,
+                Event.title == search.title,
                 Event.description == search.description,
                 Event.start_date == search.start_date,
                 Event.end_date == search.end_date,
@@ -32,7 +32,7 @@ class Event(PkModel):
         ).scalar_one_or_none()
 
     def __repr__(self):
-        return f"<Event: {self.id} - {self.name}>"
+        return f"<Event: {self.id} - {self.title}>"
 
 
 class EventStatus(PkModel):
@@ -41,10 +41,10 @@ class EventStatus(PkModel):
     status: Mapped[str] = mapped_column(unique=True)
 
     @classmethod
-    def return_status_id(self, status: str) -> int:
+    def get_id(self, status: str) -> int:
         return database.session.execute(
-            database.select(EventStatus.id).where(EventStatus.status == status)
-        ).scalar_one()
+            database.select(self.id).where(self.status == status)
+        ).scalar_one_or_none()
 
     def __repr__(self):
         return f"<EventStatus: {self.id} - {self.status}>"

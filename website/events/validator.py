@@ -2,11 +2,7 @@
 """Validator utilities."""
 import datetime
 
-from pydantic import (
-    BaseModel,
-    ConfigDict,
-    field_validator,
-)
+from pydantic import BaseModel, ConfigDict, field_validator
 
 
 class EventValidator(BaseModel):
@@ -19,7 +15,7 @@ class EventValidator(BaseModel):
     status: str
     start_date: datetime.date
     end_date: datetime.date
-    name: str
+    title: str
     description: str
 
     @field_validator("status")

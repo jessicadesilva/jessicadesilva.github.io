@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 """Event forms."""
-from flask_wtf import FlaskForm
 from flask_ckeditor import CKEditorField
+from flask_wtf import FlaskForm
 from wtforms import DateField
 from wtforms.validators import DataRequired
 
-from .models import Event, EventStatus
-from .validator import EventValidator
-from .utils import determine_event_status
+from website.events.models import Event, EventStatus
+from website.events.utils import determine_event_status
+from website.events.validator import EventValidator
 from website.utils import clean_input
 
 
@@ -16,7 +16,7 @@ class EventForm(FlaskForm):
 
     start_date = DateField("Start Date", validators=[DataRequired()])
     end_date = DateField("End Date", validators=[DataRequired()])
-    name = CKEditorField("Event Name", validators=[DataRequired()])
+    title = CKEditorField("Event title", validators=[DataRequired()])
     description = CKEditorField("Event Description", validators=[DataRequired()])
 
     def __init__(self, *args, **kwargs):
@@ -38,26 +38,26 @@ class EventForm(FlaskForm):
             status=determine_event_status(self.end_date.data),
             start_date=self.start_date.data,
             end_date=self.end_date.data,
-            name=clean_input(self.name.data),
+            title=clean_input(self.title.data),
             description=clean_input(self.description.data),
         )
 
         try:
             EventValidator.model_validate(event)
         except ValueError as error:
-            self.name.errors.append(f"{error}")
+            self.title.errors.append(f"{error}")
             return False
 
         new_event = Event(
-            status_id=EventStatus.return_status_id(event.status),
+            status_id=EventStatus.get_id(event.status),
             start_date=event.start_date,
             end_date=event.end_date,
-            name=event.name,
+            title=event.title,
             description=event.description,
         )
 
         if Event.search_for_event(new_event) is not None:
-            self.name.errors.append("Event already exists.")
+            self.title.errors.append("Event already exists.")
             return False
 
         return True
