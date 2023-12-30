@@ -27,6 +27,6 @@ repos:
   rev: 6.1.0
   hooks:
   -  id: flake8
-     additonal_dependencies:
+     additional_dependencies:
      - flake8-absolute-import
      - flake8-black
