@@ -21,7 +21,12 @@ blueprint = Blueprint(
 def future_events(**kwargs):
     data = []
 
-    for event in database.session.execute(database.select(Event)).scalars().all():
+    for event in (
+        database.session.execute(database.select(Event).order_by(Event.end_date))
+        .order_by_(Event.end_date)
+        .scalars()
+        .all()
+    ):
         # Update the status of the event if it has changed
         # This is necessary because the status of an event is determined by its end date
         if determine_event_status(event.end_date) == "completed":
@@ -41,7 +46,11 @@ def future_events(**kwargs):
 def past_events(**kwargs):
     data = []
 
-    for event in database.session.execute(database.select(Event)).scalars().all():
+    for event in (
+        database.session.execute(database.select(Event).order_by(Event.end_date.desc()))
+        .scalars()
+        .all()
+    ):
         # Update the status of the event if it has changed
         # This is necessary because the status of an event is determined by its end date
         if determine_event_status(event.end_date) == "completed":
