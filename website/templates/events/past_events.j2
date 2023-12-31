@@ -31,7 +31,7 @@
                 </tr>
             </thead>
             <tbody>
-                {%- for row in data | reverse -%}
+                {%- for row in data -%}
                 <tr {% if row.ID -%} id="{{ row.ID }}" {%- endif -%}>
                     {%- for key, value in row.items() -%}
                     {%- if key != "ID" -%}
