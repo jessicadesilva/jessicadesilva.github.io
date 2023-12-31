@@ -88,5 +88,4 @@ def register_errorhandlers(app):
 
 
 def register_commands(app):
-    app.cli.add_command(commands.test)
     app.cli.add_command(commands.lint)

@@ -10,7 +10,7 @@
 - [GitHub CLI](https://cli.github.com/) (optional)
 - [Visual Studio Code](https://code.visualstudio.com/) (optional)
 - [DB Browser for SQLite](https://sqlitebrowser.org/) (optional)
-  
+
 ### Clone the repository
 ```sh
 git clone https://github.com/jessicadesilva/jessicadesilva.github.io.git
@@ -34,7 +34,7 @@ pip install -r requirements.txt
 ```
 ### Initialize the environment variables
 ```sh
-python setup_env.py
+python init_env.py
 ```
 ### Run the development server
 ```sh
@@ -54,10 +54,10 @@ Commmiting changes to `main` or accepting a pull request on the `main` branch wi
 ## Running Tests/Linter
 ### Run all tests
 ```sh
-flask test
-# Optional arguments
-flask test- -c, --coverage   # Default; Generate a coverage report
-flask test -C, --no-coverage # Do not generate a coverage report
+pytest
+# or
+python -m pytest
+```
 ```
 ### Run the linter
 The `lint` command will run [Flake8](https://flake8.pycqa.org/en/latest/) and [Black](https://black.readthedocs.io/en/stable/) to check for errors and style violations.

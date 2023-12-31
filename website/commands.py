@@ -13,23 +13,6 @@ TEST_PATH = os.path.join(PROJECT_ROOT, "tests")
 
 @click.command()
 @click.option(
-    "-c/-C",
-    "--coverage/--no-coverage",
-    default=True,
-    help="Show coverage report.",
-)
-def test(coverage):
-    import pytest
-
-    args = [TEST_PATH, "--verbose"]
-    if coverage:
-        args.append("--cov=website")
-    rv = pytest.main(args)
-    exit(rv)
-
-
-@click.command()
-@click.option(
     "-f",
     "--fix-imports",
     default=True,
