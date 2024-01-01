@@ -23,7 +23,6 @@ def future_events(**kwargs):
 
     for event in (
         database.session.execute(database.select(Event).order_by(Event.end_date))
-        .order_by_(Event.end_date)
         .scalars()
         .all()
     ):
