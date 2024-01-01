@@ -1,0 +1,26 @@
+{%- extends "base.j2" -%}
+
+{%- from "macros/_projecthelper.j2" import render_project -%}
+
+{%- block page_title -%}Delete Project{%- endblock -%}
+
+{%- block content -%}
+<section>
+    <header class="major">
+        <h1 class="h2">Delete Project</h1>
+    </header>
+    <form id="project_form" method="POST" action="{{ url_for('research.delete_project', project_id=project.id) }}">
+        <div class="row gtr-uniform">
+            <div class="col-12">
+                {{ form.csrf_token }}
+            </div>
+            <div class="col-12">
+                <ul class="actions">
+                    <li><input id="submit" class="primary" name="submit" type="submit" value="Delete project"></li>
+                    <li><a href="{{ url_for('research.current_undergrad_projects') }}" class="button">Cancel</a></li>
+                </ul>
+            </div>
+        </div>
+    </form>
+</section>
+{%- endblock -%}

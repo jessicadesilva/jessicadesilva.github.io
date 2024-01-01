@@ -1,0 +1,28 @@
+{%- extends "base.j2" -%}
+
+{%- from "macros/_projecthelper.j2" import render_project -%}
+
+{%- block page_title -%}Other Research Projects{%- endblock -%}
+
+{%- block content -%}
+<section>
+    <header class="major">
+        <h1 class="h2">Under Construction</h1>
+    </header>
+    {%- if data -%}
+    <div class="posts">
+        {%- for project in data -%}
+        {%- if debug -%}
+        {{ render_project(project, debug) }}
+        {%- else -%}
+        {{ render_project(project) }}
+        {%- endif -%}
+        {%- endfor -%}
+    </div>
+    {%- else -%}
+    <div class="box col-12">
+        <p>This page is currently under construction. Please check back soon.</p>
+    </div>
+    {%- endif -%}
+</section>
+{%- endblock -%}

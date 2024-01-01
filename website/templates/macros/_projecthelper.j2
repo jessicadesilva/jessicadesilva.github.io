@@ -1,0 +1,36 @@
+{%- macro render_project(project, debug=false) -%}
+
+<article id="{{ project.id }}">
+    {% set image_src = url_for('static', filename="images/projects/{}".format( project.image )) %}
+    <a class="image"><img src="{{ image_src }}" /></a>
+    <h2 class="h3">{{ project.title }}</h2>
+
+    {%- if project.advisors -%}
+    <h3 class="h4">Co-Advisors: {{ project.advisors }}</h3>
+    {%- endif -%}
+
+    <h3 class="h4">Students: {{ project.students }}</h3>
+
+    {%- if project.majors -%}
+    <h4 class="h5">Majors: {{ project.majors }}</h4>
+    {%- endif -%}
+
+    {{ project.description }}
+
+    {%- if project.link -%}
+    <ul class="actions">
+        {%- set button = project.link.replace("<a ", '<a class=" button"') -%} <li>{{ button }}</li>
+    </ul>
+    {%- endif -%}
+
+    {%- if debug -%}
+    <ul class="actions special">
+        <li><a class="solid icon fa-pen button small"
+                href="{{ url_for('research.edit_project', project_id=project.id) }}">Edit</a></li>
+        <li><a class="solid icon fa-trash button small primary"
+                href="{{ url_for('research.delete_project', project_id=project.id) }}">Delete</a></li>
+    </ul>
+    {%- endif -%}
+</article>
+
+{%- endmacro -%}

@@ -1,0 +1,26 @@
+{%- extends "base.j2" -%}
+
+{%- from "macros/_formhelper.j2" import render_field -%}
+
+{%- block page_title -%}Delete Event{%- endblock -%}
+
+{%- block content -%}
+<section>
+    <header class="major">
+        <h1 class="h2">Delete Event</h1>
+    </header>
+    <form id="event_form" method="POST" action="{{ url_for('events.delete_event', event_id=event.id) }}">
+        <div class="row gtr-uniform">
+            <div class="col-12">
+                {{ form.csrf_token }}
+            </div>
+            <div class="col-12">
+                <ul class="actions">
+                    <li><input id="submit" class="primary" name="submit" type="submit" value="Delete event"></li>
+                    <li><a href="{{ url_for('events.future_events') }}" class="button">Cancel</a></li>
+                </ul>
+            </div>
+        </div>
+    </form>
+</section>
+{%- endblock -%}
