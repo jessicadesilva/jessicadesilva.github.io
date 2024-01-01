@@ -58,7 +58,6 @@ pytest
 # or
 python -m pytest
 ```
-```
 ### Run the linter
 The `lint` command will run [Flake8](https://flake8.pycqa.org/en/latest/) and [Black](https://black.readthedocs.io/en/stable/) to check for errors and style violations.
 ```sh
@@ -70,8 +69,10 @@ flask link -c, --check       # Only check for errors
 ## Built With
 [![Python 3.10](https://img.shields.io/badge/Python-3.10-informational?logo=python&logoColor=fff)](https://www.python.org/downloads/release/python-3109/)
 [![Flask 3.0](https://img.shields.io/badge/Flask-3.0-informational?logo=flask)](https://flask.palletsprojects.com/en/3.0.x/)
+[![Jinja2 3.1](https://img.shields.io/badge/Jinja2-3.1-informational?logo=jinja)](https://jinja.palletsprojects.com/en/3.1.x/)
 [![Frozen Flask 1.0](https://img.shields.io/badge/Frozen_Flask-1.0-informational?logo=flask)](https://frozen-flask.readthedocs.io/en/latest/)
 [![SQLAlchemy 2.0](https://img.shields.io/badge/SQLAlchemy-2.0-informational?logo=sqlalchemy)](https://docs.sqlalchemy.org/en/20/)
+[![Pydantic 2.5](https://img.shields.io/badge/Pydantic-2.5-informational?logo=pydantic)](https://docs.pydantic.dev/2.5/)
 [![WTForms 3.0](https://img.shields.io/badge/%23%3F%21_WTForms-3.0-informational)](https://wtforms.readthedocs.io/en/3.0.x/)
 [![CKEditor 4](https://img.shields.io/badge/CKEditor-4-informational?logo=ckeditor4&logoColor=fff)](https://ckeditor.com/docs/ckeditor4/latest/index.html)
 [![HTML5 UP](https://img.shields.io/badge/HTML5_UP-Editorial-informational?logo=html5&logoColor=fff)](https://html5up.net/editorial)
