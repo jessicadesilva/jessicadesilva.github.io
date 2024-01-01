@@ -27,7 +27,7 @@ class ProjectForm(FlaskForm):
     majors = StringField("Majors")
     title = StringField("Project Title", validators=[DataRequired()])
     description = CKEditorField("Project Description", validators=[DataRequired()])
-    link = StringField("Project Link")
+    link = CKEditorField("Project Link")
 
     def __init__(self, *args, **kwargs):
         super(ProjectForm, self).__init__(*args, **kwargs)
@@ -54,10 +54,12 @@ class ProjectForm(FlaskForm):
             image=self.upload.data.filename if self.upload.data else self.image.data,
             advisors=clean_input(self.advisors.data),
             students=clean_input(self.students.data),
-            majors=clean_input(self.majors.data),
-            title=clean_input(self.title.data),
-            description=clean_input(self.description.data),
-            link=clean_input(self.link.data),
+            majors=clean_input(self.majors.data, allow_tags=None),
+            title=clean_input(self.title.data, allow_tags=None),
+            description=clean_input(
+                self.description.data, allow_tags=["a", "b", "em", "i", "strong", "p"]
+            ),
+            link=clean_input(self.link.data, allow_tags="a"),
         )
 
         try:

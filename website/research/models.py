@@ -33,9 +33,13 @@ class Project(PkModel):
             database.select(Project).where(
                 Project.type_id == search.type_id,
                 Project.status_id == search.status_id,
+                Project.image == search.image,
+                Project.advisors == search.advisors,
                 Project.students == search.students,
+                Project.majors == search.majors,
                 Project.title == search.title,
                 Project.description == search.description,
+                Project.link == search.link,
             )
         ).scalar_one_or_none()
 

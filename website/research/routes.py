@@ -24,7 +24,11 @@ poster_pages = poster_pages()
 def current_undergrad_projects(*args, **kwargs):
     data = []
 
-    for project in database.session.execute(database.select(Project)).scalars().all():
+    for project in (
+        database.session.execute(database.select(Project).order_by(Project.id.desc()))
+        .scalars()
+        .all()
+    ):
         if (
             project.status_rel.status == "current"
             and project.type_rel.type == "project"
@@ -56,7 +60,11 @@ def current_undergrad_projects(*args, **kwargs):
 def current_undergrad_abstracts(*args, **kwargs):
     data = []
 
-    for project in database.session.execute(database.select(Project)).scalars().all():
+    for project in (
+        database.session.execute(database.select(Project).order_by(Project.id.desc()))
+        .scalars()
+        .all()
+    ):
         if (
             project.status_rel.status == "current"
             and project.type_rel.type == "abstract"
@@ -87,7 +95,11 @@ def current_undergrad_abstracts(*args, **kwargs):
 def former_undergrad_projects(*args, **kwargs):
     data = []
 
-    for project in database.session.execute(database.select(Project)).scalars().all():
+    for project in (
+        database.session.execute(database.select(Project).order_by(Project.id.desc()))
+        .scalars()
+        .all()
+    ):
         if project.status_rel.status == "former" and project.type_rel.type == "project":
             output_data = {
                 "id": project.id,
@@ -155,7 +167,10 @@ def add_project(*args, **kwargs):
                 students=clean_input(form.students.data),
                 majors=clean_input(form.majors.data, allow_tags=None),
                 title=clean_input(form.title.data, allow_tags=None),
-                description=clean_input(form.description.data),
+                description=clean_input(
+                    form.description.data,
+                    allow_tags=["a", "b", "em", "i", "strong", "p"],
+                ),
                 link=clean_input(form.link.data, allow_tags="a"),
             )
             flash(f"{clean_input(form.title.data)} successfully added.", "success")
@@ -199,7 +214,10 @@ def edit_project(project_id: int):
                 students=clean_input(form.students.data),
                 majors=clean_input(form.majors.data, allow_tags=None),
                 title=clean_input(form.title.data, allow_tags=None),
-                description=clean_input(form.description.data),
+                description=clean_input(
+                    form.description.data,
+                    allow_tags=["a", "b", "em", "i", "strong", "p"],
+                ),
                 link=clean_input(form.link.data, allow_tags="a"),
             )
             flash(f"{clean_input(form.title.data)} successfully updated.", "success")
