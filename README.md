@@ -1,5 +1,7 @@
 # Dr. Jessica De Silva's Website
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-jessicadesilva.github.io-informational?logo=github)](https://jessicadesilva.github.io/)
+![Code Climate maintainability](https://img.shields.io/codeclimate/maintainability-percentage/4N0NYM0U5MY7H/jessicadesilva.github.io?logo=codeClimate)
+![Code Climate coverage](https://img.shields.io/codeclimate/coverage/4N0NYM0U5MY7H/jessicadesilva.github.io?logo=codeClimate)
 
 ## Installation
 ### Prerequisites
