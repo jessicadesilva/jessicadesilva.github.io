@@ -1,7 +1,8 @@
 {%- macro render_project(project, debug=false) -%}
 
 <article id="{{ project.id }}">
-    <a class="image"><img src="{{ project.image }}" /></a>
+    {% set image_src = url_for('static', filename="images/projects/{}".format( project.image )) %}
+    <a class="image"><img src="{{ image_src }}" /></a>
     <h2 class="h3">{{ project.title }}</h2>
 
     {%- if project.advisors -%}
@@ -18,8 +19,7 @@
 
     {%- if project.link -%}
     <ul class="actions">
-        {%- set button = project.link.replace("<a ", '<a class="button"') -%}
-        <li>{{ button }}</li>
+        {%- set button = project.link.replace("<a ", '<a class=" button"') -%} <li>{{ button }}</li>
     </ul>
     {%- endif -%}
 

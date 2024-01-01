@@ -9,7 +9,12 @@ from werkzeug.utils import secure_filename
 from website.extensions import database
 from website.research.forms import ProjectForm
 from website.research.models import Project
-from website.research.utils import image_folder, poster_pages, set_select_options
+from website.research.utils import (
+    format_output_data,
+    image_folder,
+    poster_pages,
+    set_select_options,
+)
 from website.utils import clean_input, dev_utils
 
 blueprint = Blueprint(
@@ -33,19 +38,7 @@ def current_undergrad_projects(*args, **kwargs):
             project.status_rel.status == "current"
             and project.type_rel.type == "project"
         ):
-            output_data = {
-                "id": project.id,
-                "type": project.type_rel.type,
-                "status": project.status_rel.status,
-                "image": url_for("static", filename=f"images/projects/{project.image}"),
-                "advisors": project.advisors if project.advisors != "" else None,
-                "students": project.students,
-                "majors": project.majors if project.majors != "" else None,
-                "title": project.title,
-                "description": project.description,
-                "link": project.link if project.link != "" else None,
-            }
-            data.append(output_data)
+            data.append(format_output_data(project))
 
     return (
         render_template(
@@ -69,19 +62,7 @@ def current_undergrad_abstracts(*args, **kwargs):
             project.status_rel.status == "current"
             and project.type_rel.type == "abstract"
         ):
-            output_data = {
-                "id": project.id,
-                "type": project.type_rel.type,
-                "status": project.status_rel.status,
-                "image": url_for("static", filename=f"images/projects/{project.image}"),
-                "advisors": project.advisors if project.advisors != "" else None,
-                "students": project.students,
-                "majors": project.majors if project.majors != "" else None,
-                "title": project.title,
-                "description": project.description,
-                "link": project.link if project.link != "" else None,
-            }
-            data.append(output_data)
+            data.append(format_output_data(project))
     return (
         render_template(
             "research/current_ugrad_abstracts.j2", data=data, *args, **kwargs
@@ -101,19 +82,7 @@ def former_undergrad_projects(*args, **kwargs):
         .all()
     ):
         if project.status_rel.status == "former" and project.type_rel.type == "project":
-            output_data = {
-                "id": project.id,
-                "type": project.type_rel.type,
-                "status": project.status_rel.status,
-                "image": url_for("static", filename=f"images/projects/{project.image}"),
-                "advisors": project.advisors if project.advisors != "" else None,
-                "students": project.students,
-                "majors": project.majors if project.majors != "" else None,
-                "title": project.title,
-                "description": project.description,
-                "link": project.link if project.link != "" else None,
-            }
-            data.append(output_data)
+            data.append(format_output_data(project))
     return (
         render_template(
             "research/former_ugrad_projects.j2", data=data, *args, **kwargs

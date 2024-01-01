@@ -48,3 +48,18 @@ def set_select_options(form):
     form.image.choices = [("default.jpg", "Select a project image...")] + [
         (image, image) for image in os.listdir(image_folder())
     ]
+
+
+def format_output_data(project) -> dict:
+    return {
+        "id": project.id,
+        "type": project.type_rel.type,
+        "status": project.status_rel.status,
+        "image": project.image,
+        "advisors": project.advisors if project.advisors != "" else None,
+        "students": project.students,
+        "majors": project.majors if project.majors != "" else None,
+        "title": project.title,
+        "description": project.description,
+        "link": project.link if project.link != "" else None,
+    }
