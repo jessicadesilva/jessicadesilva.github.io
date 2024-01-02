@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Functional tests using WebTest for `mentor_groups` pages."""
+"""Functional tests Mentor Group related endpoints."""
 from flask import url_for
 
 

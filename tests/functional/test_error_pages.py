@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Functional tests using WebTest for `error` pages."""
+"""Functional tests for error related endpoints."""
 from http import HTTPStatus
 
 import pytest
