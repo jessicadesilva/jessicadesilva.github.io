@@ -4,7 +4,7 @@ import sqlalchemy
 from click import echo
 from flask import Flask, render_template
 
-from website import commands, events, mentor_groups, public, research
+from website import events, mentor_groups, public, research
 from website.extensions import ckeditor, csrf_protect, database, migrate
 
 
@@ -16,7 +16,6 @@ def create_app(config_object="website.settings"):
     register_extensions(app)
     register_blueprints(app)
     register_errorhandlers(app)
-    register_commands(app)
 
     # Check if the database needs to be initialized
     engine = sqlalchemy.create_engine(app.config["SQLALCHEMY_DATABASE_URI"])
@@ -85,7 +84,3 @@ def register_errorhandlers(app):
     for errcode in [404, 500]:
         app.errorhandler(errcode)(render_error)
     return None
-
-
-def register_commands(app):
-    app.cli.add_command(commands.lint)

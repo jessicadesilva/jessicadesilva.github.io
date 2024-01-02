@@ -1,7 +1,7 @@
 # Dr. Jessica De Silva's Website
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-jessicadesilva.github.io-informational?logo=github)](https://jessicadesilva.github.io/)
-![Code Climate maintainability](https://img.shields.io/codeclimate/maintainability-percentage/4N0NYM0U5MY7H/jessicadesilva.github.io?logo=codeClimate)
-![Code Climate coverage](https://img.shields.io/codeclimate/coverage/4N0NYM0U5MY7H/jessicadesilva.github.io?logo=codeClimate)
+[![Maintainability](https://api.codeclimate.com/v1/badges/d6e4c8b1388dfda34fa0/maintainability)](https://codeclimate.com/github/4N0NYM0U5MY7H/jessicadesilva.github.io/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/d6e4c8b1388dfda34fa0/test_coverage)](https://codeclimate.com/github/4N0NYM0U5MY7H/jessicadesilva.github.io/test_coverage)
 
 ## Installation
 ### Prerequisites
@@ -53,19 +53,12 @@ python build.py
 ### Deploy to GitHub Pages
 Commmiting changes to `main` or accepting a pull request on the `main` branch will trigger the [GitHub Actions Build and Deploy workflow](.github/workflows/main.yml). Automation takes care of the rest!
 
-## Running Tests/Linter
+## Running Tests
 ### Run all tests
 ```sh
 pytest
 # or
 python -m pytest
-```
-### Run the linter
-The `lint` command will run [Flake8](https://flake8.pycqa.org/en/latest/) and [Black](https://black.readthedocs.io/en/stable/) to check for errors and style violations.
-```sh
-flask lint
-# Optional arguments
-flask link -c, --check       # Only check for errors
 ```
 
 ## Built With
