@@ -3,7 +3,7 @@
 import os
 
 from website.extensions import database
-from website.research.models import ProjectType, UndergradStatus
+from website.research.models import Project, ProjectType, UndergradStatus
 
 HERE = os.path.abspath(os.path.dirname(__file__))
 APP_DIR = os.path.join(HERE, os.pardir)
@@ -35,22 +35,40 @@ def poster_pages():
     return poster_pages
 
 
-def set_select_options(form):
-    """Set select options for dynamic select fields."""
+def set_type_id_select_options(form) -> None:
     form.type_id.choices = [(0, "Select a project type...")] + [
         (project_type.id, project_type.type)
         for project_type in database.session.query(ProjectType).all()
     ]
+
+
+def set_status_id_select_options(form) -> None:
     form.status_id.choices = [(0, "Select a project status...")] + [
         (project_status.id, project_status.status)
         for project_status in database.session.query(UndergradStatus).all()
     ]
+
+
+def set_image_select_options(form) -> None:
     form.image.choices = [("default.jpg", "Select a project image...")] + [
         (image, image) for image in os.listdir(image_folder())
     ]
 
 
-def format_output_data(project) -> dict:
+def get_projects_by_type_and_status(type: str, status: str) -> list[Project]:
+    return (
+        database.session.execute(
+            database.select(Project)
+            .where(Project.type_id == ProjectType.get_id(type))
+            .where(Project.status_id == UndergradStatus.get_id(status))
+            .order_by(Project.id.desc())
+        )
+        .scalars()
+        .all()
+    )
+
+
+def create_output_dict(project: Project) -> dict:
     return {
         "id": project.id,
         "type": project.type_rel.type,

@@ -53,7 +53,7 @@ class ProjectType(PkModel):
     type: Mapped[str] = mapped_column(unique=True)
 
     @classmethod
-    def get_id(self, type: str) -> int:
+    def get_id(self, type: str) -> int | None:
         return database.session.execute(
             database.select(self.id).where(self.type == type)
         ).scalar_one_or_none()
@@ -68,7 +68,7 @@ class UndergradStatus(PkModel):
     status: Mapped[str] = mapped_column(unique=True)
 
     @classmethod
-    def get_id(self, status: str) -> int:
+    def get_id(self, status: str) -> int | None:
         return database.session.execute(
             database.select(self.id).where(self.status == status)
         ).scalar_one_or_none()

@@ -6,14 +6,16 @@ from http import HTTPStatus
 from flask import Blueprint, abort, flash, redirect, render_template, request, url_for
 from werkzeug.utils import secure_filename
 
-from website.extensions import database
 from website.research.forms import ProjectForm
 from website.research.models import Project
 from website.research.utils import (
-    format_output_data,
+    create_output_dict,
+    get_projects_by_type_and_status,
     image_folder,
     poster_pages,
-    set_select_options,
+    set_image_select_options,
+    set_status_id_select_options,
+    set_type_id_select_options,
 )
 from website.utils import clean_input, dev_utils
 
@@ -26,75 +28,50 @@ poster_pages = poster_pages()
 
 @blueprint.route("/undergrad/current.html")
 @dev_utils
-def current_undergrad_projects(*args, **kwargs):
+def current_undergrad_projects(debug=False):
     data = []
 
-    for project in (
-        database.session.execute(database.select(Project).order_by(Project.id.desc()))
-        .scalars()
-        .all()
-    ):
-        if (
-            project.status_rel.status == "current"
-            and project.type_rel.type == "project"
-        ):
-            data.append(format_output_data(project))
+    for project in get_projects_by_type_and_status("project", "current"):
+        data.append(create_output_dict(project))
 
     return (
-        render_template(
-            "research/current_ugrad_projects.j2", data=data, *args, **kwargs
-        ),
+        render_template("research/current_ugrad_projects.j2", data=data, debug=debug),
         HTTPStatus.OK,
     )
 
 
 @blueprint.route("/undergrad/current/abstracts.html")
 @dev_utils
-def current_undergrad_abstracts(*args, **kwargs):
+def current_undergrad_abstracts(debug=False):
     data = []
 
-    for project in (
-        database.session.execute(database.select(Project).order_by(Project.id.desc()))
-        .scalars()
-        .all()
-    ):
-        if (
-            project.status_rel.status == "current"
-            and project.type_rel.type == "abstract"
-        ):
-            data.append(format_output_data(project))
+    for project in get_projects_by_type_and_status("abstract", "current"):
+        data.append(create_output_dict(project))
+
     return (
-        render_template(
-            "research/current_ugrad_abstracts.j2", data=data, *args, **kwargs
-        ),
+        render_template("research/current_ugrad_abstracts.j2", data=data, debug=debug),
         HTTPStatus.OK,
     )
 
 
 @blueprint.route("/undergrad/former.html")
 @dev_utils
-def former_undergrad_projects(*args, **kwargs):
+def former_undergrad_projects(debug=False):
     data = []
 
-    for project in (
-        database.session.execute(database.select(Project).order_by(Project.id.desc()))
-        .scalars()
-        .all()
-    ):
-        if project.status_rel.status == "former" and project.type_rel.type == "project":
-            data.append(format_output_data(project))
+    for project in get_projects_by_type_and_status("project", "former"):
+        data.append(create_output_dict(project))
+
     return (
-        render_template(
-            "research/former_ugrad_projects.j2", data=data, *args, **kwargs
-        ),
+        render_template("research/former_ugrad_projects.j2", data=data, debug=debug),
         HTTPStatus.OK,
     )
 
 
 @blueprint.route("/other.html")
 @dev_utils
-def other_projects(*args, **kwargs):
-    return render_template("research/other_projects.j2", *args, **kwargs), HTTPStatus.OK
+def other_projects(debug=False):
+    return render_template("research/other_projects.j2", debug=debug), HTTPStatus.OK
 
 
 @blueprint.route("/projects/<poster>.html")
@@ -106,94 +83,96 @@ def project(poster: str):
 
 
 @blueprint.route("/add_project.html", methods=["GET", "POST"])
-def add_project(*args, **kwargs):
+def add_project():
     form = ProjectForm()
-    set_select_options(form)
+    set_type_id_select_options(form)
+    set_status_id_select_options(form)
+    set_image_select_options(form)
 
-    if request.method == "POST":
-        if form.validate_on_submit():
-            if not form.image.data and not form.upload.data:
-                default_image = "default.jpg"
+    if form.validate_on_submit():
+        if not form.image.data and not form.upload.data:
+            default_image = "default.jpg"
 
-            if form.image.data:
-                filename = form.image.data
+        if form.image.data:
+            filename = form.image.data
 
-            if form.upload.data:
-                file = form.upload.data
-                filename = secure_filename(file.filename)
-                try:
-                    file.save(os.path.join(image_folder(), filename))
-                    flash("File successfully uploaded.", "success")
-                except Exception as e:
-                    flash(f"500: {e}", "error")
-                    abort(HTTPStatus.INTERNAL_SERVER_ERROR)
+        if form.upload.data:
+            file = form.upload.data
+            filename = secure_filename(file.filename)
+            try:
+                file.save(os.path.join(image_folder(), filename))
+                flash("File successfully uploaded.", "success")
+            except Exception as e:
+                flash(f"500: {e}", "error")
+                abort(HTTPStatus.INTERNAL_SERVER_ERROR)
 
-            Project.create(
-                type_id=form.type_id.data,
-                status_id=form.status_id.data,
-                image=filename if filename else default_image,
-                advisors=clean_input(form.advisors.data),
-                students=clean_input(form.students.data),
-                majors=clean_input(form.majors.data, allow_tags=None),
-                title=clean_input(form.title.data, allow_tags=None),
-                description=clean_input(
-                    form.description.data,
-                    allow_tags=["a", "b", "em", "i", "strong", "p"],
-                ),
-                link=clean_input(form.link.data, allow_tags="a"),
-            )
-            flash(f"{clean_input(form.title.data)} successfully added.", "success")
-            return (
-                render_template("research/add_project.j2", form=form),
-                HTTPStatus.CREATED,
-            )
+        Project.create(
+            type_id=form.type_id.data,
+            status_id=form.status_id.data,
+            image=filename if filename else default_image,
+            advisors=clean_input(form.advisors.data),
+            students=clean_input(form.students.data),
+            majors=clean_input(form.majors.data, allow_tags=None),
+            title=clean_input(form.title.data, allow_tags=None),
+            description=clean_input(
+                form.description.data,
+                allow_tags=["a", "b", "em", "i", "strong", "p"],
+            ),
+            link=clean_input(form.link.data, allow_tags="a"),
+        )
+        flash(f"{clean_input(form.title.data)} successfully added.", "success")
+        return (
+            render_template("research/add_project.j2", form=form),
+            HTTPStatus.CREATED,
+        )
 
     return render_template("research/add_project.j2", form=form), HTTPStatus.OK
 
 
 @blueprint.route("/edit_project/<int:project_id>.html", methods=["GET", "POST"])
 def edit_project(project_id: int):
-    form = ProjectForm()
     project = Project.get_by_id(project_id)
-
-    set_select_options(form)
 
     if not project:
         flash(f"Project with ID {project_id} does not exist.", "error")
         abort(HTTPStatus.NOT_FOUND)
 
-    if request.method == "POST":
-        if form.validate_on_submit():
-            filename = None
-            if form.upload.data:
-                file = form.upload.data
-                filename = secure_filename(file.filename)
-                try:
-                    file.save(os.path.join(image_folder(), filename))
-                    flash("File successfully uploaded.", "success")
-                except OSError as e:
-                    flash(f"500: {e}", "error")
-                    abort(HTTPStatus.INTERNAL_SERVER_ERROR)
-            project.update(
-                commit=True,
-                type_id=form.type_id.data,
-                status_id=form.status_id.data,
-                image=filename if filename else form.image.data,
-                advisors=clean_input(form.advisors.data),
-                students=clean_input(form.students.data),
-                majors=clean_input(form.majors.data, allow_tags=None),
-                title=clean_input(form.title.data, allow_tags=None),
-                description=clean_input(
-                    form.description.data,
-                    allow_tags=["a", "b", "em", "i", "strong", "p"],
-                ),
-                link=clean_input(form.link.data, allow_tags="a"),
-            )
-            flash(f"{clean_input(form.title.data)} successfully updated.", "success")
-            return (
-                render_template("research/edit_project.j2", project=project, form=form),
-                HTTPStatus.OK,
-            )
+    form = ProjectForm()
+    set_type_id_select_options(form)
+    set_status_id_select_options(form)
+    set_image_select_options(form)
+
+    if form.validate_on_submit():
+        filename = None
+        if form.upload.data:
+            file = form.upload.data
+            filename = secure_filename(file.filename)
+            try:
+                file.save(os.path.join(image_folder(), filename))
+                flash("File successfully uploaded.", "success")
+            except OSError as e:
+                flash(f"500: {e}", "error")
+                abort(HTTPStatus.INTERNAL_SERVER_ERROR)
+        project.update(
+            commit=True,
+            type_id=form.type_id.data,
+            status_id=form.status_id.data,
+            image=filename if filename else form.image.data,
+            advisors=clean_input(form.advisors.data),
+            students=clean_input(form.students.data),
+            majors=clean_input(form.majors.data, allow_tags=None),
+            title=clean_input(form.title.data, allow_tags=None),
+            description=clean_input(
+                form.description.data,
+                allow_tags=["a", "b", "em", "i", "strong", "p"],
+            ),
+            link=clean_input(form.link.data, allow_tags="a"),
+        )
+        flash(f"{clean_input(form.title.data)} successfully updated.", "success")
+        return (
+            render_template("research/edit_project.j2", project=project, form=form),
+            HTTPStatus.OK,
+        )
 
     form.type_id.data = project.type_id
     form.status_id.data = project.status_id
