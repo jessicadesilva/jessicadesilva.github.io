@@ -2,7 +2,7 @@
 from flask_ckeditor import CKEditorField
 from flask_wtf import FlaskForm
 from wtforms import FileField, SelectField, StringField
-from wtforms.validators import DataRequired
+from wtforms.validators import InputRequired
 
 from website.research.models import Project
 from website.research.utils import allowed_file
@@ -15,15 +15,17 @@ class ProjectForm(FlaskForm):
 
     # Choices for dynamic select fields are set in the view function.
     # https://wtforms.readthedocs.io/en/3.1.x/fields/#wtforms.fields.SelectField
-    type_id = SelectField("Project Type", coerce=int, validators=[DataRequired()])
-    status_id = SelectField("Undergrad Status", coerce=int, validators=[DataRequired()])
+    type_id = SelectField("Project Type", coerce=int, validators=[InputRequired()])
+    status_id = SelectField(
+        "Undergrad Status", coerce=int, validators=[InputRequired()]
+    )
     image = SelectField("Existing Image")
     upload = FileField("Upload New Image")
-    students = CKEditorField("Students", validators=[DataRequired()])
+    students = CKEditorField("Students", validators=[InputRequired()])
     advisors = CKEditorField("Advisors")
     majors = StringField("Majors")
-    title = StringField("Project Title", validators=[DataRequired()])
-    description = CKEditorField("Project Description", validators=[DataRequired()])
+    title = StringField("Project Title", validators=[InputRequired()])
+    description = CKEditorField("Project Description", validators=[InputRequired()])
     link = CKEditorField("Project Link")
 
     def __init__(self, *args, **kwargs):

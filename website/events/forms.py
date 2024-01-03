@@ -3,7 +3,7 @@
 from flask_ckeditor import CKEditorField
 from flask_wtf import FlaskForm
 from wtforms import DateField
-from wtforms.validators import DataRequired
+from wtforms.validators import InputRequired
 
 from website.events.models import Event, EventStatus
 from website.events.utils import determine_event_status
@@ -14,13 +14,16 @@ from website.utils import clean_input
 class EventForm(FlaskForm):
     """Multi-purpose event form."""
 
-    start_date = DateField("Start Date", validators=[DataRequired()])
-    end_date = DateField("End Date", validators=[DataRequired()])
-    title = CKEditorField("Event title", validators=[DataRequired()])
-    description = CKEditorField("Event Description", validators=[DataRequired()])
+    start_date = DateField("Start Date", validators=[InputRequired()])
+    end_date = DateField("End Date", validators=[InputRequired()])
+    title = CKEditorField("Event title", validators=[InputRequired()])
+    description = CKEditorField("Event Description", validators=[InputRequired()])
 
     def __init__(self, *args, **kwargs):
         super(EventForm, self).__init__(*args, **kwargs)
+
+    def is_unique(self, event: Event) -> bool:
+        return Event.search_for_event(event) is None
 
     def validate(self, **kwargs):
         initial_validation = super(EventForm, self).validate()
