@@ -1,3 +1,3 @@
 # -*- coding: utf-8 -*-
-"""Mentor groups section, including math and stan."""
+"""Mentor groups blueprint."""
 from . import routes
