@@ -1,5 +1,8 @@
 # Dr. Jessica De Silva's Website
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-jessicadesilva.github.io-informational?logo=github)](https://jessicadesilva.github.io/)
+[![Maintainability](https://api.codeclimate.com/v1/badges/d6e4c8b1388dfda34fa0/maintainability)](https://codeclimate.com/github/4N0NYM0U5MY7H/jessicadesilva.github.io/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/d6e4c8b1388dfda34fa0/test_coverage)](https://codeclimate.com/github/4N0NYM0U5MY7H/jessicadesilva.github.io/test_coverage)
+
 
 ## Installation
 ### Prerequisites
