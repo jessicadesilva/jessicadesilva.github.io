@@ -53,7 +53,7 @@ class TestEventsPagesCRUDOperations:
         # Check that the event was added to the database
         self.assertEventCreated(response, (EVENT_COUNT + 1))
 
-    def test_edit_event_returns_200_success_message_and_updates_database(
+    def test_edit_event_returns_200_success_message_and_updated_in_database(
         self, testapp, event
     ):
         EVENT_COUNT = len(Event.query.all())
@@ -140,7 +140,7 @@ class TestEventsPagesCRUDOperations:
             # Check that the event was not added to the database
             self.assertRequiredFieldError(response, EVENT_COUNT)
 
-    def test_recieve_error_when_updating_event_with_duplicate_event_data(
+    def test_recieve_error_when_updating_event_with_duplicate_data(
         self, testapp, event
     ):
         EVENT_COUNT = len(Event.query.all())
@@ -148,10 +148,10 @@ class TestEventsPagesCRUDOperations:
         # Fill out and submit the 'Edit Event' form
         response = testapp.get(url_for("events.edit_event", event_id=event.id))
         form = response.forms["event_form"]
-        form["title"] = event.title
-        form["description"] = event.description
-        form["start_date"] = event.start_date
-        form["end_date"] = event.end_date
+        for key in form.fields.keys():
+            if key in ["csrf_token", "upload", "edit_event"]:
+                continue
+            form[key] = getattr(event, key)
         response = form.submit()
         # Check for an error message
         # Check that the event was not added to the database
