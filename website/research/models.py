@@ -43,6 +43,19 @@ class Project(PkModel):
             )
         ).scalar_one_or_none()
 
+    @classmethod
+    def get_by_type_and_status(self, type: str, status: str) -> list[Project]:
+        return (
+            database.session.execute(
+                database.select(Project)
+                .where(Project.type_id == ProjectType.get_id(type))
+                .where(Project.status_id == UndergradStatus.get_id(status))
+                .order_by(Project.id.desc())
+            )
+            .scalars()
+            .all()
+        )
+
     def __repr__(self):
         return f"<Project: {self.id} - {self.title}>"
 

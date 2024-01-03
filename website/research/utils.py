@@ -55,19 +55,6 @@ def set_image_select_options(form) -> None:
     ]
 
 
-def get_projects_by_type_and_status(type: str, status: str) -> list[Project]:
-    return (
-        database.session.execute(
-            database.select(Project)
-            .where(Project.type_id == ProjectType.get_id(type))
-            .where(Project.status_id == UndergradStatus.get_id(status))
-            .order_by(Project.id.desc())
-        )
-        .scalars()
-        .all()
-    )
-
-
 def create_output_dict(project: Project) -> dict:
     return {
         "id": project.id,

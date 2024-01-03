@@ -10,7 +10,6 @@ from website.research.forms import ProjectForm
 from website.research.models import Project
 from website.research.utils import (
     create_output_dict,
-    get_projects_by_type_and_status,
     image_folder,
     poster_pages,
     set_image_select_options,
@@ -31,7 +30,7 @@ poster_pages = poster_pages()
 def current_undergrad_projects(debug=False):
     data = []
 
-    for project in get_projects_by_type_and_status("project", "current"):
+    for project in Project.get_by_type_and_status("project", "current"):
         data.append(create_output_dict(project))
 
     return (
@@ -45,7 +44,7 @@ def current_undergrad_projects(debug=False):
 def current_undergrad_abstracts(debug=False):
     data = []
 
-    for project in get_projects_by_type_and_status("abstract", "current"):
+    for project in Project.get_by_type_and_status("abstract", "current"):
         data.append(create_output_dict(project))
 
     return (
@@ -59,7 +58,7 @@ def current_undergrad_abstracts(debug=False):
 def former_undergrad_projects(debug=False):
     data = []
 
-    for project in get_projects_by_type_and_status("project", "former"):
+    for project in Project.get_by_type_and_status("project", "former"):
         data.append(create_output_dict(project))
 
     return (
