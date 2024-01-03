@@ -58,13 +58,6 @@ pytest
 # or
 python -m pytest
 ```
-### Run the linter
-The `lint` command will run [Flake8](https://flake8.pycqa.org/en/latest/) and [Black](https://black.readthedocs.io/en/stable/) to check for errors and style violations.
-```sh
-flask lint
-# Optional arguments
-flask link -c, --check       # Only check for errors
-```
 
 ## Built With
 [![Python 3.10](https://img.shields.io/badge/Python-3.10-informational?logo=python&logoColor=fff)](https://www.python.org/downloads/release/python-3109/)
