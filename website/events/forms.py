@@ -2,7 +2,7 @@
 """Event forms."""
 from flask_ckeditor import CKEditorField
 from flask_wtf import FlaskForm
-from wtforms import DateField
+from wtforms import DateField, ValidationError
 from wtforms.validators import InputRequired
 
 from website.events.models import Event, EventStatus
@@ -22,19 +22,14 @@ class EventForm(FlaskForm):
     def __init__(self, *args, **kwargs):
         super(EventForm, self).__init__(*args, **kwargs)
 
-    def is_unique(self, event: Event) -> bool:
-        return Event.search_for_event(event) is None
+    def validate_start_date(self, field):
+        if field.data > self.end_date.data:
+            raise ValidationError("Start Date must be before or equal to End Date.")
 
     def validate(self, **kwargs):
         initial_validation = super(EventForm, self).validate()
 
         if not initial_validation:
-            return False
-
-        if self.start_date.data > self.end_date.data:
-            self.start_date.errors.append(
-                "Start date must be before or equal to end date."
-            )
             return False
 
         event = EventValidator(
