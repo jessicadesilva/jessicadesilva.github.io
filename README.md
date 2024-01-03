@@ -54,7 +54,7 @@ python build.py
 ### Deploy to GitHub Pages
 Commmiting changes to `main` or accepting a pull request on the `main` branch will trigger the [GitHub Actions Build and Deploy workflow](.github/workflows/main.yml). Automation takes care of the rest!
 
-## Running Tests/Linter
+## Running Tests
 ### Run all tests
 ```sh
 pytest
