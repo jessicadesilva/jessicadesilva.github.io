@@ -15,7 +15,7 @@ def determine_event_status(end_date: datetime.date or str) -> str:
         return "scheduled"
 
 
-def format_output_data(event) -> dict:
+def output_dict(event) -> dict:
     return {
         "ID": event.id,
         "Date": format_display_date(event.end_date)

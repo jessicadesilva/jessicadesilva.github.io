@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Helper utilities and decorators."""
+"""Helper utility functions and decorators."""
 from functools import wraps
 
 import bleach
@@ -19,7 +19,7 @@ def dev_utils(func):
 
 
 def format_display_date(date: str) -> str:
-    """ISO 8601 date format to US date format."""
+    """Convert from `ISO 8601` date format to 'mm/dd/YYYY'."""
     return f"{date[5:]}{date[4]}{date[:4]}".replace("-", "/")
 
 

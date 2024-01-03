@@ -7,7 +7,7 @@ from flask import Blueprint, abort, flash, redirect, render_template, request, u
 
 from website.events.forms import EventForm
 from website.events.models import Event, EventStatus
-from website.events.utils import determine_event_status, format_output_data
+from website.events.utils import determine_event_status, output_dict
 from website.extensions import database
 from website.utils import clean_input, dev_utils
 
@@ -32,7 +32,7 @@ def future_events(**kwargs):
             event.update(commit=True, status_id=EventStatus.get_id("completed"))
 
         if event.status_rel.status == "scheduled":
-            data.append(format_output_data(event))
+            data.append(output_dict(event))
 
     return (
         render_template("events/future_events.j2", data=data, **kwargs),
@@ -56,7 +56,7 @@ def past_events(**kwargs):
             event.update(commit=True, status_id=EventStatus.get_id("completed"))
 
         if event.status_rel.status == "completed":
-            data.append(format_output_data(event))
+            data.append(output_dict(event))
 
     return (
         render_template("events/past_events.j2", data=data, **kwargs),
