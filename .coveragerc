@@ -1,5 +1,7 @@
 [run]
 source = website
+omit =
+    website/settings.py
 
 [report]
 exclude_also =
