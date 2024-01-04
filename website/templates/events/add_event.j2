@@ -15,7 +15,7 @@
             {{ render_event_form(form)}}
             <div class="col-12">
                 <ul class="actions">
-                    <li><input id="submit" class="primary" name="submit" type="submit" value="Add event"></li>
+                    <li><input class="primary" name="submit" type="add_event" value="Add event"></li>
                     <li><a href="{{ url_for('events.future_events') }}" class="button">Cancel</a></li>
                 </ul>
             </div>

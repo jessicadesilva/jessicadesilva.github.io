@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Functional tests using WebTest for `events` pages."""
+"""Functional tests for Event related endpoints."""
 from http import HTTPStatus
 
 from flask import url_for

@@ -24,7 +24,7 @@ permissions:
   contents: write
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v4
@@ -35,15 +35,30 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        pip install -r requirements.txt
     - name: Initialize Flask .env file
-      run: |
-        python init_env.py
-    - name: Build Frozen-Flask web application
-      run: |
-        python build.py
+      run: "python init_env.py"
+    - name: Build static site with Frozen-Flask
+      run: "python build.py"
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v1
+      with:
+        name: website
+        path: website/build
+  
+  deploy:
+    concurrency: ci-${{ github.ref }}
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Download Artifacts
+      uses: actions/download-artifact@v1
+      with:
+        name: website
     - name: Deploy to gh-pages
       uses: JamesIves/github-pages-deploy-action@4.1.1
       with:
         branch: gh-pages
-        folder: website/build
+        folder: website

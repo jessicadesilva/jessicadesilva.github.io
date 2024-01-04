@@ -43,6 +43,19 @@ class Project(PkModel):
             )
         ).scalar_one_or_none()
 
+    @classmethod
+    def get_by_type_and_status(self, type: str, status: str) -> list[Project]:
+        return (
+            database.session.execute(
+                database.select(Project)
+                .where(Project.type_id == ProjectType.get_id(type))
+                .where(Project.status_id == UndergradStatus.get_id(status))
+                .order_by(Project.id.desc())
+            )
+            .scalars()
+            .all()
+        )
+
     def __repr__(self):
         return f"<Project: {self.id} - {self.title}>"
 
@@ -53,7 +66,7 @@ class ProjectType(PkModel):
     type: Mapped[str] = mapped_column(unique=True)
 
     @classmethod
-    def get_id(self, type: str) -> int:
+    def get_id(self, type: str) -> int | None:
         return database.session.execute(
             database.select(self.id).where(self.type == type)
         ).scalar_one_or_none()
@@ -68,7 +81,7 @@ class UndergradStatus(PkModel):
     status: Mapped[str] = mapped_column(unique=True)
 
     @classmethod
-    def get_id(self, status: str) -> int:
+    def get_id(self, status: str) -> int | None:
         return database.session.execute(
             database.select(self.id).where(self.status == status)
         ).scalar_one_or_none()
