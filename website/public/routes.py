@@ -5,7 +5,7 @@ from flask import Blueprint, render_template
 blueprint = Blueprint("public", __name__, static_folder="../static")
 
 
-@blueprint.route("/home.html")
+@blueprint.route("/index.html")
 def home():
     return render_template("public/home.j2")
 
