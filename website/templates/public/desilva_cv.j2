@@ -1,0 +1,9 @@
+{%- extends "base.j2" -%}
+
+{%- block page_title -%}Jessica De Silva's CV{%- endblock -%}
+
+{%- block content -%}
+<section>
+    <embed src="{{ url_for('static', filename='documents/DeSilvaCV.pdf') }}" width=100% height=1000px alt="(PDF file)">
+</section>
+{%- endblock -%}

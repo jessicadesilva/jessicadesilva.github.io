@@ -1,0 +1,37 @@
+{%- extends "base.j2" -%}
+
+{%- from "macros/_projecthelper.j2" import render_project -%}
+
+{%- block page_title -%}Former Undergraduate Projects{%- endblock -%}
+
+{%- block content -%}
+<section>
+    <header {% if debug -%} class="row" {% else -%} class="major" {%- endif -%}>
+        <h2 {% if debug -%} class="h2 col-9 col-6-small col-12-xsmall" {% else -%} class="h2" {%- endif -%}>Former
+            Undergraduate Projects</h2>
+        {%- if debug -%}
+        <div class="col-3 col-6-small col-12-xsmall">
+            <ul class="actions stacked col-3 col-6-small col-12-xsmall">
+                <li><a class="solid icon fa-plus button primary fit" href="{{ url_for('research.add_project') }}">Add
+                        Project</a></li>
+            </ul>
+        </div>
+        {%- endif -%}
+    </header>
+    {%- if data -%}
+    <div class="posts">
+        {%- for project in data -%}
+        {%- if debug -%}
+        {{ render_project(project, debug) }}
+        {%- else -%}
+        {{ render_project(project) }}
+        {%- endif -%}
+        {%- endfor -%}
+    </div>
+    {%- else -%}
+    <div class="box col-12">
+        <p>There are no former undergraduate projects. Please check back soon.</p>
+    </div>
+    {%- endif -%}
+</section>
+{%- endblock -%}

@@ -1,0 +1,27 @@
+{%- extends "base.j2" -%}
+
+{%- from "macros/_projectform.j2" import render_project_form -%}
+{%- from "macros/_projecteditor.j2" import render_project_editor -%}
+
+{%- block page_title -%}Edit Project{%- endblock -%}
+
+{%- block content -%}
+<section>
+    <header class="major">
+        <h1 class="h2">Edit Project</h1>
+    </header>
+    <form id="project_form" method="POST" action="{{ url_for('research.edit_project', project_id=project.id) }}"
+        enctype="multipart/form-data">
+        {{ render_project_form(form) }}
+        <div class="col-12">
+            <ul class="actions">
+                <li><input class="primary" type="submit" value="Update Project" name="edit_project" /></li>
+                <li><a href="{{ url_for('research.current_undergrad_projects') }}" class="button">Cancel</a></li>
+            </ul>
+        </div>
+    </form>
+</section>
+{%- endblock -%}
+{%- block js -%}
+{{ render_project_editor(ckeditor) }}
+{%- endblock -%}

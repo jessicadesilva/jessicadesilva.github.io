@@ -1,0 +1,28 @@
+{%- extends "base.j2" -%}
+
+{%- from "macros/_eventform.j2" import render_event_form -%}
+{%- from "macros/_eventeditor.j2" import render_event_editor -%}
+
+{%- block page_title -%}Edit Event{%- endblock -%}
+
+{%- block content -%}
+<section>
+    <header class="major">
+        <h1 class="h2">Edit Event</h1>
+    </header>
+    <form id="event_form" method="POST" action="{{ url_for('events.edit_event', event_id=event.id) }}">
+        <div class="row gtr-uniform">
+            {{ render_event_form(form)}}
+            <div class="col-12">
+                <ul class="actions">
+                    <li><input class="primary" name="edit_event" type="submit" value="Update event"></li>
+                    <li><a href="{{ url_for('events.future_events') }}" class="button">Cancel</a></li>
+                </ul>
+            </div>
+        </div>
+    </form>
+</section>
+{%- endblock -%}
+{%- block js -%}
+{{ render_event_editor(ckeditor) }}
+{%- endblock -%}

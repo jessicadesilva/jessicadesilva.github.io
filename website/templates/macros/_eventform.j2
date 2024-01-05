@@ -1,0 +1,21 @@
+{%- from "macros/_formhelper.j2" import render_field -%}
+
+{%- macro render_event_form(form) -%}
+
+<div class="col-12">
+    {{ form.csrf_token }}
+</div>
+<div class="col-6 col-12-xsmall">
+    {{ render_field(form.start_date) }}
+</div>
+<div class="col-6 col-12-xsmall">
+    {{ render_field(form.end_date) }}
+</div>
+<div class="col-12">
+    {{ render_field(form.title) }}
+</div>
+<div class="col-12">
+    {{ render_field(form.description) }}
+</div>
+
+{%- endmacro -%}
