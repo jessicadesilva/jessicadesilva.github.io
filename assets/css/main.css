@@ -2127,14 +2127,14 @@ button,
     flex-shrink: 1;
     width: 50%; }
   #banner .image {
-    -moz-flex-grow: 0;
-    -webkit-flex-grow: 0;
-    -ms-flex-grow: 0;
-    flex-grow: 0;
-    -moz-flex-shrink: 0;
-    -webkit-flex-shrink: 0;
-    -ms-flex-shrink: 0;
-    flex-shrink: 0;
+    -moz-flex-grow: 1;
+    -webkit-flex-grow: 1;
+    -ms-flex-grow: 1;
+    flex-grow: 1;
+    -moz-flex-shrink: 1;
+    -webkit-flex-shrink: 1;
+    -ms-flex-shrink: 1;
+    flex-shrink: 1;
     display: block;
     margin: 4em 0 6em 4em;
     width: 20%; }
@@ -2179,8 +2179,8 @@ button,
         margin: 0 0 4em 0;
         height: 25em;
         max-height: 50vh;
-        min-height: 18em;
-        width: 100%; } }
+        min-height: 35em;
+        width: 50%; } }
   @media screen and (orientation: portrait) and (max-width: 480px) {
     #banner .image {
       max-height: 35vh; } }
